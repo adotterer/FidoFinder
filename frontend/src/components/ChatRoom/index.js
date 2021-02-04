@@ -1,13 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 
 import Home from "./Home";
 import MessageCore from "./MessageCore";
 
-const ChatRoom = () => {
+const ChatRoom = (otherUser = null) => {
+  const sessionUser = useSelector((state) => state.session.user);
   const [username, setUserName] = useState("");
   const [messageSession, setMessageSession] = useState(null);
   const webSocket = useRef(null);
 
+  useEffect(() => {
+    if (sessionUser) console.log(sessionUser);
+  }, [sessionUser]);
+  
   useEffect(() => {
     if (!username) {
       return;
