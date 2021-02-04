@@ -10,15 +10,20 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
       chatRoomId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
       message: {
         type: Sequelize.STRING(255),
+        allowNull: false,
       },
       read: {
         type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
