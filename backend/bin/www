@@ -3,7 +3,6 @@
 const { port } = require("../config");
 
 const app = require("../app");
-const chatApp = require("../chatApp");
 const db = require("../db/models");
 
 // Check the database connection before starting the app

@@ -1,25 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-
 import Home from "./Home";
 import MessageCore from "./MessageCore";
 import { fetch } from "../../store/csrf.js";
 
 const userOnlineStatusById = async (id) => {
-  const friendStatus = await fetch(`http://localhost:7070/users?id=${id}`);
-  return friendStatus;
+  const res = await fetch(`/api/chat/salmon`);
+  // const friendStatus = await res.json();
+  console.log(res.data);
+  return res.data;
 };
 
 const ChatRoom = (otherUser = null) => {
   // SESSION USER
   const sessionUser = useSelector((state) => state.session.user);
+  const [queryId, setQueryId] = useState();
 
   useEffect(() => {
     if (sessionUser) {
-      userOnlineStatusById(2)
+      let bubblebop = userOnlineStatusById(2);
+      console.log(bubblebop);
+      // console.log("helloooo", userOnlineStatusById(2));
     }
   }, [sessionUser]);
-  //
 
   const [username, setUserName] = useState("");
   const [messageSession, setMessageSession] = useState(null);

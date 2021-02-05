@@ -86,7 +86,8 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope("currentUser").findByPk(id);
   };
 
-  User.checkOnlineStatusById = async function (id) {
+  User.checkOnlineStatusById = async (id) => {
+    console.log("id", id);
     return await User.scope("onlineStatus").findByPk(id);
   };
 

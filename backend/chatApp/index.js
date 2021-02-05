@@ -3,43 +3,18 @@ const path = require("path");
 const { createServer } = require("http");
 const morgan = require("morgan");
 const WebSocket = require("ws");
-const User = require("../db/models");
-// import { useParams } from "react-router-dom";
-
+const { User } = require("../db/models/user.js");
+const app = require("../app");
 
 // const { port } = require("./config");
 const { MessageSession, Person } = require("./messageSession-state");
 
-const chatApp = express();
+app.use(morgan("dev"));
+app.use(express.static(path.join(__dirname, "/public")));
 
-chatApp.use(morgan("dev"));
-chatApp.use(express.static(path.join(__dirname, "/public")));
-
-chatApp.get("/chatSystem", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-chatApp.get("/users", async (req, res, next) => {
-  const { id } = req.query;
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log(User.checkOnlineStatusById(id));
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  try {
-    res.json({ userId: User.checkOnlineStatusById(id) });
-  } catch (e) {
-    next(e);
-  }
-});
+// app.get("/chatSystem", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
 const server = createServer(chatApp);
 
@@ -141,6 +116,24 @@ wss.on("connection", (ws) => {
   });
 });
 
-server.listen((port = 7070), () =>
-  console.log(`Listening on http://localhost:${port}`)
-);
+app.get("/salmon", async (req, res, next) => {
+  // const { id } = req.query;
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log("hello");
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  try {
+    res.json({ userId: User.checkOnlineStatusById(id) });
+  } catch (e) {
+    next(e);
+  }
+});
