@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import styles from "./MessageCore.module.css";
 
+
 const MessageCore = ({ username, messageSession, sendChat }) => {
   const [msg, setMsg] = useState("");
   useEffect(() => {

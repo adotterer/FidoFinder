@@ -3,17 +3,28 @@ import { useSelector } from "react-redux";
 
 import Home from "./Home";
 import MessageCore from "./MessageCore";
+import { fetch } from "../../store/csrf.js";
+
+const userOnlineStatusById = async (id) => {
+  const friendStatus = await fetch(`http://localhost:7070/users?id=${id}`);
+  return friendStatus;
+};
 
 const ChatRoom = (otherUser = null) => {
+  // SESSION USER
   const sessionUser = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    if (sessionUser) {
+      userOnlineStatusById(2)
+    }
+  }, [sessionUser]);
+  //
+
   const [username, setUserName] = useState("");
   const [messageSession, setMessageSession] = useState(null);
   const webSocket = useRef(null);
 
-  useEffect(() => {
-    if (sessionUser) console.log(sessionUser);
-  }, [sessionUser]);
-  
   useEffect(() => {
     if (!username) {
       return;
