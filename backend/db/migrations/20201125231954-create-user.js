@@ -30,10 +30,6 @@ module.exports = {
         type: Sequelize.STRING(60),
         allowNull: true,
       },
-      email: {
-        type: Sequelize.STRING(50),
-        allowNull: false,
-      },
       phoneNumber: {
         type: Sequelize.INTEGER,
         allowNull: true,
