@@ -76,12 +76,6 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
 
-  // User.addScope("includeEverything", {
-  //   include: {
-  //     model: UserDetail,
-  //   },
-  // });
-
   User.getCurrentUserById = async function (id) {
     return await User.scope("currentUser").findByPk(id);
   };

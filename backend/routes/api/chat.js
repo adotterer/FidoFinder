@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { createServer } = require("http");
 const WebSocket = require("ws");
-const server = createServer(router);
+const server = createServer(router).listen(7070);
 const { User } = require("../../db/models");
 const { MessageSession, Person } = require("./messageSession-state");
 

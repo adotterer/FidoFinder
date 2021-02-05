@@ -26,11 +26,14 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/chat">
+          <Route exact path="/chat">
             <ChatRoom />
           </Route>
           <Route path="/users/all">
             <UserList />
+          </Route>
+          <Route exact path="/chat/users/:userId">
+            <ChatRoom />
           </Route>
         </Switch>
       )}

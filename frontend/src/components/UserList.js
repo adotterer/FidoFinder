@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetch } from "../store/csrf.js";
+import { Link } from "react-router-dom";
 
 async function getAllUsers() {
   const res = await fetch("/api/users/all");
@@ -16,10 +17,13 @@ function UserList() {
 
   return (
     <ul>
-      {users.length && console.log("user has length")}
       {users[0] &&
         users.map((user) => {
-          return <li>{user.username}</li>;
+          return (
+            <Link to={`/chat/users/${user.id}`}>
+              <li>{user.username}</li>
+            </Link>
+          );
         })}
     </ul>
   );

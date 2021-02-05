@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Home from "./Home";
 import MessageCore from "./MessageCore";
 import { fetch } from "../../store/csrf.js";
+import { useParams } from "react-router-dom";
 
 const userOnlineStatusById = async (id) => {
   const res = await fetch(`/api/chat/salmon`);
@@ -11,20 +12,21 @@ const userOnlineStatusById = async (id) => {
   return res.data;
 };
 
-const ChatRoom = (otherUser = null) => {
+const ChatRoom = () => {
+  const { userId } = useParams();
+  
   // SESSION USER
   const sessionUser = useSelector((state) => state.session.user);
-  const [queryId, setQueryId] = useState();
 
-  useEffect(() => {
+  useEffect(async () => {
     if (sessionUser) {
-      let bubblebop = userOnlineStatusById(2);
-      console.log(bubblebop);
+      // let bubblebop = await userOnlineStatusById(2);
+      console.log("this is sessionUser", userId);
       // console.log("helloooo", userOnlineStatusById(2));
     }
   }, [sessionUser]);
 
-  const [username, setUserName] = useState("");
+  const [username, setUserName] = useState(sessionUser.username);
   const [messageSession, setMessageSession] = useState(null);
   const webSocket = useRef(null);
 
@@ -128,7 +130,7 @@ const ChatRoom = (otherUser = null) => {
         width: "500px",
       }}
     >
-      <h1>Minimum Instant Messenger</h1>
+      <h1>Minimum Instant Messenger </h1>
       <h2>With JS and WebSocket</h2>
       {username ? (
         <MessageCore

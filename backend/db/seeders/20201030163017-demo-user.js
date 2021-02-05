@@ -17,6 +17,15 @@ module.exports = {
           role: "dog_owner",
         },
         {
+          email: "onika@pink.com",
+          username: "Barbie",
+          hashedPassword: bcrypt.hashSync("password"),
+          firstName: "Onika",
+          lastName: "Minaj",
+          phoneNumber: faker.phone.phoneNumber(),
+          role: "dog_owner",
+        },
+        {
           email: faker.internet.email(),
           username: "FakeUser1",
           hashedPassword: bcrypt.hashSync(faker.internet.password()),
