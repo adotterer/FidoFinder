@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetch } from "../store/csrf.js";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 async function getAllUsers() {
   const res = await fetch("/api/users/all");
@@ -9,7 +10,16 @@ async function getAllUsers() {
   return allUsers;
 }
 
+async function createChatRoom(sessionUser, user) {
+  const res = await fetch(
+    `/api/chatroom/add?user1=${sessionUser.id}&&user2=${user.id}`
+  );
+  console.log(res);
+  return res.data;
+}
+
 function UserList() {
+  const sessionUser = useSelector((state) => state.session.user);
   const [users, setUsers] = useState([]);
   useEffect(async () => {
     setUsers(await getAllUsers());
@@ -18,9 +28,17 @@ function UserList() {
   return (
     <ul>
       {users[0] &&
+        sessionUser &&
         users.map((user) => {
           return (
-            <Link to={`/chat/users/${user.id}`}>
+            <Link
+              key={user.id}
+              onClick={(e) => {
+                e.preventDefault();
+                createChatRoom(sessionUser, user);
+              }}
+              to={"#"}
+            >
               <li>{user.username}</li>
             </Link>
           );

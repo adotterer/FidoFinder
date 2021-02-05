@@ -12,9 +12,12 @@ let messageSession = null;
 
 router.get("/salmon", async (req, res, next) => {
   let id = 1;
+  console.log("hello");
   let user = await User.checkOnlineStatusById(id);
   res.json(user);
 });
+
+// router.get("/room/");
 
 const broadcastMessage = (type, data, persons) => {
   const message = JSON.stringify({
