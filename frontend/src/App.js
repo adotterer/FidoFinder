@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import ChatRoom from "./components/ChatRoom";
+import UserList from "./components/UserList";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path="/chat">
             <ChatRoom />
+          </Route>
+          <Route path="/users/all">
+            <UserList />
           </Route>
         </Switch>
       )}
