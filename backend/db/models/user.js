@@ -1,7 +1,7 @@
 "use strict";
-const { Validator } = require("sequelize");
+const { Validator, UniqueConstraintError } = require("sequelize");
 const bcrypt = require("bcryptjs");
-const UserDetail = require("./userdetail.js");
+const { UserDetail } = require("./userdetail.js");
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -53,9 +53,6 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       scopes: {
-        onlineStatus: {
-          attributes: {},
-        },
         currentUser: {
           attributes: { exclude: ["hashedPassword"] },
         },
@@ -79,17 +76,20 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
 
+  // User.addScope("includeEverything", {
+  //   include: {
+  //     model: UserDetail,
+  //   },
+  // });
+
   User.getCurrentUserById = async function (id) {
     return await User.scope("currentUser").findByPk(id);
   };
 
   User.checkOnlineStatusById = async function (id) {
-    console.log("id", id);
-    // console.log("this", this.findByPk(id));
     const user = await User.findByPk(id);
-    return user;
-    // return await this.findbyPk(id);
-    // return await User.scope("onlineStatus").findByPk(id);
+    const data = await user.getUserDetail();
+    return { user, data };
   };
 
   User.onlineStatusById = User.login = async function ({

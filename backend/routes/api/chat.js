@@ -13,7 +13,7 @@ let messageSession = null;
 router.get("/salmon", async (req, res, next) => {
   let id = 1;
   let user = await User.checkOnlineStatusById(id);
-  res.json({ userId: user });
+  res.json(user);
 });
 
 const broadcastMessage = (type, data, persons) => {
