@@ -53,17 +53,14 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       scopes: {
+        onlineStatus: {
+          attributes: {},
+        },
         currentUser: {
           attributes: { exclude: ["hashedPassword"] },
         },
         loginUser: {
           attributes: {},
-        },
-        onlineStatus: {
-          attributes: {
-            exclude: ["hashedPassword"],
-            include: [{ model: UserDetail, where: { userId: this.id } }],
-          },
         },
       },
     }
@@ -86,9 +83,13 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope("currentUser").findByPk(id);
   };
 
-  User.checkOnlineStatusById = async (id) => {
+  User.checkOnlineStatusById = async function (id) {
     console.log("id", id);
-    return await User.scope("onlineStatus").findByPk(id);
+    // console.log("this", this.findByPk(id));
+    const user = await User.findByPk(id);
+    return user;
+    // return await this.findbyPk(id);
+    // return await User.scope("onlineStatus").findByPk(id);
   };
 
   User.onlineStatusById = User.login = async function ({
