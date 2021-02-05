@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetch } from "../store/csrf.js";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 async function getAllUsers() {
@@ -15,10 +15,11 @@ async function createChatRoom(sessionUser, user) {
     `/api/chatroom/add?user1=${sessionUser.id}&&user2=${user.id}`
   );
   console.log(res);
-  return res.data;
+  return res;
 }
 
 function UserList() {
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const [users, setUsers] = useState([]);
   useEffect(async () => {
@@ -33,11 +34,10 @@ function UserList() {
           return (
             <Link
               key={user.id}
-              onClick={(e) => {
-                e.preventDefault();
-                createChatRoom(sessionUser, user);
+              onClick={async (e) => {
+                const res = await createChatRoom(sessionUser, user);
               }}
-              to={"#"}
+              to="/"
             >
               <li>{user.username}</li>
             </Link>
