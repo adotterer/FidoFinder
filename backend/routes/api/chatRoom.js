@@ -43,28 +43,6 @@ router.get("/add", async (req, res) => {
     console.error(e);
   }
 
-  // const foundChatRooms = await user_chatRoom.findAll({
-  //   where: {
-  //     userId: { [Op.in]: [sessionUserId, otherUserId] },
-  //   },
-  // });
-
-  // If both associations do not share the same chat room-- or the length is 0, then create the entries in the database
-
-  // const chatRoomIdArray = foundChatRooms.map((chatRoom) => {
-  //   return chatRoom.dataValues.chatRoomId;
-  // });
-
-  // console.log(
-  //   "is every chatroom id the same?",
-  //   chatRoomIdArray.every((value) => value === chatRoomIdArray[0])
-  // );
-
-  // Is every chatroom id the same?
-  // const alreadyCreatedChatRoom = chatRoomIdArray.every(
-  //   (value) => value === chatRoomIdArray[0]
-  // );
-
   if (!allUserChatRooms) {
     try {
       const newChatRoom = await ChatRoom.create({
