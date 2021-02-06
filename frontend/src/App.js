@@ -32,7 +32,7 @@ function App() {
           <Route path="/users/all">
             <UserList />
           </Route>
-          <Route exact path="/chat/users/:userId">
+          <Route exact path="/chatroom/:userId">
             <ChatRoom />
           </Route>
         </Switch>

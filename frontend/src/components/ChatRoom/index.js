@@ -2,29 +2,30 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import Home from "./Home";
 import MessageCore from "./MessageCore";
-import { fetch } from "../../store/csrf.js";
+// import { fetch } from "../../store/csrf.js";
 import { useParams } from "react-router-dom";
 
-const userOnlineStatusById = async (id) => {
-  const res = await fetch(`/api/chat/salmon`);
-  // const friendStatus = await res.json();
-  console.log(res.data);
-  return res.data;
-};
+// const userOnlineStatusById = async (id) => {
+//   const res = await fetch(`/api/chat/salmon`);
+//   // const friendStatus = await res.json();
+//   console.log(res.data);
+//   return res.data;
+// };
 
 const ChatRoom = () => {
   const { userId } = useParams();
-  
+  console.log(userId);
+
   // SESSION USER
   const sessionUser = useSelector((state) => state.session.user);
 
-  useEffect(async () => {
-    if (sessionUser) {
-      // let bubblebop = await userOnlineStatusById(2);
-      console.log("this is sessionUser", userId);
-      // console.log("helloooo", userOnlineStatusById(2));
-    }
-  }, [sessionUser]);
+  // useEffect(async () => {
+  //   if (sessionUser) {
+  //     // let bubblebop = await userOnlineStatusById(2);
+  //     console.log("this is sessionUser", userId);
+  //     // console.log("helloooo", userOnlineStatusById(2));
+  //   }
+  // }, [sessionUser]);
 
   const [username, setUserName] = useState(sessionUser.username);
   const [messageSession, setMessageSession] = useState(null);
