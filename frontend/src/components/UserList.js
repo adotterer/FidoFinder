@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetch } from "../store/csrf.js";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 async function getAllUsers() {
@@ -12,14 +12,13 @@ async function getAllUsers() {
 
 async function createChatRoom(sessionUser, user) {
   const res = await fetch(
-    `/api/chatroom/add?user1=${sessionUser.id}&&user2=${user.id}`
+    `/api/chatroom/add?sessionUserId=${sessionUser.id}&&otherUserId=${user.id}`
   );
   console.log(res);
   return res;
 }
 
 function UserList() {
-  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const [users, setUsers] = useState([]);
   useEffect(async () => {
