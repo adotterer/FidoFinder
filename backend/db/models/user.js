@@ -63,8 +63,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   User.associate = function (models) {
-    // associations can be defined here
+    const chatRoomMapping = {
+      through: "user_ChatRoom",
+      otherKey: "chatRoomId",
+      foreignKey: "userId",
+    };
+
     User.hasOne(models.UserDetail, { foreignKey: "userId" });
+    User.belongsToMany(models.ChatRoom, chatRoomMapping);
   };
   User.prototype.toSafeObject = function () {
     // remember, this cannot be an arrow function
