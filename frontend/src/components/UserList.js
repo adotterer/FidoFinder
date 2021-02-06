@@ -12,7 +12,7 @@ async function getAllUsers() {
 
 async function createChatRoom(sessionUser, user) {
   const res = await fetch(
-    `/api/chatroom/add?sessionUserId=${sessionUser.id}&&otherUserId=${user.id}`
+    `/api/chatroom/add?sessionUserId=${sessionUser.id}&&otherUserId=${user.id}&&sessionUsername=${sessionUser.username}&&otherUsername=${user.username}`
   );
   console.log(res);
   return res;
