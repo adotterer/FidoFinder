@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "chatRoomId",
     };
     ChatRoom.belongsToMany(models.User, userMapping);
-    ChatRoom.hasMany(models.user_chatRoom, { foreignKey: "chatRoomId" });
+    ChatRoom.hasMany(models.user_chatRoom, {
+      as: "user_chatRoom",
+      foreignKey: "chatRoomId",
+    });
   };
   return ChatRoom;
 };

@@ -11,21 +11,34 @@ router.get("/add", async (req, res) => {
     otherUsername,
   } = req.query;
 
-  // FIND ALL user_chatRoom associations
-  let allUserChatRooms;
+  // FIND ONE user_chatRoom associations
+  let alreadyCreatedRoom;
   try {
-    allUserChatRooms = await ChatRoom.findAll({
+    // TODO: REFACTOR THIS QUERY SO IT FUNCTIONS WITH > 2 USERS, AND IS JUST BETTER...
+    alreadyCreatedRoom = await ChatRoom.findOne({
+      where: {
+        name: {
+          [Op.or]: [
+            `${sessionUsername} & ${otherUsername}`,
+            `${otherUsername} & ${sessionUsername}`,
+          ],
+        },
+      },
       include: {
         model: user_chatRoom,
+        as: "user_chatRoom",
         where: {
-          [Op.and]: [
-            {
-              userId: sessionUserId,
-            },
-            {
-              userId: otherUserId,
-            },
-          ],
+          userId: {
+            [Op.in]: [sessionUserId, otherUserId],
+          },
+          // [Op.or]: [
+          //   {
+          //     userId: sessionUserId,
+          //   },
+          //   {
+          //     userId: otherUserId,
+          //   },
+          // ],
         },
       },
     });
@@ -33,19 +46,35 @@ router.get("/add", async (req, res) => {
     console.log("------------------------");
     console.log("------------------------");
     console.log("------------------------");
-    console.log("HERE ARE ALL CHAT ROOMS:");
+    console.log("HERE IS ALREADY CREATED THE CHAT ROOM:");
     console.log("sessionUserId: ", sessionUserId, "otherUserId: ", otherUserId);
-    console.log(allUserChatRooms);
+    console.log(alreadyCreatedRoom);
+
+    // alreadyCreatedRoom.forEach((room) => {
+    //   console.log(room.dataValues);
+    // })
     console.log("------------------------");
     console.log("------------------------");
   } catch (e) {
-    console.log("NO RESULTS FOUND!");
+    console.log("ERROR FROM CHAT TABLE QUERY");
     console.error(e);
   }
 
-  if (!allUserChatRooms) {
+  // If no chat room exists yet, it creates a new one
+  let newChatRoom;
+  console.log(!alreadyCreatedRoom);
+  if (!alreadyCreatedRoom) {
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("RUNNING CHATROOM CREATION");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
     try {
-      const newChatRoom = await ChatRoom.create({
+      newChatRoom = await ChatRoom.create({
         name: `${sessionUsername} & ${otherUsername}`,
       });
       const sessionUserChatRoomUserAssociation = user_chatRoom.create({
@@ -61,7 +90,44 @@ router.get("/add", async (req, res) => {
     }
   }
 
-  return res.end();
+  // NOW RETURN SEND CHATROOM NUMBER BACK TO FRONTEND
+  if (alreadyCreatedRoom !== null) {
+    const {
+      dataValues: { id },
+    } = alreadyCreatedRoom;
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("ALREADY CREATED ROOM #: ");
+    console.log(id);
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    return res.json({ chatRoomId: id });
+  } else if (newChatRoom !== null) {
+    const {
+      dataValues: { id },
+    } = newChatRoom;
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("NEW ROOM #: ");
+    console.log(id);
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    console.log("-----------------------");
+    return res.json({ chatRoomId: id });
+  }
 });
 
 module.exports = router;
