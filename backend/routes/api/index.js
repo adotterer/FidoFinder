@@ -3,6 +3,7 @@ const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
 const chatRouter = require("./chat.js");
 const chatRoomRouter = require("./chatRoom.js");
+const ipAddressRouter = require("./ipAddress.js");
 
 // GET /api/set-token-cookie
 const asyncHandler = require("express-async-handler");
@@ -48,5 +49,7 @@ router.use("/users", usersRouter);
 router.use("/chat", chatRouter);
 
 router.use("/chatroom", chatRoomRouter);
+
+router.use("/ipAddress", ipAddressRouter);
 
 module.exports = router;
