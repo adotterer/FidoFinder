@@ -23,7 +23,7 @@ const createLocationObj = async (location) => {
 
   const state = level1short;
 
-  return { latitude, longitude, city, state };
+  return { lat: latitude, lng: longitude, city, state };
 };
 
 module.exports = { createLocationObj };

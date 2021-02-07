@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { User, UserDetail } = require("../../db/models");
 
 const router = express.Router();
 
@@ -35,8 +35,29 @@ router.post(
   "/",
   validateSignup,
   asyncHandler(async (req, res) => {
-    const { email, password, username } = req.body;
-    const user = await User.signup({ email, username, password });
+    const {
+      email,
+      password,
+      username,
+      location,
+      phoneNumber,
+      firstName,
+      lastName,
+    } = req.body;
+
+    const user = await User.signup({
+      email,
+      username,
+      password,
+      phoneNumber,
+      firstName,
+      lastName,
+    });
+    try {
+      UserDetail.createDetailsFindLocation(location, user.id);
+    } catch (e) {
+      console.error(e)
+    };
 
     await setTokenCookie(res, user);
 

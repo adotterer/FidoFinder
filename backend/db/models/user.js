@@ -1,7 +1,7 @@
 "use strict";
 const { Validator, UniqueConstraintError } = require("sequelize");
 const bcrypt = require("bcryptjs");
-const { UserDetail } = require("./userdetail.js");
+
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -42,6 +42,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      role: {
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -110,12 +114,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  User.signup = async function ({ username, email, password }) {
+  User.signup = async function ({
+    username,
+    email,
+    password,
+    phoneNumber,
+    firstName,
+    lastName,
+  }) {
     const hashedPassword = bcrypt.hashSync(password);
+    const role = "dog_owner";
     const user = await User.create({
       username,
       email,
       hashedPassword,
+      firstName,
+      lastName,
+      phoneNumber,
+      role,
     });
     return await User.scope("currentUser").findByPk(user.id);
   };
