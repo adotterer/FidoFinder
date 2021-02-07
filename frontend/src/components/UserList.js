@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetch } from "../store/csrf.js";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { json } from "body-parser";
 
 async function getAllUsers() {
   const res = await fetch("/api/users/all");
@@ -39,7 +40,9 @@ function UserList() {
                   e.preventDefault();
                   try {
                     const res = await createChatRoom(sessionUser, user);
+                    // const jsonparse = JSON.parse(res);
                     const chatRoomNumber = res.data.chatRoomId;
+                    // console.log("JSONPARSE", jsonparse);
                     history.push(`/chatroom/${chatRoomNumber}`);
                   } catch (e) {
                     console.error("FAILED TO GET CHAT ROOM NUMBER");
