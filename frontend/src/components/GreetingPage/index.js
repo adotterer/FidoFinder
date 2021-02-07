@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { fetch } from "../../store/csrf.js";
 import "./Greeting.css";
+import LoginFormModal from "../LoginFormModal";
+import { Link } from "react-router-dom";
 
 function GreetingPage() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -15,11 +17,13 @@ function GreetingPage() {
             Please log in or sign up to start chatting with dog owners near you.
           </div>
           <div>
-            <button>Log in</button>
+            <LoginFormModal />
           </div>
-          <div>
-            <button>Sign up</button>
-          </div>
+          <Link to="/signup">
+            <div>
+              <button>Sign up</button>
+            </div>
+          </Link>
         </div>
       );
     } else {

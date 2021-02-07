@@ -28,7 +28,7 @@ div.div__LogInSignUpBlock > div {
 div.div__LogInSignUpBlock button {
   /* font-family: Lato, sans-serif; */
 
-  border: 2px solid rgb(0, 96, 169);
+  border: 1px solid rgb(0, 96, 169);
   border-radius: 20px;
   line-height: 2.2em;
   font-size: 1.8em;
@@ -44,5 +44,5 @@ div.div__LogInSignUpBlock button {
 div.div__LogInSignUpBlock button:focus,
 div.div__LogInSignUpBlock button:hover {
   outline: 0;
-  border: 2px solid blanchedalmond;
+  border: 1px dashed white;
 }
