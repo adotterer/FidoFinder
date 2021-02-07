@@ -21,7 +21,7 @@
   background-origin: initial;
   background-clip: initial;
   background-color: initial;
-  filter: drop-shadow(0 0.25rem 0.75rem rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0.25rem 0.25rem 0.75rem rgba(0, 0, 0, 0.1));
 }
 
 .div__logo {
