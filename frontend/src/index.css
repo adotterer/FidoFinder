@@ -9,6 +9,15 @@ div {
   display: block;
 }
 
+html {
+  min-height: 100%; /* make sure it is at least as tall as the viewport */
+  position: relative;
+  font-family: "Source Sans Pro", sans-serif;
+}
+body {
+  height: 100%; /* force the BODY element to match the height of the HTML element */
+}
+
 a {
   text-decoration: none;
 }
@@ -17,8 +26,29 @@ a {
   display: hidden;
 }
 
-html,
-body {
+div#div__bodyContent {
+  background-color: #f2f6fd;
+  position: absolute;
+  margin-top: 12vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: -1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 3px solid forestgreen; */
+}
+
+div#div__innerContent {
   height: 100%;
-  margin: 0px;
+  /* border: 2px solid green; */
+  padding: 1.2em 1.6em 0 1.6em;
+  min-width: 75vw;
+  max-width: 80vw;
+  background-color: white;
+  filter: drop-shadow(0 0.25rem 0.75rem rgba(0, 0, 0, 0.1));
 }
