@@ -1,51 +1,36 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { fetch } from "../../store/csrf.js";
+import "./Greeting.css";
 
 function GreetingPage() {
-  const [ipAddress, setIpAddress] = useState();
+  const sessionUser = useSelector((state) => state.session.user);
 
-  const getIpAddress = async () => {
-    const res = await fetch("/api/ipAddress/");
-    return res.data;
-  };
-
-  useEffect(async () => {
-    const { clientIp, geoObj } = await getIpAddress();
-    console.log(clientIp);
-    setIpAddress(clientIp);
-  }, []);
-  // var options = {
-  //   enableHighAccuracy: false,
-  //   timeout: 0,
-  //   maximumAge: 0,
-  // };
-
-  // function success(pos) {
-  //   var crd = pos.coords;
-
-  //   console.log("Your current position is:");
-  //   console.log(`Latitude : ${crd.latitude}`);
-  //   console.log(`Longitude: ${crd.longitude}`);
-  //   console.log(`More or less ${crd.accuracy} meters.`);
-  // }
-
-  // function error(err) {
-  //   console.warn(`ERROR(${err.code}): ${err.message}`);
-  // }
-
-  // try {
-  //   navigator.geolocation.getCurrentPosition(success, error, options);
-  // } catch (e) {
-  //   console.log(e);
-  // }
-  // console.log(geolocation);
-  // getIpAddress();
-
+  function LogInSignUpBlock() {
+    let loginBlock;
+    if (!sessionUser) {
+      return (
+        <div class="div__LogInSignUpBlock">
+          <div>
+            Please log in or sign up to start chatting with dog owners near you.
+          </div>
+          <div>
+            <button>Log in</button>
+          </div>
+          <div>
+            <button>Sign up</button>
+          </div>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
   return (
-    <div>
-      <h1>GreetingPage</h1>
-
-      <div>your ip address: {ipAddress && ipAddress} </div>
+    <div class="div__greetingPage">
+      {/* <h1>GreetingPage</h1> */}
+      <LogInSignUpBlock />
+      <div> </div>
     </div>
   );
 }
