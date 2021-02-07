@@ -1,3 +1,83 @@
-.profile-dropdown {
+#div__nav-bar {
+  /* position: fixed; */
+  padding: 0;
+  margin: 0;
+  z-index: 50;
+  display: flex;
+  /* flex: 1; */
+  align-items: stretch;
+  flex-direction: row;
+  width: 100%;
+  min-height: 12vh;
+  justify-content: space-around;
+  background: linear-gradient(120deg, #4d6496, #0f19ac 50%, #f8ffe4);
+  background-image: linear-gradient(120deg, #0036ab, #1d69ba, rgb(32, 59, 169));
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  /* background-repeat-x: initial;
+  background-repeat-y: initial; */
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: initial;
+}
+
+.div__logo {
+  font-family: "Cookie", cursive;
+  /* outline: 5px solid rgb(97, 19, 72); */
+  color: white;
+  font-size: 7vh;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* min-height: 12vh; */
+}
+
+ul.profile-dropdown {
+  width: 30px;
+  font-size: 0.6em;
+  padding: 10px;
+  color: black;
   position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 12px 16px;
+  z-index: 3;
+}
+
+.profile-dropdown li {
+  padding: 5px;
+  list-style-type: none;
+}
+div.div__navIcons {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  align-self: flex-end;
+}
+ul.ul__navIcons {
+  /* outline: 5px solid green; */
+  height: 100%;
+}
+ul.ul__navIcons,
+ul.ul__navIcons li {
+  display: inline-block;
+}
+
+li.li__buttonIcons {
+  font-size: 4vh;
+  color: white;
+  list-style-type: none;
+  filter: drop-shadow(0.2rem 0.2rem 0.4rem rgb(59, 89, 142));
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+}
+
+li.li__buttonIcons:hover {
+  cursor: pointer;
+  color: rgb(155, 208, 255);
 }
