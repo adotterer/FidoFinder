@@ -14,7 +14,8 @@ const ipMiddleware = function (req, res, next) {
 
 router.get("/", ipMiddleware, async (req, res, next) => {
   console.log("here is clientIP --->", req.clientIp);
-  res.json(req.clientIp);
+  const { clientIp, geoObj } = req;
+  res.json({ clientIp, geoObj });
 });
 
 module.exports = router;

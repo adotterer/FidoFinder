@@ -10,9 +10,9 @@ function GreetingPage() {
   };
 
   useEffect(async () => {
-    const ip = await getIpAddress();
-    console.log(ip);
-    setIpAddress(ip);
+    const { clientIp, geoObj } = await getIpAddress();
+    console.log(clientIp);
+    setIpAddress(clientIp);
   }, []);
   // var options = {
   //   enableHighAccuracy: false,
@@ -45,7 +45,7 @@ function GreetingPage() {
     <div>
       <h1>GreetingPage</h1>
 
-      <div>your ip address: {ipAddress && ipAddress}</div>
+      <div>your ip address: {ipAddress && ipAddress} </div>
     </div>
   );
 }
