@@ -1,0 +1,9 @@
+button {
+  cursor: pointer;
+}
+
+div.div__demoLogin > button.button__demoLogin {
+  margin-top: 5vh;
+  background-color: rgb(42, 92, 201) !important;
+  color: white !important;
+}

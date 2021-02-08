@@ -41,8 +41,8 @@ function Navigation({ isLoaded }) {
     <div id="div__nav-bar">
       <NavLink exact to="/">
         <div class="div__logo">
-          <GiDogHouse style={{ fontSize: "1.4em", paddingRight: "0.2em" }} />
-          PupFinder
+          <GiDogHouse style={{ fontSize: "1.4em", paddingRight: "0.4em" }} />
+          {/* Fido411 / FidoApp / */}FidoApp
         </div>
       </NavLink>
       <div class="div__navIcons">

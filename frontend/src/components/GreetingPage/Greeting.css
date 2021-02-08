@@ -30,13 +30,13 @@ div.div__LogInSignUpBlock button {
 
   border: 1px solid rgb(0, 96, 169);
   border-radius: 20px;
-  line-height: 2.2em;
+  line-height: 1.2em;
   font-size: 1.8em;
   color: white;
   width: 8em;
   align-self: center;
   background-color: rgb(0, 96, 169);
-  padding: 8px;
+  padding: 0.5em;
   cursor: pointer;
   margin: 3px;
 }
@@ -46,3 +46,4 @@ div.div__LogInSignUpBlock button:hover {
   outline: 0;
   border: 1px dashed white;
 }
+
