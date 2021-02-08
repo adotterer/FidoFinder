@@ -2,6 +2,62 @@ const fs = require("fs");
 const faker = require("faker");
 const bcrypt = require("bcryptjs");
 
+const letters = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+  "_",
+];
+
 const randomStatus = () => {
   const randomObj = {
     time: Math.floor(Math.random() * Math.ceil(12)),
@@ -68,10 +124,52 @@ const userArray = [
   },
 ];
 
+const createdNames = [];
+const createdEmails = [];
+
 for (let i = 0; i < 100000; i++) {
+  let userName;
+
+  const createUserName = function () {
+    return (
+      faker.internet.userName() +
+      Math.floor(Math.random() * Math.floor(900)) +
+      letters[Math.floor(Math.random() * letters.length)]
+    );
+    // try {
+    //   let userSymbol = Symbol();
+    //   createdNames.push(userSymbol);
+    //   return userName;
+    // } catch (e) {
+    //   console.log("already created username");
+    //   console.error(e);
+    //   userName = faker.internet.color() + "_" + faker.internet.userName();
+    //   // createdNames.push(Symbol(userName));
+    //   return userName;
+    // }
+  };
+  let email;
+  const createEmail = function () {
+    let initialEmail = faker.internet.email().split("@");
+    email =
+      initialEmail[0] +
+      Math.floor(Math.random() * Math.floor(900)) +
+      letters[Math.floor(Math.random() * letters.length)] +
+      initialEmail[1];
+    // try {
+    //   let emailSymbol = Symbol();
+    //   createdEmails.push(emailSymbol);
+    //   return email;
+    // } catch (e) {
+    //   console.log("already created email");
+    //   console.error(e);
+    //   return i + email;
+    // }
+    return email;
+  };
   userArray.push({
-    email: faker.internet.email(),
-    username: faker.internet.userName(),
+    email: String(createEmail()),
+    username: String(createUserName()).slice(0, 29),
     hashedPassword: faker.internet.password(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
@@ -249,3 +347,20 @@ for (let i = currentLength; i <= currentLength + 9996; i++) {
 }
 
 console.log(userArray.length === userDetailsArray.length);
+// fs.writeFile("seederData.js", userArray, function (err) {
+//   if (err) throw err;
+//   console.log(err);
+// });
+
+try {
+  fs.writeFileSync(
+    "userUserDetailJson.js",
+    JSON.stringify({
+      userArray: userArray,
+      userDetailsArray: userDetailsArray,
+      profileImageArray: profileImageArray,
+    })
+  );
+} catch (err) {
+  console.error(err);
+}
