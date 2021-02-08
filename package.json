@@ -2,6 +2,9 @@
   "name": "solution",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "12.19.0"
+  },
   "scripts": {
     "heroku-postbuild": "npm run build --prefix frontend",
     "install": "npm --prefix backend install backend && npm --prefix frontend install frontend",
