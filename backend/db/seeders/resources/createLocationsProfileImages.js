@@ -1,7 +1,8 @@
-"use strict";
+const fs = require("fs");
 const faker = require("faker");
 const bcrypt = require("bcryptjs");
 
+// console.log(faker.image.avatar());
 const userArray = [
   {
     email: "demo@user.io",
@@ -50,11 +51,11 @@ const userArray = [
   },
 ];
 
-for (let i = 0; i < 800; i++) {
+for (let i = 0; i < 100000; i++) {
   userArray.push({
     email: faker.internet.email(),
-    username: faker.internet.username(),
-    hashedPassword: bcrypt.hashSync(faker.internet.password()),
+    username: faker.internet.userName(),
+    hashedPassword: faker.internet.password(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     phoneNumber: faker.phone.phoneNumber(),
@@ -62,15 +63,11 @@ for (let i = 0; i < 800; i++) {
   });
 }
 
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    let users = await queryInterface.bulkInsert("Users", userArray, {
-      returning: true,
-    });
-  },
+let profileImageArray;
+for (let i = 0; i < 100005; i++) {
+  profileImageArray.push({
+    URL: faker.internet.avatar(),
+  });
+}
 
-  down: async (queryInterface, Sequelize) => {
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete("Users");
-  },
-};
+console.log(userArray.length);
