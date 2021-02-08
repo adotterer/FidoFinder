@@ -4,13 +4,6 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { json } from "body-parser";
 
-async function getAllUsers() {
-  const res = await fetch("/api/users/all");
-  const allUsers = res.data;
-  // console.log(allUsers);
-  return allUsers;
-}
-
 async function createChatRoom(sessionUser, user) {
   const res = await fetch(
     `/api/chatroom/add?sessionUserId=${sessionUser.id}&&otherUserId=${user.id}&&sessionUsername=${sessionUser.username}&&otherUsername=${user.username}`
@@ -19,13 +12,10 @@ async function createChatRoom(sessionUser, user) {
   return res;
 }
 
-function UserList() {
+function UserList(users) {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
-  const [users, setUsers] = useState([]);
-  useEffect(async () => {
-    setUsers(await getAllUsers());
-  }, []);
+
 
   return (
     <ul>

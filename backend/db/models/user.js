@@ -2,7 +2,6 @@
 const { Validator, UniqueConstraintError } = require("sequelize");
 const bcrypt = require("bcryptjs");
 
-
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     "User",
@@ -86,8 +85,11 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
 
-  User.getCurrentUserById = async function (id) {
-    return await User.scope("currentUser").findByPk(id);
+  User.getCurrentUserLocationById = async function (id) {
+    const user = await User.findByPk(id);
+    const userDetails = await user.getUserDetail();
+    // console.log(userDetails);
+    return userDetails;
   };
 
   User.checkOnlineStatusById = async function (id) {

@@ -346,11 +346,7 @@ for (let i = currentLength; i <= currentLength + 9996; i++) {
   });
 }
 
-console.log(userArray.length === userDetailsArray.length);
-// fs.writeFile("seederData.js", userArray, function (err) {
-//   if (err) throw err;
-//   console.log(err);
-// });
+// console.log(userArray.length === userDetailsArray.length);
 
 try {
   fs.writeFileSync(

@@ -1,7 +1,8 @@
 const express = require("express");
 const { check } = require("express-validator");
 const asyncHandler = require("express-async-handler");
-
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { User, UserDetail } = require("../../db/models");
@@ -30,6 +31,36 @@ router.get("/all", async (req, res) => {
   res.json(allUsers);
 });
 
+router.get("/nearby", async (req, res) => {
+  const { userId } = req.query;
+  // console.log(
+  //   "here is this===> ",
+  //   await User.getCurrentUserLocationById(userId)
+  // );
+
+  const currentLocation = await User.getCurrentUserLocationById(userId);
+  console.log("here is this thing---> ", currentLocation);
+
+  const {
+    dataValues: { liveLocationLat: latitude, liveLocationLng: longitude },
+  } = currentLocation;
+
+  const nearbyUsers = await User.findAll({
+    include: {
+      model: UserDetail,
+      where: {
+        liveLocationLat: { [Op.between]: [latitude - 0.5, latitude + 0.5] },
+        liveLocationLng: { [Op.between]: [longitude - 0.5, longitude + 0.5] },
+      },
+    },
+    order: [["createdAt", "DESC"]],
+    limit: 100,
+  });
+  // const userDetails = nearbyUsers.getUserDetail();
+
+  res.json(nearbyUsers);
+});
+
 // Sign up
 router.post(
   "/",
@@ -56,8 +87,8 @@ router.post(
     try {
       UserDetail.createDetailsFindLocation(location, user.id);
     } catch (e) {
-      console.error(e)
-    };
+      console.error(e);
+    }
 
     await setTokenCookie(res, user);
 
