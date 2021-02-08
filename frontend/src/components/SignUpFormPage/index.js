@@ -101,7 +101,6 @@ function SignupFormPage() {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="your neighborhood"
-              placeholder="required"
               required
             />
           </label>
