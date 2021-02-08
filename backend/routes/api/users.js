@@ -56,9 +56,10 @@ router.get("/nearby", async (req, res) => {
     order: [["createdAt", "DESC"]],
     limit: 100,
   });
-  // const userDetails = nearbyUsers.getUserDetail();
+  console.log(nearbyUsers);
+  // const userDetails = nearbyUsers.map(async (u) => await u.getUserDetail());
 
-  res.json(nearbyUsers);
+  res.json(nearbyUsers.map((u) => u.UserDetail));
 });
 
 // Sign up
