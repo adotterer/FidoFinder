@@ -28,7 +28,7 @@ function App() {
             <LoginFormPage />
           </Route> */}
               <Route exact path="/">
-                <NearbyUsers />
+                <GreetingPage />
               </Route>
               <Route path="/signup">
                 <SignupFormPage />

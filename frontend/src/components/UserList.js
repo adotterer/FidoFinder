@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetch } from "../store/csrf.js";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { json } from "body-parser";
 
@@ -16,35 +16,36 @@ function UserList(users) {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
 
+  const createChatRoomEvent = async (e, sessionUser, user) => {
+    e.preventDefault();
+    try {
+      const res = await createChatRoom(sessionUser, user);
+      // const jsonparse = JSON.parse(res);
+      const chatRoomNumber = res.data.chatRoomId;
+      // console.log("JSONPARSE", jsonparse);
+      history.push(`/chatroom/${chatRoomNumber}`);
+    } catch (e) {
+      console.error("FAILED TO GET CHAT ROOM NUMBER");
+    }
+  };
 
   return (
-    <ul>
+    <>
       {users[0] &&
         sessionUser &&
         users.map((user) => {
           return (
-            <li key={user.id}>
-              <button
+            <div key={user.id}>
+              <Link
                 key={user.id}
-                onClick={async (e) => {
-                  e.preventDefault();
-                  try {
-                    const res = await createChatRoom(sessionUser, user);
-                    // const jsonparse = JSON.parse(res);
-                    const chatRoomNumber = res.data.chatRoomId;
-                    // console.log("JSONPARSE", jsonparse);
-                    history.push(`/chatroom/${chatRoomNumber}`);
-                  } catch (e) {
-                    console.error("FAILED TO GET CHAT ROOM NUMBER");
-                  }
-                }}
+                onClick={(e) => createChatRoomEvent(e, sessionUser, user)}
               >
                 {user.username}
-              </button>
-            </li>
+              </Link>
+            </div>
           );
         })}
-    </ul>
+    </>
   );
 }
 

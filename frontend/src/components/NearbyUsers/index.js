@@ -2,27 +2,43 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { fetch } from "../../store/csrf.js";
 import UserList from "../UserList";
+import SimpleMap from "../GoogleMap";
 
-async function getNearbyUsers(sessionUser) {
+async function getNearbyUsersMyLocation(sessionUser) {
   const res = await fetch(`/api/users/nearby?userId=${sessionUser.id}`);
+
   const nearbyUsers = res.data;
   console.log(nearbyUsers);
-  // return nearbyUsers;
+  return nearbyUsers;
 }
 
 function NearbyUsers() {
-  const [users, setUsers] = useState([]);
+  const [locationInfo, setLocationInfo] = useState([]);
   const sessionUser = useSelector((state) => state.session.user);
+  const [center, setCenter] = useState();
 
   useEffect(async () => {
-    setUsers(await getNearbyUsers(sessionUser));
+    setLocationInfo(await getNearbyUsersMyLocation(sessionUser));
   }, [sessionUser]);
 
+  useEffect(async () => {
+    console.log(locationInfo.currentLocation);
+    setCenter(locationInfo.currentLocation);
+  }, [locationInfo]);
+
   return (
-    <>
-      <h1>Here will be nearby users: </h1>
-      <div>asdf</div>
-    </>
+    <div>
+      <h1>Here are nearby users: </h1>
+
+      {locationInfo.currentLocation ? (
+        <SimpleMap
+          center={locationInfo.currentLocation}
+          nearbyUsers={locationInfo.nearbyUsers}
+        />
+      ) : (
+        "no center"
+      )}
+    </div>
   );
 }
 

@@ -42,15 +42,15 @@ router.get("/nearby", async (req, res) => {
   console.log("here is this thing---> ", currentLocation);
 
   const {
-    dataValues: { liveLocationLat: latitude, liveLocationLng: longitude },
+    dataValues: { liveLocationLat: lat, liveLocationLng: lng },
   } = currentLocation;
 
   const nearbyUsers = await User.findAll({
     include: {
       model: UserDetail,
       where: {
-        liveLocationLat: { [Op.between]: [latitude - 0.5, latitude + 0.5] },
-        liveLocationLng: { [Op.between]: [longitude - 0.5, longitude + 0.5] },
+        liveLocationLat: { [Op.between]: [lat - 0.5, lat + 0.5] },
+        liveLocationLng: { [Op.between]: [lng - 0.5, lng + 0.5] },
       },
     },
     order: [["createdAt", "DESC"]],
@@ -59,7 +59,7 @@ router.get("/nearby", async (req, res) => {
   console.log(nearbyUsers);
   // const userDetails = nearbyUsers.map(async (u) => await u.getUserDetail());
 
-  res.json(nearbyUsers.map((u) => u.UserDetail));
+  res.json({ nearbyUsers, currentLocation: { lat, lng } });
 });
 
 // Sign up

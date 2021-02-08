@@ -4,6 +4,7 @@ div.div__greetingPage {
   /* background-color: green; */
   height: 100%;
   align-items: center;
+  flex-direction: row;
 }
 
 div.div__LogInSignUpBlock {
@@ -46,4 +47,3 @@ div.div__LogInSignUpBlock button:hover {
   outline: 0;
   border: 1px dashed white;
 }
-
