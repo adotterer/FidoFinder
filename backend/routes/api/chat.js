@@ -8,14 +8,19 @@ const { MessageSession, Person } = require("./messageSession-state");
 
 const wss = new WebSocket.Server({ server });
 
+//  https://stackoverflow.com/questions/22429744/how-to-setup-route-for-websocket-server-in-express
+// I think I can use this code to create a new websocket server for each chat room
+// var wss = new WebSocketServer({server: server, path: "/:chatRoomId"});
+
+
 let messageSession = null;
 
-router.get("/salmon", async (req, res, next) => {
-  let id = 1;
-  console.log("hello");
-  let user = await User.checkOnlineStatusById(id);
-  res.json(user);
-});
+// router.get("/salmon", async (req, res, next) => {
+//   let id = 1;
+//   console.log("hello");
+//   let user = await User.checkOnlineStatusById(id);
+//   res.json(user);
+// });
 
 // router.get("/room/");
 

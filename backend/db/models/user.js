@@ -87,8 +87,16 @@ module.exports = (sequelize, DataTypes) => {
 
   User.getCurrentUserLocationById = async function (id) {
     const user = await User.findByPk(id);
+    // console.log("here is user", user);
     const userDetails = await user.getUserDetail();
+    // console.log("****************");
+    // console.log("****************");
+    // console.log("****************");
+    // console.log("****************");
     // console.log(userDetails);
+    // console.log("****************");
+    // console.log("****************");
+    // console.log("****************");
     return userDetails;
   };
 

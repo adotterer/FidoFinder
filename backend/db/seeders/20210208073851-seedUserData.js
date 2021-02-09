@@ -42,8 +42,8 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete("UserDetails");
+    queryInterface.bulkDelete("UserDetails");
     queryInterface.bulkDelete("Images");
-    queryInterface.bulkDelete("Users");
+    return queryInterface.bulkDelete("Users");
   },
 };
