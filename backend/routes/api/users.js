@@ -27,7 +27,7 @@ const validateSignup = [
 ];
 
 router.get("/all", async (req, res) => {
-  const allUsers = await User.findAll();
+  const allUsers = await User.findAll({ limit: 200 });
   res.json(allUsers);
 });
 
@@ -39,7 +39,7 @@ router.get("/nearby", async (req, res) => {
   // );
 
   const currentLocation = await User.getCurrentUserLocationById(userId);
-  console.log("here is this thing---> ", currentLocation);
+  // console.log("here is this thing---> ", currentLocation);
 
   const {
     dataValues: { liveLocationLat: lat, liveLocationLng: lng },

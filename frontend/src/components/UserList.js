@@ -12,7 +12,18 @@ async function createChatRoom(sessionUser, user) {
   return res;
 }
 
-function UserList(users) {
+function UserList(optionalUsers) {
+  const [users, setUsers] = useState(optionalUsers);
+
+  useEffect(() => {
+    if (!!optionalUsers) {
+      fetch("/api/users/all").then((res) => {
+        console.log("setting users", res.data);
+        return setUsers(res.data);
+      });
+    }
+  }, []);
+
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
 

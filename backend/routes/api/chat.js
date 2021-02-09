@@ -6,13 +6,6 @@ const server = createServer(router).listen(7070);
 const { User } = require("../../db/models");
 const { MessageSession, Person } = require("./messageSession-state");
 
-const wss = new WebSocket.Server({ server });
-
-//  https://stackoverflow.com/questions/22429744/how-to-setup-route-for-websocket-server-in-express
-// I think I can use this code to create a new websocket server for each chat room
-// var wss = new WebSocketServer({server: server, path: "/:chatRoomId"});
-
-
 let messageSession = null;
 
 // router.get("/salmon", async (req, res, next) => {
@@ -90,6 +83,14 @@ const processIncomingMessage = (jsonData, ws) => {
       throw new Error(`Unknown message type: ${message.type}`);
   }
 };
+
+const wss = new WebSocket.Server({ server });
+
+//  https://stackoverflow.com/questions/22429744/how-to-setup-route-for-websocket-server-in-express
+// I think I can use this code to create a new websocket server for each chat room
+// var wss = new WebSocketServer({server: server, path: "/:chatRoomId"});
+
+
 
 wss.on("connection", (ws) => {
   ws.on("message", (jsonData) => {
