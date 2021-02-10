@@ -31,8 +31,10 @@ function UserList(optionalUsers) {
     e.preventDefault();
     try {
       const res = await createChatRoom(sessionUser, user);
-      // const jsonparse = JSON.parse(res);
+      console.log(res.data, "res.data99999");
       const chatRoomNumber = res.data.chatRoomId;
+      // const [...chatRoomUsers] = res.data.users;
+      // console.log(chatRoomUsers, "chatRoomusers");
       // console.log("JSONPARSE", jsonparse);
       history.push(`/chatroom/${chatRoomNumber}`);
     } catch (e) {

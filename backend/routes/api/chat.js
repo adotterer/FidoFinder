@@ -6,6 +6,8 @@ const server = createServer(router).listen(7070);
 const { User } = require("../../db/models");
 const { MessageSession, Person } = require("./messageSession-state");
 
+// https://stackoverflow.com/questions/28516962/how-websocket-server-handles-multiple-incoming-connection-requests
+
 let messageSession = null;
 
 // router.get("/salmon", async (req, res, next) => {
@@ -84,16 +86,31 @@ const processIncomingMessage = (jsonData, ws) => {
   }
 };
 
-const wss = new WebSocket.Server({ server });
+// const wss = new WebSocket.Server({ server });
 
 //  https://stackoverflow.com/questions/22429744/how-to-setup-route-for-websocket-server-in-express
 // I think I can use this code to create a new websocket server for each chat room
 // var wss = new WebSocketServer({server: server, path: "/:chatRoomId"});
 
+// router.get("/oboe/:chatRoomId", (req, res, next) => {
+//   console.log("****************************");
+//   console.log("****************************");
+//   console.log("****************************");
+//   console.log("****************************");
+//   console.log("****************************");
+//   console.log("****************************");
+//   console.log("****************************");
+//   console.log("****************************");
+//   console.log("****************************");
+//   console.log("hello, it's me", res);
+// });
 
+let wss;
+wss = new WebSocket.Server({ server });
 
 wss.on("connection", (ws) => {
   ws.on("message", (jsonData) => {
+    console.log("hello from ws.on line 114", JSON.parse(jsonData));
     processIncomingMessage(jsonData, ws);
   });
 

@@ -36,7 +36,7 @@ function App() {
               <Route path="/users/all">
                 <UserList />
               </Route>
-              <Route exact path="/chatroom/:userId">
+              <Route exact path="/chatroom/:chatRoomId">
                 <ChatRoom />
               </Route>
             </Switch>

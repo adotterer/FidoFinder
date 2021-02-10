@@ -13,8 +13,8 @@ import { useParams } from "react-router-dom";
 // };
 
 const ChatRoom = () => {
-  const { userId } = useParams();
-  console.log(userId);
+  const { chatRoomId } = useParams();
+  console.log(chatRoomId);
 
   // SESSION USER
   const sessionUser = useSelector((state) => state.session.user);
@@ -36,7 +36,9 @@ const ChatRoom = () => {
       return;
     }
 
+    // const ws = new WebSocket(process.env.REACT_APP_WS_URL + `/${chatRoomId}`);
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
+    //  TODO: CHANGE URL TO REFLECT SERVER LOCATION
 
     ws.onopen = () => {
       sendMessage("add-new-person", { username });

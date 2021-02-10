@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { User, user_chatRoom, ChatRoom } = require("../../db/models");
+const { Op } = require("sequelize");
 
 router.get("/add", async (req, res) => {
-  const { Op } = require("sequelize");
   const {
     sessionUserId,
     otherUserId,
@@ -31,14 +31,6 @@ router.get("/add", async (req, res) => {
           userId: {
             [Op.in]: [sessionUserId, otherUserId],
           },
-          // [Op.or]: [
-          //   {
-          //     userId: sessionUserId,
-          //   },
-          //   {
-          //     userId: otherUserId,
-          //   },
-          // ],
         },
       },
     });
@@ -89,6 +81,10 @@ router.get("/add", async (req, res) => {
       console.error(e);
     }
   }
+  // GRAB ALL USER INFORMATION TO SEND BACK TO PUT IN REDUX
+  const userInfo = await User.findAll({
+    where: { id: { [Op.in]: [sessionUserId, otherUserId] } },
+  });
 
   // NOW RETURN SEND CHATROOM NUMBER BACK TO FRONTEND
   if (alreadyCreatedRoom !== null) {
@@ -108,7 +104,10 @@ router.get("/add", async (req, res) => {
     console.log("-----------------------");
     console.log("-----------------------");
     console.log("-----------------------");
-    return res.json({ chatRoomId: id });
+    return res.json({
+      chatRoomId: id,
+      users: userInfo,
+    });
   } else if (newChatRoom !== null) {
     const {
       dataValues: { id },
@@ -126,7 +125,10 @@ router.get("/add", async (req, res) => {
     console.log("-----------------------");
     console.log("-----------------------");
     console.log("-----------------------");
-    return res.json({ chatRoomId: id });
+    return res.json({
+      chatRoomId: id,
+      users: userInfo,
+    });
   }
 });
 
