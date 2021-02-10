@@ -2,41 +2,30 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import Home from "./Home";
 import MessageCore from "./MessageCore";
-// import { fetch } from "../../store/csrf.js";
+import { fetch } from "../../store/csrf.js";
 import { useParams } from "react-router-dom";
-
-// const userOnlineStatusById = async (id) => {
-//   const res = await fetch(`/api/chat/salmon`);
-//   // const friendStatus = await res.json();
-//   console.log(res.data);
-//   return res.data;
-// };
 
 const ChatRoom = () => {
   const { chatRoomId } = useParams();
-  console.log(chatRoomId);
 
   // SESSION USER
   const sessionUser = useSelector((state) => state.session.user);
 
   // --- FIND AUTHORIZED USERS --- //
   const [authorizedUsers, setAuthorizedUsers] = useState();
-  if (!authorizedUsers) {
-    fetch(`/api/chatroom/${chatRoomId}`)
-      .then((res) => {
-        console.log(res);
-        return res.json();
-      })
-      .then((res) => setAuthorizedUsers(res));
-  }
+  const fetchAuthorizedUsers = async function () {
+    const res = await fetch(`/api/chatroom/${chatRoomId}`);
+    console.log(res);
+    console.log("%%%%%%%%%%%%%%%%%");
+    console.log("%%%%%%%%%%%%%%%%%");
+    console.log("%%%%%%%%%%%%%%%%%");
+    console.log("%%%%%%%%%%%%%%%%%");
+    setAuthorizedUsers(res);
+  };
 
   const [username, setUserName] = useState(sessionUser.username);
   const [messageSession, setMessageSession] = useState(null);
   const webSocket = useRef(null);
-
-  useEffect(() => {
-    console.log(authorizedUsers, "here is authorized Users");
-  }, [authorizedUsers]);
 
   useEffect(() => {
     if (!username) {
@@ -142,7 +131,6 @@ const ChatRoom = () => {
     >
       <h1>Minimum Instant Messenger </h1>
       <h2>With JS and WebSocket</h2>
-      <h3></h3>
       {username ? (
         <MessageCore
           username={username}

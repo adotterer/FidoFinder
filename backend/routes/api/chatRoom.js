@@ -3,6 +3,20 @@ const router = express.Router();
 const { User, user_chatRoom, ChatRoom } = require("../../db/models");
 const { Op } = require("sequelize");
 
+// SEND BACK AUTHORIZED USERS OF CHATROOM ID
+router.get("/:chatRoomId", async (req, res) => {
+  const { chatRoomId } = req.params;
+  const authorizedUsers = await Users.findAll({
+    where: {
+      include: {
+        model: {} // HERE
+      }
+    }
+  })
+  console.log(chatRoomId, "chatRoomId");
+  res.json({ msg: "chatRoomId sent!", chatRoomId });
+});
+
 router.get("/add", async (req, res) => {
   const {
     sessionUserId,
