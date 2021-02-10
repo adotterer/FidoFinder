@@ -12,15 +12,22 @@ router.get("/:chatRoomId/auth", async (req, res) => {
   console.log("DO IT");
   console.log("DO IT");
   const { chatRoomId } = req.params;
-  const authorizedUsers = await user_chatRoom
-    .findAll({
-      where: {
-        chatRoomId,
-      },
-    })
-    .then((res) => res.map((au) => au.dataValues));
+  try {
+    const authorizedUsers = await user_chatRoom
+      .findAll({
+        where: {
+          chatRoomId,
+        },
+        include: {
+          model: User,
+        },
+      })
+      .then((res) => res);
 
-  res.json({ msg: "chatRoomId sent!", authorizedUsers });
+    res.json({ msg: "chatRoomId sent!", authorizedUsers });
+  } catch (e) {
+    console.error(e);
+  }
 });
 
 router.get("/add", async (req, res) => {
