@@ -22,12 +22,12 @@ const ChatRoom = () => {
   // --- FIND AUTHORIZED USERS --- //
   const [authorizedUsers, setAuthorizedUsers] = useState();
   if (!authorizedUsers) {
-    fetch(`/api/chatroom/${chatRoomId}`)
+    fetch(`/api/chatroom/${chatRoomId}/auth`)
       .then((res) => {
-        console.log(res);
+        console.log(res, "res!");
         return res.json();
       })
-      .then((res) => setAuthorizedUsers(res));
+      .then((res) => setAuthorizedUsers(res.authorizedUsers));
   }
 
   const [username, setUserName] = useState(sessionUser.username);
@@ -142,7 +142,8 @@ const ChatRoom = () => {
     >
       <h1>Minimum Instant Messenger </h1>
       <h2>With JS and WebSocket</h2>
-      <h3></h3>
+      {authorizedUsers &&
+        authorizedUsers.map((au) => <h3>authorized Id: {au.id}</h3>)}
       {username ? (
         <MessageCore
           username={username}

@@ -4,17 +4,23 @@ const { User, user_chatRoom, ChatRoom } = require("../../db/models");
 const { Op } = require("sequelize");
 
 // SEND BACK AUTHORIZED USERS OF CHATROOM ID
-router.get("/:chatRoomId", async (req, res) => {
+router.get("/:chatRoomId/auth", async (req, res) => {
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("DO IT");
   const { chatRoomId } = req.params;
-  const authorizedUsers = await Users.findAll({
-    where: {
-      include: {
-        model: {} // HERE
-      }
-    }
-  })
-  console.log(chatRoomId, "chatRoomId");
-  res.json({ msg: "chatRoomId sent!", chatRoomId });
+  const authorizedUsers = await user_chatRoom
+    .findAll({
+      where: {
+        chatRoomId,
+      },
+    })
+    .then((res) => res.map((au) => au.dataValues));
+
+  res.json({ msg: "chatRoomId sent!", authorizedUsers });
 });
 
 router.get("/add", async (req, res) => {

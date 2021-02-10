@@ -33,11 +33,6 @@ router.get("/all", async (req, res) => {
 
 router.get("/nearby", async (req, res) => {
   const { userId } = req.query;
-  console.log("line 36", userId);
-  // console.log(
-  //   "here is this===> ",
-  //   await User.getCurrentUserLocationById(userId)
-  // );
 
   const currentLocation = await User.getCurrentUserLocationById(
     userId

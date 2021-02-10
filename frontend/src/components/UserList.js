@@ -32,7 +32,7 @@ function UserList(optionalUsers) {
     try {
       const res = await createChatRoom(sessionUser, user);
       console.log(res.data, "res.data99999");
-      const chatRoomNumber = res.data.chatRoomId;
+      const chatRoomNumber = await res.data.chatRoomId;
       // const [...chatRoomUsers] = res.data.users;
       // console.log(chatRoomUsers, "chatRoomusers");
       // console.log("JSONPARSE", jsonparse);
@@ -51,7 +51,9 @@ function UserList(optionalUsers) {
             <div key={user.id}>
               <Link
                 key={user.id}
-                onClick={(e) => createChatRoomEvent(e, sessionUser, user)}
+                onClick={async (e) =>
+                  await createChatRoomEvent(e, sessionUser, user)
+                }
               >
                 {user.username}
               </Link>
