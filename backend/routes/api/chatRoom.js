@@ -3,6 +3,10 @@ const router = express.Router();
 const { User, user_chatRoom, ChatRoom } = require("../../db/models");
 const { Op } = require("sequelize");
 
+router.get("/testing", async (req, res) => {
+  console.log(ChatRoom.getAuthorizedUsers(1));
+  return ChatRoom.getAuthorizedUsers(1);
+});
 // SEND BACK AUTHORIZED USERS OF CHATROOM ID
 router.get("/:chatRoomId/auth", async (req, res) => {
   console.log("DO IT");
@@ -12,6 +16,8 @@ router.get("/:chatRoomId/auth", async (req, res) => {
   console.log("DO IT");
   console.log("DO IT");
   const { chatRoomId } = req.params;
+  // TODO:
+  // ------> Refactor in ChatRoom model
   try {
     const authorizedUsers = await user_chatRoom
       .findAll({

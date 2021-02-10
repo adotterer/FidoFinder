@@ -45,7 +45,7 @@ const ChatRoom = () => {
 
     // const ws = new WebSocket(process.env.REACT_APP_WS_URL + `/${chatRoomId}`);
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
-    //  TODO: CHANGE URL TO REFLECT SERVER LOCATION
+
 
     ws.onopen = () => {
       sendMessage("add-new-person", { username });

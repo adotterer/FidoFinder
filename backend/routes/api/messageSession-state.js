@@ -1,5 +1,6 @@
 class Person {
   constructor(username, ws) {
+    this.id = id;
     this.username = username;
     this.ws = ws;
   }
@@ -12,9 +13,10 @@ class Person {
 }
 
 class MessageSession {
-  constructor(person1) {
-    this.person1 = person1;
-    this.person2 = null;
+  constructor(users) {
+    // this.person1 = person1;
+    // this.person2 = null;
+    this.users = users;
     this.styles = ["lightblue", "lightgray"];
     this.messages = [];
   }
@@ -23,13 +25,12 @@ class MessageSession {
   // }
 
   getPersons() {
-    return [this.person1, this.person2];
+    return users;
   }
 
   getData() {
     return {
-      person1: this.person1.getData(),
-      person2: this.person2.getData(),
+      users: this.users.map((user) => user.getData()),
       messages: this.messages,
     };
   }

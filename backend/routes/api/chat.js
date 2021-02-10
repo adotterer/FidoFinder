@@ -8,8 +8,6 @@ const { MessageSession, Person } = require("./messageSession-state");
 
 // https://stackoverflow.com/questions/28516962/how-websocket-server-handles-multiple-incoming-connection-requests
 
-let messageSession = null;
-
 // router.get("/salmon", async (req, res, next) => {
 //   let id = 1;
 //   console.log("hello");
@@ -37,18 +35,26 @@ const broadcastMessage = (type, data, persons) => {
   });
 };
 
+let messageSession = null;
+
 const startMessageSession = () => {
   const data = messageSession.getData();
   broadcastMessage("start-message-session", data, messageSession.getPersons());
 };
 
-const addNewPerson = (username, ws) => {
-  const person = new Person(username, ws);
+// GLOBAL CHATROOM
+const globalChatroom = {};
+
+// DEFINITELY WANT TO CHANGE THIS PART
+const addNewPerson = (chatRoomId, user, ws) => {
+  const person = new Person(user, ws);
 
   if (messageSession === null) {
     messageSession = new MessageSession(person);
   } else if (messageSession.person2 === null) {
-    messageSession.person2 = person;
+    // CRITICAL PART to prevent unauthorized users
+
+    // messageSession.person2 = person;
     startMessageSession();
   } else {
     // TODO Ignore any additional person connections.
