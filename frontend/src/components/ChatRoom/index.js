@@ -1,16 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Home from "./Home";
 import MessageCore from "./MessageCore";
 // import { fetch } from "../../store/csrf.js";
 import { useParams } from "react-router-dom";
-
-// const userOnlineStatusById = async (id) => {
-//   const res = await fetch(`/api/chat/salmon`);
-//   // const friendStatus = await res.json();
-//   console.log(res.data);
-//   return res.data;
-// };
 
 const ChatRoom = () => {
   const { chatRoomId } = useParams();
@@ -34,6 +28,7 @@ const ChatRoom = () => {
   const [username, setUserName] = useState(sessionUser.username);
   const [userId, setUserId] = useState(sessionUser.id);
   const [messageSession, setMessageSession] = useState(null);
+
   const webSocket = useRef(null);
 
   // useEffect(() => {
@@ -86,6 +81,21 @@ const ChatRoom = () => {
       // setMessageSession(null);
     };
 
+    window.onbeforeunload = function (e) {
+      console.log("sending delete request");
+      webSocket.current.sendMessage("delete-session", {
+        chatRoomId,
+      });
+      ws.onclose = (e) => {
+        console.log(`Connection closed: ${e}`);
+        webSocket.current = null;
+        // setUserName("");
+        // setMessageSession(null);
+      };
+      setMessageSession(null);
+      console.log("hello");
+      ws.close();
+    };
     const sendMessage = (type, data) => {
       const message = JSON.stringify({
         type,
@@ -144,7 +154,7 @@ const ChatRoom = () => {
     //   return "lightgray";
     // }
   };
-
+  if (!sessionUser) return <Redirect to="/" />;
   return (
     <div
       style={{

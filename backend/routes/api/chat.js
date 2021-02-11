@@ -41,20 +41,9 @@ const broadcastMessage = (type, data, persons) => {
 };
 
 const startMessageSession = (messageSession) => {
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log(messageSession);
+  // console.log(messageSession);
   const data = messageSession.getData();
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("messageSession.getPersons() ------");
-  console.log(messageSession.getPersons());
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("DO IT");
+
   broadcastMessage("start-message-session", data, messageSession.getPersons());
 };
 
@@ -62,7 +51,7 @@ const startMessageSession = (messageSession) => {
 const globalChatStore = new GlobalChatStore();
 
 const addNewPerson = async (userId, username, chatRoomId, ws) => {
-  const person = new Person(userId, username, ws); // NEW VERSION
+  const person = new Person(userId, username, ws);
 
   // TODO:
   // ------> see if there is already a chat session in the GlobalChatStore
@@ -99,7 +88,7 @@ const addNewPerson = async (userId, username, chatRoomId, ws) => {
       startMessageSession(globalChatStore[`chatRoomNum${chatRoomId}`]);
     }
   } else {
-    console.log("session ALREADY EXISTS");
+    // CHAT SESSION ALREADY EXISTS
     globalChatStore[`chatRoomNum${chatRoomId}`].users.push(person);
     startMessageSession(globalChatStore[`chatRoomNum${chatRoomId}`]);
   }
@@ -107,13 +96,6 @@ const addNewPerson = async (userId, username, chatRoomId, ws) => {
 
 const updateMessageSession = (chatRoomId) => {
   const persons = globalChatStore[`chatRoomNum${chatRoomId}`].getPersons();
-  console.log("%%%%%%%%%%%%%%%%%");
-  console.log("%%%%%%%%%%%%%%%%%");
-  console.log("%%%%%%%%%%%%%%%%%");
-  console.log(persons, "person!!");
-  console.log("%%%%%%%%%%%%%%%%%");
-  console.log("%%%%%%%%%%%%%%%%%");
-  console.log("%%%%%%%%%%%%%%%%%");
   const data = globalChatStore[`chatRoomNum${chatRoomId}`].getData();
   broadcastMessage("update-message-session", data, persons);
 };
@@ -121,6 +103,13 @@ const updateMessageSession = (chatRoomId) => {
 const recordChat = ({ username, chatRoomId, msg }) => {
   globalChatStore[`chatRoomNum${chatRoomId}`].messages.push({ username, msg });
   updateMessageSession(chatRoomId);
+};
+
+const deleteSession = ({ chatRoomId }) => {
+  console.log("deleting: ", `chatRoomNum${chatRoomId}`);
+  delete globalChatStore[`chatRoomNum${chatRoomId}`];
+  console.log("post-delete", globalChatStore);
+  return;
 };
 
 // //Processing incoming message {"type":"chat-message","data":{"username":"p2","msg":"hi there"}}
@@ -140,6 +129,9 @@ const processIncomingMessage = (jsonData, ws) => {
       break;
     case "chat-message":
       recordChat(message.data, ws);
+      break;
+    case "delete-session":
+      deleteSession(message.data, ws); // WRITE FUNCTION
       break;
     default:
       throw new Error(`Unknown message type: ${message.type}`);
