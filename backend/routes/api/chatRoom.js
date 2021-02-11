@@ -4,8 +4,15 @@ const { User, user_chatRoom, ChatRoom } = require("../../db/models");
 const { Op } = require("sequelize");
 
 router.get("/testing", async (req, res) => {
-  console.log(ChatRoom.getAuthorizedUsers(1));
-  return ChatRoom.getAuthorizedUsers(1);
+ 
+  const authorizedUsers = await user_chatRoom
+    .findAll({
+      where: { chatRoomId: 1 },
+      include: { model: User },
+    })
+    .then((res) => res)
+    .catch((e) => console.error(e));
+  return res.json(authorizedUsers);
 });
 // SEND BACK AUTHORIZED USERS OF CHATROOM ID
 router.get("/:chatRoomId/auth", async (req, res) => {

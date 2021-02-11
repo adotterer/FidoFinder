@@ -1,5 +1,5 @@
 class Person {
-  constructor(username, ws) {
+  constructor(id, username, ws) {
     this.id = id;
     this.username = username;
     this.ws = ws;
@@ -13,9 +13,10 @@ class Person {
 }
 
 class MessageSession {
-  constructor(users) {
+  constructor(users, chatRoomId) {
     // this.person1 = person1;
     // this.person2 = null;
+    this.chatRoomId = chatRoomId;
     this.users = users;
     this.styles = ["lightblue", "lightgray"];
     this.messages = [];
@@ -36,7 +37,22 @@ class MessageSession {
   }
 }
 
+class GlobalChatStore {
+  // constructor() {
+  //   this.store = {};
+  // }
+
+  addNewChatSession(messageSession) {
+    return (this[`chatRoomNum${messageSession.chatRoomId}`] = messageSession);
+  }
+
+  findMessageSession(chatRoomId) {
+    return this[`chatRoomNum${chatRoomId}`];
+  }
+}
+
 module.exports = {
   MessageSession,
   Person,
+  GlobalChatStore,
 };
