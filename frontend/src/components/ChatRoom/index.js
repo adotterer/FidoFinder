@@ -82,18 +82,15 @@ const ChatRoom = () => {
     };
 
     window.onbeforeunload = function (e) {
-      console.log("sending delete request");
       webSocket.current.sendMessage("delete-session", {
         chatRoomId,
       });
       ws.onclose = (e) => {
-        console.log(`Connection closed: ${e}`);
+        // console.log(`Connection closed: ${e}`);
         webSocket.current = null;
-        // setUserName("");
-        // setMessageSession(null);
-      };
+  ``      };
       setMessageSession(null);
-      console.log("hello");
+
       ws.close();
     };
     const sendMessage = (type, data) => {

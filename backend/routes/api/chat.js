@@ -11,17 +11,6 @@ const {
   GlobalChatStore,
 } = require("./messageSession-state");
 
-// https://stackoverflow.com/questions/28516962/how-websocket-server-handles-multiple-incoming-connection-requests
-
-// router.get("/salmon", async (req, res, next) => {
-//   let id = 1;
-//   console.log("hello");
-//   let user = await User.checkOnlineStatusById(id);
-//   res.json(user);
-// });
-
-// router.get("/room/");
-
 const broadcastMessage = (type, data, persons) => {
   const message = JSON.stringify({
     type,
@@ -41,7 +30,6 @@ const broadcastMessage = (type, data, persons) => {
 };
 
 const startMessageSession = (messageSession) => {
-  // console.log(messageSession);
   const data = messageSession.getData();
 
   broadcastMessage("start-message-session", data, messageSession.getPersons());
@@ -70,7 +58,6 @@ const addNewPerson = async (userId, username, chatRoomId, ws) => {
       .catch((e) => console.error(e));
 
     // IF THE USER IS NOT IN THIS ARRAY, THEN IT CLOSES THE WEBSOCKET
-
     if (
       !authorizedUsers.filter((user) => {
         return user.userId === userId;
@@ -112,7 +99,6 @@ const deleteSession = ({ chatRoomId }) => {
   return;
 };
 
-// //Processing incoming message {"type":"chat-message","data":{"username":"p2","msg":"hi there"}}
 const processIncomingMessage = (jsonData, ws) => {
   console.log(`Processing incoming message ${jsonData}...`);
 
