@@ -31,6 +31,7 @@ const ChatRoom = () => {
   }
 
   const [username, setUserName] = useState(sessionUser.username);
+  const [userId, setUserId] = useState(sessionUser.id);
   const [messageSession, setMessageSession] = useState(null);
   const webSocket = useRef(null);
 
@@ -46,9 +47,13 @@ const ChatRoom = () => {
     // const ws = new WebSocket(process.env.REACT_APP_WS_URL + `/${chatRoomId}`);
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
 
-
     ws.onopen = () => {
-      sendMessage("add-new-person", { username });
+      console.log("where is userId", userId);
+      sendMessage("add-new-person", {
+        userId,
+        username,
+        chatRoomId,
+      });
     };
 
     ws.onmessage = (e) => {

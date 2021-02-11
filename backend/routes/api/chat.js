@@ -4,7 +4,11 @@ const { createServer } = require("http");
 const WebSocket = require("ws");
 const server = createServer(router).listen(7070);
 const { User } = require("../../db/models");
-const { MessageSession, Person } = require("./messageSession-state");
+const {
+  MessageSession,
+  Person,
+  GlobalChatStore,
+} = require("./messageSession-state");
 
 // https://stackoverflow.com/questions/28516962/how-websocket-server-handles-multiple-incoming-connection-requests
 
@@ -35,32 +39,42 @@ const broadcastMessage = (type, data, persons) => {
   });
 };
 
-let messageSession = null;
-
 const startMessageSession = () => {
   const data = messageSession.getData();
   broadcastMessage("start-message-session", data, messageSession.getPersons());
 };
 
 // GLOBAL CHATROOM
-const globalChatroom = {};
+const globalChatStore = new GlobalChatStore();
 
-// DEFINITELY WANT TO CHANGE THIS PART
-const addNewPerson = (chatRoomId, user, ws) => {
-  const person = new Person(user, ws);
+const addNewPerson = (userId, username, chatRoomId, ws) => {
+  // const person = new Person(user, ws); // OLD VERSION
+  const person = new Person(userId, username, chatRoomId, ws); // NEW VERSION
 
-  if (messageSession === null) {
-    messageSession = new MessageSession(person);
-  } else if (messageSession.person2 === null) {
-    // CRITICAL PART to prevent unauthorized users
+  // TODO:
+  // ------> see if there is already a chat session in the GlobalChatStore
+  // ------> IF NOT, it creates a new message session and adds all the authorized users [] from the database onto MessageSession.users;
+  // ------> IF GlobalMessageStore[`chatRoomNum${chatRoomId} is TRUE, then it ....
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log(person);
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("DO IT");
 
-    // messageSession.person2 = person;
-    startMessageSession();
-  } else {
-    // TODO Ignore any additional person connections.
-    console.log(`Ignoring person ${username}...`);
-    ws.close();
-  }
+  // if (true) {
+  //   // messageSession = new MessageSession(person); // OLD VERSION
+  // } else if (false) {
+  //   // CRITICAL PART to prevent unauthorized users
+
+  //   // messageSession.person2 = person;
+  //   startMessageSession();
+  // } else {
+  //   // TODO Ignore any additional person connections.
+  //   console.log(`Ignoring person ${username}...`);
+  //   ws.close();
+  // }
 };
 
 const updateMessageSession = () => {
@@ -82,7 +96,7 @@ const processIncomingMessage = (jsonData, ws) => {
 
   switch (message.type) {
     case "add-new-person":
-      addNewPerson(message.data.username, ws);
+      addNewPerson(message.data.userId, message.data.username, ws);
       break;
     case "chat-message":
       recordChat(message.data, ws);

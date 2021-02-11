@@ -4,7 +4,7 @@ const { User, user_chatRoom, ChatRoom } = require("../../db/models");
 const { Op } = require("sequelize");
 
 router.get("/testing", async (req, res) => {
- 
+
   const authorizedUsers = await user_chatRoom
     .findAll({
       where: { chatRoomId: 1 },
@@ -16,12 +16,7 @@ router.get("/testing", async (req, res) => {
 });
 // SEND BACK AUTHORIZED USERS OF CHATROOM ID
 router.get("/:chatRoomId/auth", async (req, res) => {
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("DO IT");
+  
   const { chatRoomId } = req.params;
   // TODO:
   // ------> Refactor in ChatRoom model
