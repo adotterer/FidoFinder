@@ -24,10 +24,11 @@ const ChatRoom = () => {
   if (!authorizedUsers) {
     fetch(`/api/chatroom/${chatRoomId}/auth`)
       .then((res) => {
-        console.log(res, "res!");
         return res.json();
       })
-      .then((res) => setAuthorizedUsers(res.authorizedUsers));
+      .then((res) =>
+        setAuthorizedUsers(res.authorizedUsers.map((user) => user.User))
+      );
   }
 
   const [username, setUserName] = useState(sessionUser.username);
@@ -48,7 +49,7 @@ const ChatRoom = () => {
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
 
     ws.onopen = () => {
-      console.log("where is userId", userId);
+      console.log("where is chatRoomId", chatRoomId);
       sendMessage("add-new-person", {
         userId,
         username,

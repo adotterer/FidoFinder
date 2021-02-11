@@ -1,6 +1,6 @@
 class Person {
-  constructor(id, username, ws) {
-    this.id = id;
+  constructor(userId, username, ws) {
+    this.userId = userId;
     this.username = username;
     this.ws = ws;
   }

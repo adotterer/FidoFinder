@@ -74,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   User.associate = function (models) {
     const chatRoomMapping = {
-      through: "user_ChatRoom",
+      through: "user_chatRoom",
       otherKey: "chatRoomId",
       foreignKey: "userId",
     };

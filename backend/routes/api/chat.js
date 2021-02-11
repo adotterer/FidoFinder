@@ -3,7 +3,7 @@ const router = express.Router();
 const { createServer } = require("http");
 const WebSocket = require("ws");
 const server = createServer(router).listen(7070);
-const { User } = require("../../db/models");
+const { User, ChatRoom, user_chatRoom } = require("../../db/models");
 const {
   MessageSession,
   Person,
@@ -47,21 +47,37 @@ const startMessageSession = () => {
 // GLOBAL CHATROOM
 const globalChatStore = new GlobalChatStore();
 
-const addNewPerson = (userId, username, chatRoomId, ws) => {
+const addNewPerson = async (userId, username, chatRoomId, ws) => {
   // const person = new Person(user, ws); // OLD VERSION
-  const person = new Person(userId, username, chatRoomId, ws); // NEW VERSION
+  const person = new Person(userId, username, ws); // NEW VERSION
 
   // TODO:
   // ------> see if there is already a chat session in the GlobalChatStore
   // ------> IF NOT, it creates a new message session and adds all the authorized users [] from the database onto MessageSession.users;
   // ------> IF GlobalMessageStore[`chatRoomNum${chatRoomId} is TRUE, then it ....
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log(person);
-  console.log("DO IT");
-  console.log("DO IT");
-  console.log("DO IT");
+
+  // console.log("DO IT");
+  // console.log("DO IT");
+  // console.log("DO IT");
+  // console.log(person);
+  // console.log("DO IT");
+  // console.log("DO IT");
+  // console.log("DO IT");
+
+  if (!globalChatStore[`chatRoomNum${chatRoomId}`]) {
+    console.log("line 67");
+    const authorizedUsers = await user_chatRoom
+      .findAll({
+        where: {
+          chatRoomId,
+        },
+      })
+      .then((res) => res)
+      .catch((e) => console.error(e));
+    console.log(authorizedUsers);
+    // const messageSession = new MessageSession();
+    // globalChatStore.addNewChatSession(messageSession);
+  }
 
   // if (true) {
   //   // messageSession = new MessageSession(person); // OLD VERSION
@@ -96,7 +112,12 @@ const processIncomingMessage = (jsonData, ws) => {
 
   switch (message.type) {
     case "add-new-person":
-      addNewPerson(message.data.userId, message.data.username, ws);
+      addNewPerson(
+        message.data.userId,
+        message.data.username,
+        message.data.chatRoomId,
+        ws
+      );
       break;
     case "chat-message":
       recordChat(message.data, ws);
@@ -106,31 +127,12 @@ const processIncomingMessage = (jsonData, ws) => {
   }
 };
 
-// const wss = new WebSocket.Server({ server });
-
-//  https://stackoverflow.com/questions/22429744/how-to-setup-route-for-websocket-server-in-express
-// I think I can use this code to create a new websocket server for each chat room
-// var wss = new WebSocketServer({server: server, path: "/:chatRoomId"});
-
-// router.get("/oboe/:chatRoomId", (req, res, next) => {
-//   console.log("****************************");
-//   console.log("****************************");
-//   console.log("****************************");
-//   console.log("****************************");
-//   console.log("****************************");
-//   console.log("****************************");
-//   console.log("****************************");
-//   console.log("****************************");
-//   console.log("****************************");
-//   console.log("hello, it's me", res);
-// });
-
 let wss;
 wss = new WebSocket.Server({ server });
 
 wss.on("connection", (ws) => {
   ws.on("message", (jsonData) => {
-    console.log("hello from ws.on line 114", JSON.parse(jsonData));
+    // console.log("hello from ws.on line 114", JSON.parse(jsonData));
     processIncomingMessage(jsonData, ws);
   });
 
