@@ -23,41 +23,44 @@ const MessageCore = ({ username, messageSession, sendChat }) => {
   const personsName = (name, short = false) =>
     name === username ? (short ? "Me" : `Me (${name})`) : name;
   const PersonsNames = () => {
-    return messageSession.person1.username === username ? (
-      <>
-        <div>{personsName(messageSession.person2.username)}</div>
-        <div>{personsName(messageSession.person1.username)}</div>
-      </>
-    ) : (
-      <>
-        <div>{personsName(messageSession.person1.username)}</div>
-        <div>{personsName(messageSession.person2.username)}</div>
-      </>
-    );
+    console.log("messageSession --->", messageSession);
+    // return messageSession.authorizedUsers.map((u) => {
+    //   return <p>{u}</p>;
+    // });
+    // return messageSession.person1.username === username ? (
+    //   <>
+    //     <div>{personsName(messageSession.person2.username)}</div>
+    //     <div>{personsName(messageSession.person1.username)}</div>
+    //   </>
+    // ) : (
+    //   <>
+    //     <div>{personsName(messageSession.person1.username)}</div>
+    //     <div>{personsName(messageSession.person2.username)}</div>
+    //   </>
+    // );
   };
 
   return (
     <div className={styles.messageSession}>
       {messageSession ? (
         <>
-          <div className={styles.persons}>
-            <PersonsNames />
-          </div>
+          <div className={styles.persons}>{/* <PersonsNames /> */}</div>
           {messageSession.messages && (
             <div>
               <div>
                 {messageSession.messages.map((m) => (
                   <p
                     key={nanoid()}
-                    className={
-                      m.username === username
-                        ? styles.individual_message_right
-                        : styles.individual_message_left
-                    }
+                    // className={
+                    //   m.username === username
+                    //     ? styles.individual_message_right
+                    //     : styles.individual_message_left
+                    // }
                   >
-                    <span className={styles.person_name}>
+                    {/* <span className={styles.person_name}>
                       <b>{personsName(m.username, true)}</b>
-                    </span>
+                    </span> */}
+                    <span>Person: </span>
                     <span>{m.msg}</span>
                   </p>
                 ))}

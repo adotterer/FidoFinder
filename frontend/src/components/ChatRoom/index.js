@@ -36,9 +36,9 @@ const ChatRoom = () => {
   const [messageSession, setMessageSession] = useState(null);
   const webSocket = useRef(null);
 
-  useEffect(() => {
-    console.log(authorizedUsers, "here is authorized Users");
-  }, [authorizedUsers]);
+  // useEffect(() => {
+  //   console.log(authorizedUsers, "here is authorized Users");
+  // }, [authorizedUsers]);
 
   useEffect(() => {
     if (!username) {
@@ -66,6 +66,8 @@ const ChatRoom = () => {
         case "start-message-session":
         case "update-message-session":
         case "end-message-session":
+          console.log("line 69, message.data", message.data);
+          // debugger;
           setMessageSession(message.data);
           break;
         default:
@@ -80,8 +82,8 @@ const ChatRoom = () => {
     ws.onclose = (e) => {
       console.log(`Connection closed: ${e}`);
       webSocket.current = null;
-      setUserName("");
-      setMessageSession(null);
+      // setUserName("");
+      // setMessageSession(null);
     };
 
     const sendMessage = (type, data) => {
@@ -112,7 +114,11 @@ const ChatRoom = () => {
   };
 
   const sendChat = (msg, username) => {
-    webSocket.current.sendMessage("chat-message", { username, msg });
+    webSocket.current.sendMessage("chat-message", {
+      username,
+      chatRoomId,
+      msg,
+    });
   };
 
   const playAgain = (username) => {
@@ -125,15 +131,18 @@ const ChatRoom = () => {
   };
 
   const backgroundColor = () => {
-    if (messageSession) {
-      if (username === messageSession.person1.username) {
-        return "lightblue";
-      } else {
-        return "lightgreen";
-      }
-    } else {
-      return "lightgray";
-    }
+    console.log("messageSession", messageSession);
+    return "lightgreen";
+    // debugger; // screw this
+    // if (messageSession) {
+    //   if (username === messageSession.person1.username) {
+    //     return "lightblue";
+    //   } else {
+    //     return "lightgreen";
+    //   }
+    // } else {
+    //   return "lightgray";
+    // }
   };
 
   return (

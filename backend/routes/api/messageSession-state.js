@@ -13,11 +13,12 @@ class Person {
 }
 
 class MessageSession {
-  constructor(users, chatRoomId) {
+  constructor(authorizedUsers, person, chatRoomId) {
     // this.person1 = person1;
     // this.person2 = null;
     this.chatRoomId = chatRoomId;
-    this.users = users;
+    this.authorizedUsers = authorizedUsers;
+    this.users = [person];
     this.styles = ["lightblue", "lightgray"];
     this.messages = [];
   }
@@ -26,7 +27,11 @@ class MessageSession {
   // }
 
   getPersons() {
-    return users;
+    return this.users;
+  }
+
+  getAuthorizedUsers() {
+    return this.authorizedUsers;
   }
 
   getData() {

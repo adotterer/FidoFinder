@@ -1,3 +1,4 @@
+const { Console } = require("console");
 const express = require("express");
 const router = express.Router();
 const { createServer } = require("http");
@@ -39,8 +40,21 @@ const broadcastMessage = (type, data, persons) => {
   });
 };
 
-const startMessageSession = () => {
+const startMessageSession = (messageSession) => {
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log(messageSession);
   const data = messageSession.getData();
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("messageSession.getPersons() ------");
+  console.log(messageSession.getPersons());
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("DO IT");
+  console.log("DO IT");
   broadcastMessage("start-message-session", data, messageSession.getPersons());
 };
 
@@ -48,7 +62,6 @@ const startMessageSession = () => {
 const globalChatStore = new GlobalChatStore();
 
 const addNewPerson = async (userId, username, chatRoomId, ws) => {
-  // const person = new Person(user, ws); // OLD VERSION
   const person = new Person(userId, username, ws); // NEW VERSION
 
   // TODO:
@@ -56,52 +69,58 @@ const addNewPerson = async (userId, username, chatRoomId, ws) => {
   // ------> IF NOT, it creates a new message session and adds all the authorized users [] from the database onto MessageSession.users;
   // ------> IF GlobalMessageStore[`chatRoomNum${chatRoomId} is TRUE, then it ....
 
-  // console.log("DO IT");
-  // console.log("DO IT");
-  // console.log("DO IT");
-  // console.log(person);
-  // console.log("DO IT");
-  // console.log("DO IT");
-  // console.log("DO IT");
-
   if (!globalChatStore[`chatRoomNum${chatRoomId}`]) {
-    console.log("line 67");
+    console.log("creating new chat Room");
     const authorizedUsers = await user_chatRoom
       .findAll({
         where: {
-          chatRoomId,
+          chatRoomId: chatRoomId,
         },
       })
-      .then((res) => res)
+      .then((res) => res.map((user) => user.toJSON()))
       .catch((e) => console.error(e));
-    console.log(authorizedUsers);
-    // const messageSession = new MessageSession();
-    // globalChatStore.addNewChatSession(messageSession);
+
+    // IF THE USER IS NOT IN THIS ARRAY, THEN IT CLOSES THE WEBSOCKET
+
+    if (
+      !authorizedUsers.filter((user) => {
+        return user.userId === userId;
+      }).length
+    ) {
+      console.log("non-authorized user ---> closing connection");
+      ws.close();
+    } else {
+      const messageSession = new MessageSession(
+        authorizedUsers,
+        person,
+        chatRoomId
+      );
+      globalChatStore.addNewChatSession(messageSession);
+      startMessageSession(globalChatStore[`chatRoomNum${chatRoomId}`]);
+    }
+  } else {
+    console.log("session ALREADY EXISTS");
+    globalChatStore[`chatRoomNum${chatRoomId}`].users.push(person);
+    startMessageSession(globalChatStore[`chatRoomNum${chatRoomId}`]);
   }
-
-  // if (true) {
-  //   // messageSession = new MessageSession(person); // OLD VERSION
-  // } else if (false) {
-  //   // CRITICAL PART to prevent unauthorized users
-
-  //   // messageSession.person2 = person;
-  //   startMessageSession();
-  // } else {
-  //   // TODO Ignore any additional person connections.
-  //   console.log(`Ignoring person ${username}...`);
-  //   ws.close();
-  // }
 };
 
-const updateMessageSession = () => {
-  const persons = messageSession.getPersons();
-  const data = messageSession.getData();
+const updateMessageSession = (chatRoomId) => {
+  const persons = globalChatStore[`chatRoomNum${chatRoomId}`].getPersons();
+  console.log("%%%%%%%%%%%%%%%%%");
+  console.log("%%%%%%%%%%%%%%%%%");
+  console.log("%%%%%%%%%%%%%%%%%");
+  console.log(persons, "person!!");
+  console.log("%%%%%%%%%%%%%%%%%");
+  console.log("%%%%%%%%%%%%%%%%%");
+  console.log("%%%%%%%%%%%%%%%%%");
+  const data = globalChatStore[`chatRoomNum${chatRoomId}`].getData();
   broadcastMessage("update-message-session", data, persons);
 };
 
-const recordChat = (chatData) => {
-  messageSession.messages.push(chatData);
-  updateMessageSession();
+const recordChat = ({ username, chatRoomId, msg }) => {
+  globalChatStore[`chatRoomNum${chatRoomId}`].messages.push({ username, msg });
+  updateMessageSession(chatRoomId);
 };
 
 // //Processing incoming message {"type":"chat-message","data":{"username":"p2","msg":"hi there"}}
@@ -137,24 +156,23 @@ wss.on("connection", (ws) => {
   });
 
   ws.on("close", () => {
-    // If there's a messageSession available...
-    if (messageSession !== null) {
-      const { person1, person2 } = messageSession;
-
-      // If the closed WS belonged to either person 1 or person 2
-      // then we need to abort the messageSession.
-      if (person1.ws === ws || (person2 !== null && person2.ws === ws)) {
-        // If the closed WS doesn't belong to person 1
-        // then close their WS, otherwise if there's a
-        // person 2 then close their WS.
-        if (person1.ws !== ws) {
-          person1.ws.close();
-        } else if (person2 !== null) {
-          person2.ws.close();
-        }
-        messageSession = null;
-      }
-    }
+    // // If there's a messageSession available...
+    // if (messageSession !== null) {
+    //   const { person1, person2 } = messageSession;
+    //   // If the closed WS belonged to either person 1 or person 2
+    //   // then we need to abort the messageSession.
+    //   if (person1.ws === ws || (person2 !== null && person2.ws === ws)) {
+    //     // If the closed WS doesn't belong to person 1
+    //     // then close their WS, otherwise if there's a
+    //     // person 2 then close their WS.
+    //     if (person1.ws !== ws) {
+    //       person1.ws.close();
+    //     } else if (person2 !== null) {
+    //       person2.ws.close();
+    //     }
+    //     messageSession = null;
+    //   }
+    // }
   });
 });
 
