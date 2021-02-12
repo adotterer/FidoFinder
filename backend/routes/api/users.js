@@ -26,39 +26,47 @@ const validateSignup = [
   handleValidationErrors,
 ];
 
-router.get("/all", async (req, res) => {
-  const allUsers = await User.findAll({ limit: 200 });
-  res.json(allUsers);
-});
+router.get(
+  "/all",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const allUsers = await User.findAll({ limit: 200 });
+    res.json(allUsers);
+  })
+);
 
-router.get("/nearby", async (req, res) => {
-  const { userId } = req.query;
+router.get(
+  "/nearby",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const { userId } = req.query;
 
-  const currentLocation = await User.getCurrentUserLocationById(
-    userId
-  ).catch((e) => console.log(e));
-  // console.log("here is this thing---> ", currentLocation);
+    const currentLocation = await User.getCurrentUserLocationById(
+      userId
+    ).catch((e) => console.log(e));
+    // console.log("here is this thing---> ", currentLocation);
 
-  const {
-    dataValues: { liveLocationLat: lat, liveLocationLng: lng },
-  } = currentLocation;
+    const {
+      dataValues: { liveLocationLat: lat, liveLocationLng: lng },
+    } = currentLocation;
 
-  const nearbyUsers = await User.findAll({
-    include: {
-      model: UserDetail,
-      where: {
-        liveLocationLat: { [Op.between]: [lat - 0.5, lat + 0.5] },
-        liveLocationLng: { [Op.between]: [lng - 0.5, lng + 0.5] },
+    const nearbyUsers = await User.findAll({
+      include: {
+        model: UserDetail,
+        where: {
+          liveLocationLat: { [Op.between]: [lat - 0.5, lat + 0.5] },
+          liveLocationLng: { [Op.between]: [lng - 0.5, lng + 0.5] },
+        },
       },
-    },
-    order: [["createdAt", "DESC"]],
-    limit: 100,
-  });
-  console.log(nearbyUsers);
-  // const userDetails = nearbyUsers.map(async (u) => await u.getUserDetail());
+      order: [["createdAt", "DESC"]],
+      limit: 100,
+    });
+    console.log(nearbyUsers);
+    // const userDetails = nearbyUsers.map(async (u) => await u.getUserDetail());
 
-  res.json({ nearbyUsers, currentLocation: { lat, lng } });
-});
+    res.json({ nearbyUsers, currentLocation: { lat, lng } });
+  })
+);
 
 // Sign up
 router.post(
