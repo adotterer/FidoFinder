@@ -5,6 +5,7 @@ import Home from "./Home";
 import MessageCore from "./MessageCore";
 // import { fetch } from "../../store/csrf.js";
 import { useParams } from "react-router-dom";
+import "./chatroom.css";
 
 const ChatRoom = () => {
   const { chatRoomId } = useParams();
@@ -31,9 +32,9 @@ const ChatRoom = () => {
 
   const webSocket = useRef(null);
 
-  // useEffect(() => {
-  //   console.log(authorizedUsers, "here is authorized Users");
-  // }, [authorizedUsers]);
+  useEffect(() => {
+    console.log(authorizedUsers, "here is authorized Users");
+  }, [authorizedUsers]);
 
   useEffect(() => {
     if (!username) {
@@ -154,21 +155,19 @@ const ChatRoom = () => {
   if (!sessionUser) return <Redirect to="/" />;
   return (
     <div
-      style={{
-        backgroundColor: backgroundColor(),
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        width: "500px",
-      }}
+      className="div__chatSession"
+      // style={{
+      //   backgroundColor: backgroundColor(),
+      //   display: "flex",
+      //   flexDirection: "column",
+      //   justifyContent: "center",
+      //   width: "100%",
+      // }}
     >
-      <h1>Minimum Instant Messenger </h1>
-      <h2>With JS and WebSocket</h2>
-      {authorizedUsers &&
-        authorizedUsers.map((au) => <h3>authorized Id: {au.id}</h3>)}
       {username ? (
         <MessageCore
           username={username}
+          authorizedUsers={authorizedUsers}
           messageSession={messageSession}
           playAgain={playAgain}
           quit={quit}

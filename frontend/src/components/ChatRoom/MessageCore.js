@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import styles from "./MessageCore.module.css";
+import "./chatroom.css";
 
-const MessageCore = ({ username, messageSession, sendChat }) => {
+const MessageCore = ({
+  username,
+  authorizedUsers,
+  messageSession,
+  sendChat,
+}) => {
   const [msg, setMsg] = useState("");
   useEffect(() => {
     if (messageSession && messageSession.messages) {
@@ -23,7 +29,7 @@ const MessageCore = ({ username, messageSession, sendChat }) => {
   const personsName = (name, short = false) =>
     name === username ? (short ? "Me" : `Me (${name})`) : name;
   const PersonsNames = () => {
-    console.log("messageSession --->", messageSession);
+    // console.log("messageSession --->", messageSession);
     // return messageSession.authorizedUsers.map((u) => {
     //   return <p>{u}</p>;
     // });
@@ -41,10 +47,16 @@ const MessageCore = ({ username, messageSession, sendChat }) => {
   };
 
   return (
-    <div className={styles.messageSession}>
+    <div>
       {messageSession ? (
         <>
-          <div className={styles.persons}>{/* <PersonsNames /> */}</div>
+          <div>
+            <h2>A conversation between: </h2>
+            <ul>
+              {authorizedUsers &&
+                authorizedUsers.map((au) => <li>{au.firstName}</li>)}
+            </ul>
+          </div>
           {messageSession.messages && (
             <div>
               <div>
@@ -60,20 +72,22 @@ const MessageCore = ({ username, messageSession, sendChat }) => {
                     {/* <span className={styles.person_name}>
                       <b>{personsName(m.username, true)}</b>
                     </span> */}
-                    <span>Person: </span>
+                    <span>{m.username}: </span>
                     <span>{m.msg}</span>
                   </p>
                 ))}
               </div>
-              <form onSubmit={handleChatSubmit}>
-                <input
-                  type="text"
-                  value={msg}
-                  onChange={(e) => setMsg(e.target.value)}
-                  placeholder="Enter a message"
-                />
-                <button type="submit">Send</button>
-              </form>
+              <div className="div__msgSend">
+                <form onSubmit={handleChatSubmit}>
+                  <input
+                    type="text"
+                    value={msg}
+                    onChange={(e) => setMsg(e.target.value)}
+                    placeholder="Enter a message"
+                  />
+                  <button type="submit">Send</button>
+                </form>
+              </div>
             </div>
           )}
         </>

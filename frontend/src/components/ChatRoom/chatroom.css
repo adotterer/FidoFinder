@@ -1,0 +1,43 @@
+div.div__chatSession {
+  background-color: #4b8ed5;
+  border: 1px solid lightgrey;
+  border-radius: 20px;
+  margin: 0 auto;
+  width: 50rem;
+  padding: 3.5rem;
+}
+
+div.div__chatSession input {
+  width: 20rem;
+  height: 2rem;
+  outline: 0;
+  border-radius: 2rem 0 0 2rem;
+  padding: 1rem;
+  font-size: 1rem;
+  /* line-height: 1.2rem; */
+  border: 1px solid white;
+}
+
+div.div__chatSession button {
+  border-radius: 0rem 2rem 2rem 0rem;
+  outline: 0;
+  width: 14rem;
+  height: 2.1rem;
+  background-color: rgb(39, 94, 162);
+  color: black;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  padding: 1px;
+  border: 1px solid white;
+}
+
+div.div__chatSession button:hover {
+  border: 1px dashed white;
+}
+
+div.div__msgSend {
+  /* border: 3px solid grey; */
+  align-content: center;
+  text-align: center;
+}

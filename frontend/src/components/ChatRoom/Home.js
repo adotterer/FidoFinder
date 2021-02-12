@@ -52,8 +52,7 @@ const Home = ({ updatePersonName }) => {
     >
       <h2>Welcome!</h2>
       <p>
-        Please provide your name and click the "Start MessageSession" button to
-        start a messageSession.
+        
       </p>
       <ValidationErrors errors={errors} />
       <form onSubmit={onSubmit}>
