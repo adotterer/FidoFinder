@@ -129,7 +129,6 @@ wss = new WebSocket.Server({ server });
 
 wss.on("connection", (ws) => {
   ws.on("message", (jsonData) => {
-    // console.log("hello from ws.on line 114", JSON.parse(jsonData));
     processIncomingMessage(jsonData, ws);
   });
 

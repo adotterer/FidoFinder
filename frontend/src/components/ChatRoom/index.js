@@ -88,7 +88,7 @@ const ChatRoom = () => {
       ws.onclose = (e) => {
         // console.log(`Connection closed: ${e}`);
         webSocket.current = null;
-  ``      };
+      };
       setMessageSession(null);
 
       ws.close();

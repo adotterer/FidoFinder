@@ -1,9 +1,14 @@
-button {
+button,
+button:active {
   cursor: pointer;
 }
 
 div.div__demoLogin > button.button__demoLogin {
-  margin-top: 5vh;
+  margin-top: 18px;
   background-color: rgb(42, 92, 201) !important;
   color: white !important;
 }
+/* 
+div.div__demoLogin > button {
+  margin-top: 18px;
+} */

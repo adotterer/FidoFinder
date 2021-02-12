@@ -1,14 +1,12 @@
 #div__nav-bar {
-  /* position: fixed; */
   padding: 0;
   margin: 0;
   z-index: 50;
   display: flex;
-  /* flex: 1; */
   align-items: stretch;
   flex-direction: row;
   width: 100%;
-  min-height: 12vh;
+  min-height: 5rem;
   justify-content: space-around;
   background: linear-gradient(120deg, #4d6496, #0f19ac 50%, #f8ffe4);
   background-image: linear-gradient(120deg, #0036ab, #1d69ba, rgb(32, 59, 169));
@@ -28,7 +26,7 @@
   font-family: "Cookie", cursive;
   /* outline: 5px solid rgb(97, 19, 72); */
   color: white;
-  font-size: 9vh;
+  font-size: 3.5rem;
   cursor: pointer;
   height: 100%;
   display: flex;
@@ -38,7 +36,7 @@
 
 ul.profile-dropdown {
   width: 30px;
-  font-size: 0.6em;
+  font-size: 1.2rem;
   padding: 10px;
   color: black;
   position: absolute;
@@ -70,7 +68,7 @@ ul.ul__navIcons li {
 }
 
 li.li__buttonIcons {
-  font-size: 4vh;
+  font-size: 1.8rem;
   color: white;
   list-style-type: none;
   filter: drop-shadow(0.2rem 0.2rem 0.4rem rgb(59, 89, 142));

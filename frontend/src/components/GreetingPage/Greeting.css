@@ -8,13 +8,12 @@ div.div__greetingPage {
 }
 
 div.div__LogInSignUpBlock {
-  margin-top: -8vh;
   display: flex;
   flex-direction: column;
   text-align: center;
   background-color: rgb(230, 230, 230);
   border: 1px solid lightgrey;
-  /* box-shadow: 0px 8px 1px 4px rgba(199, 190, 255, 0.1); */
+  box-shadow: 0.2rem 0.3rem 0.9rem 0.2rem rgba(177, 177, 177, 0.5);
   height: 50vh;
   border-radius: 40px;
   align-items: center;
