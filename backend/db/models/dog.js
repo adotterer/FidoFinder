@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   Dog.associate = function (models) {
     // associations can be defined here
+    Dog.belongsTo(models.User, {foreignKey: 'ownerId'})
   };
   return Dog;
 };
