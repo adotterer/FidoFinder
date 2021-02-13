@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { fetch } from "../../store/csrf.js";
-import UserList from "../UserList";
 import SimpleMap from "../GoogleMap";
 
 async function getNearbyUsersMyLocation(sessionUser) {

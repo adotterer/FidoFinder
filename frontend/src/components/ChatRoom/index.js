@@ -36,7 +36,6 @@ const ChatRoom = () => {
       return;
     }
 
-    // const ws = new WebSocket(process.env.REACT_APP_WS_URL + `/${chatRoomId}`);
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
 
     ws.onopen = () => {
