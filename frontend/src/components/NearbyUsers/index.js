@@ -6,9 +6,8 @@ import SimpleMap from "../GoogleMap";
 
 async function getNearbyUsersMyLocation(sessionUser) {
   const res = await fetch(`/api/users/nearby?userId=${sessionUser.id}`);
-
   const nearbyUsers = res.data;
-  console.log(nearbyUsers);
+
   return nearbyUsers;
 }
 
@@ -22,7 +21,6 @@ function NearbyUsers() {
   }, [sessionUser]);
 
   useEffect(async () => {
-    console.log(locationInfo.currentLocation);
     setCenter(locationInfo.currentLocation);
   }, [locationInfo]);
 

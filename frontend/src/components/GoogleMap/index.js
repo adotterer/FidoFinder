@@ -41,7 +41,7 @@ function Pin(props) {
           props.sessionUser,
           props.pinUser
         );
-        console.log(chatRoomNumber);
+
         return history.push(`/chatroom/${chatRoomNumber}`);
       }}
     >
@@ -74,7 +74,7 @@ function SimpleMap({ center, nearbyUsers }) {
       >
         {mappedUsers.length > 0 &&
           mappedUsers.map((user) => {
-            console.log("map user", user);
+            
             return (
               <Pin
                 sessionUser={sessionUser}

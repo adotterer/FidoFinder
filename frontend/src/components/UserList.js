@@ -18,7 +18,7 @@ function UserList(optionalUsers) {
   useEffect(() => {
     if (!!optionalUsers) {
       fetch("/api/users/all").then((res) => {
-        console.log("setting users", res.data);
+        
         return setUsers(res.data);
       });
     }
@@ -31,7 +31,7 @@ function UserList(optionalUsers) {
     e.preventDefault();
     try {
       const res = await createChatRoom(sessionUser, user);
-      console.log(res.data, "res.data99999");
+
       const chatRoomNumber = await res.data.chatRoomId;
       // const [...chatRoomUsers] = res.data.users;
       // console.log(chatRoomUsers, "chatRoomusers");

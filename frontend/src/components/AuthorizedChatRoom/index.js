@@ -15,11 +15,6 @@ const ChatRoom = () => {
   const [authorizedUsers, setAuthorizedUsers] = useState();
   const fetchAuthorizedUsers = async function () {
     const res = await fetch(`/api/chatroom/${chatRoomId}`);
-    console.log(res);
-    console.log("%%%%%%%%%%%%%%%%%");
-    console.log("%%%%%%%%%%%%%%%%%");
-    console.log("%%%%%%%%%%%%%%%%%");
-    console.log("%%%%%%%%%%%%%%%%%");
     setAuthorizedUsers(res);
   };
 

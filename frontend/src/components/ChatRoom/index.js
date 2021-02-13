@@ -9,7 +9,6 @@ import "./chatroom.css";
 
 const ChatRoom = () => {
   const { chatRoomId } = useParams();
-  console.log(chatRoomId);
 
   // SESSION USER
   const sessionUser = useSelector((state) => state.session.user);
@@ -33,10 +32,6 @@ const ChatRoom = () => {
   const webSocket = useRef(null);
 
   useEffect(() => {
-    console.log(authorizedUsers, "here is authorized Users");
-  }, [authorizedUsers]);
-
-  useEffect(() => {
     if (!username) {
       return;
     }
@@ -45,7 +40,6 @@ const ChatRoom = () => {
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
 
     ws.onopen = () => {
-      console.log("where is chatRoomId", chatRoomId);
       sendMessage("add-new-person", {
         userId,
         username,
@@ -62,8 +56,8 @@ const ChatRoom = () => {
         case "start-message-session":
         case "update-message-session":
         case "end-message-session":
-          console.log("line 69, message.data", message.data);
-          // debugger;
+
+          // debugger ==> for seeing the message.data before it's set;
           setMessageSession(message.data);
           break;
         default:

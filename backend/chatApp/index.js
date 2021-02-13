@@ -115,25 +115,3 @@ wss.on("connection", (ws) => {
     }
   });
 });
-
-app.get("/salmon", async (req, res, next) => {
-  // const { id } = req.query;
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("hello");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  try {
-    res.json({ userId: User.checkOnlineStatusById(id) });
-  } catch (e) {
-    next(e);
-  }
-});

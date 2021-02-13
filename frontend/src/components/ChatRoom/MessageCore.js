@@ -10,15 +10,15 @@ const MessageCore = ({
   sendChat,
 }) => {
   const [msg, setMsg] = useState("");
-  useEffect(() => {
-    if (messageSession && messageSession.messages) {
-      console.log(
-        "messageSession.messages",
-        messageSession.messages,
-        messageSession.messages.map((m) => [m.name, m.text])
-      );
-    }
-  }, [messageSession]);
+  // useEffect(() => {
+  //   if (messageSession && messageSession.messages) {
+  //     console.log(
+  //       "messageSession.messages",
+  //       messageSession.messages,
+  //       messageSession.messages.map((m) => [m.name, m.text])
+  //     );
+  //   }
+  // }, [messageSession]);
 
   const handleChatSubmit = (e) => {
     e.preventDefault();
@@ -26,25 +26,29 @@ const MessageCore = ({
     setMsg("");
   };
 
-  const personsName = (name, short = false) =>
-    name === username ? (short ? "Me" : `Me (${name})`) : name;
-  const PersonsNames = () => {
-    // console.log("messageSession --->", messageSession);
-    // return messageSession.authorizedUsers.map((u) => {
-    //   return <p>{u}</p>;
-    // });
-    // return messageSession.person1.username === username ? (
-    //   <>
-    //     <div>{personsName(messageSession.person2.username)}</div>
-    //     <div>{personsName(messageSession.person1.username)}</div>
-    //   </>
-    // ) : (
-    //   <>
-    //     <div>{personsName(messageSession.person1.username)}</div>
-    //     <div>{personsName(messageSession.person2.username)}</div>
-    //   </>
-    // );
-  };
+  //
+  //
+  // TODO:
+  //
+  // const personsName = (name, short = false) =>
+  //   name === username ? (short ? "Me" : `Me (${name})`) : name;
+  // const PersonsNames = () => {
+  //   console.log("messageSession --->", messageSession);
+  //   return messageSession.authorizedUsers.map((u) => {
+  //     return <p>{u}</p>;
+  //   });
+  //   return messageSession.person1.username === username ? (
+  //     <>
+  //       <div>{personsName(messageSession.person2.username)}</div>
+  //       <div>{personsName(messageSession.person1.username)}</div>
+  //     </>
+  //   ) : (
+  //     <>
+  //       <div>{personsName(messageSession.person1.username)}</div>
+  //       <div>{personsName(messageSession.person2.username)}</div>
+  //     </>
+  //   );
+  // };
 
   return (
     <div>
@@ -61,14 +65,7 @@ const MessageCore = ({
             <div>
               <div>
                 {messageSession.messages.map((m) => (
-                  <p
-                    key={nanoid()}
-                    // className={
-                    //   m.username === username
-                    //     ? styles.individual_message_right
-                    //     : styles.individual_message_left
-                    // }
-                  >
+                  <p key={nanoid()}>
                     {/* <span className={styles.person_name}>
                       <b>{personsName(m.username, true)}</b>
                     </span> */}

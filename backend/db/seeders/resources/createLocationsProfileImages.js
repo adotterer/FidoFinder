@@ -75,7 +75,6 @@ const randomStatus = () => {
   return statues[Math.floor(Math.random() * Math.floor(statues.length))];
 };
 
-// console.log(faker.image.avatar());
 const userArray = [
   {
     email: "demo@user.io",

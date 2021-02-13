@@ -24,13 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   UserDetail.createDetailsFindLocation = async function (location, userId) {
     const locationObj = await createLocationObj(location);
-    console.log("$$$$$$$$$$$$$$$$$$$$$$");
-    console.log("$$$$$$$$$$$$$$$$$$$$$$");
-    console.log("$$$$$$$$$$$$$$$$$$$$$$");
-    console.log("$$$$$$$$$$$$$$$$$$$$$$");
-    console.log("$$$$$$$$$$$$$$$$$$$$$$");
-    console.log(locationObj);
-    console.log(userId);
+
     try {
       UserDetail.create({
         liveLocationLat: locationObj.lat,
@@ -44,11 +38,6 @@ module.exports = (sequelize, DataTypes) => {
     } catch (e) {
       console.error(e);
     }
-    console.log("$$$$$$$$$$$$$$$$$$$$$$");
-    console.log("$$$$$$$$$$$$$$$$$$$$$$");
-    console.log("$$$$$$$$$$$$$$$$$$$$$$");
-    console.log("$$$$$$$$$$$$$$$$$$$$$$");
-    console.log("$$$$$$$$$$$$$$$$$$$$$$");
   };
   return UserDetail;
 };
