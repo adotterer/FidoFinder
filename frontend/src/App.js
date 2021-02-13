@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-// import LoginFormPage from "./components/LoginFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SignUp from "./components/SignUp";
 import ChatRoom from "./components/ChatRoom";
 import UserList from "./components/UserList";
 import GreetingPage from "./components/GreetingPage";
-import NearbyUsers from "./components/NearbyUsers";
+import UserProfile from "./components/UserProfile";
+// import NearbyUsers from "./components/NearbyUsers";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +38,9 @@ function App() {
               </Route>
               <Route exact path="/chatroom/:chatRoomId">
                 <ChatRoom />
+              </Route>
+              <Route exact path="/user/:userId">
+                <UserProfile />
               </Route>
             </Switch>
           </div>
