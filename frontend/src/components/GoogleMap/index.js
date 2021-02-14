@@ -11,18 +11,7 @@ function Pin(props) {
   const history = useHistory();
   // console.log("pin", props);
   return (
-    <Link
-      key={props.pinUser.id}
-      onClick={async (event) => {
-        event.preventDefault();
-        const chatRoomNumber = await createChatRoomEvent(
-          event,
-          props.sessionUser,
-          props.pinUser
-        );
-        return history.push(`/chatroom/${chatRoomNumber}`);
-      }}
-    >
+    <Link key={props.pinUser.id} to={`/user/${props.pinUser.id}`}>
       <GiSittingDog style={{ color: "black", fontSize: "3em" }} />
     </Link>
   );
