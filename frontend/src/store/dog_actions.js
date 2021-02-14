@@ -1,0 +1,56 @@
+import { fetch } from "./csrf.js";
+
+const SET_NEW_DOG = "dog/addDog";
+
+const setNewDog = (dog) => {
+  return {
+    type: SET_NEW_DOG,
+    dog,
+  };
+};
+
+export const addDog = (dog) => async (dispatch) => {
+  const { dogName, birthday, itemImage, interests, ownerId } = dog;
+
+  const formData = new FormData();
+  formData.append("dogName", dogName);
+  formData.append("birthday", birthday);
+  formData.append("itemImage", itemImage);
+  formData.append("interests", interests);
+  formData.append("ownerId", ownerId);
+
+  // for multiple files
+  if (itemImages && itemImages.length !== 0) {
+    for (var i = 0; i < itemImages.length; i++) {
+      formData.append("images", itemImages[i]);
+    }
+  }
+
+  // for single file
+  if (itemImage) formData.append("image", itemImage);
+
+  const response = await fetch(`/api/offer-item/`, {
+    method: "POST",
+    body: formData,
+  });
+
+  dispatch(setItem(response.data.item));
+};
+
+const initialState = {};
+
+const itemReducer = (state = initialState, action) => {
+  let newState;
+  switch (action.type) {
+    case SET_ITEM:
+      newState = Object.assign({}, state);
+      newState.item = action.payload;
+      return newState;
+    case REMOVE_ITEM:
+      newState = Object.assign({}, state);
+      newState.item = null;
+      return newState;
+    default:
+      return state;
+  }
+};
