@@ -14,7 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       userId: DataTypes.INTEGER,
       profileImageId: DataTypes.INTEGER,
     },
-    {}
+    {
+      defaultScope: {
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      },
+    }
   );
   UserDetail.associate = function (models) {
     // associations can be defined here

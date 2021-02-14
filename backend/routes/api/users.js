@@ -61,7 +61,6 @@ router.get(
       order: [["createdAt", "DESC"]],
       limit: 100,
     });
-    console.log(nearbyUsers);
     // const userDetails = nearbyUsers.map(async (u) => await u.getUserDetail());
 
     res.json({ nearbyUsers, currentLocation: { lat, lng } });

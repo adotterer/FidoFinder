@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function UserProfile() {
   const { userId } = useParams();
   const [userProfile, setUserProfile] = useState();
+  const sessionUser = useSelector((state) => state.session.user);
+  
   if (!userProfile) {
     fetch(`/api/user/${userId}`)
       .then((res) => {
@@ -16,12 +19,24 @@ function UserProfile() {
     console.log(userProfile);
   }, [userProfile]);
 
-  return (
-    <div>
-      <h1>UserProfile</h1>
-      <span>userId: {userId}</span>
-    </div>
-  );
+  if (userProfile) {
+    return (
+      <div>
+        <h1>{userProfile.firstName}'s Profile</h1>
+        <div>
+          <div>username: {userProfile.username}</div>
+          <div>status: {userProfile.UserDetail.status}</div>
+          <div>
+            {userProfile.Dogs.length > 0
+              ? "this user has dogs"
+              : "this user has no dogs"}
+          </div>
+        </div>
+      </div>
+    );
+  } else {
+    return <div>loading.....</div>;
+  }
 }
 
 export default UserProfile;
