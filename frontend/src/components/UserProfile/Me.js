@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import createChatRoomEvent from "../../utils/createChatRoomEvent";
+import NewDogModal from "../NewDogModal";
 
 function ProfileMe({ userId, dogs }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -10,7 +11,7 @@ function ProfileMe({ userId, dogs }) {
   else {
     return (
       <div>
-        <button>Add new dog</button>
+        <NewDogModal />
       </div>
     );
   }
