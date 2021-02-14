@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import createChatRoomEvent from "../../utils/createChatRoomEvent";
 
 function UserProfile() {
   const { userId } = useParams();
   const [userProfile, setUserProfile] = useState();
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
-  
+
   if (!userProfile) {
     fetch(`/api/user/${userId}`)
       .then((res) => {
@@ -28,8 +30,25 @@ function UserProfile() {
           <div>status: {userProfile.UserDetail.status}</div>
           <div>
             {userProfile.Dogs.length > 0
-              ? "this user has dogs"
+              ? `this user has ${userProfile.Dogs.length} dogs`
               : "this user has no dogs"}
+          </div>
+          <div>
+            {sessionUser.id !== userProfile.id && (
+              <button
+                onClick={async (event) => {
+                  event.preventDefault();
+                  const chatRoomNumber = await createChatRoomEvent(
+                    event,
+                    sessionUser,
+                    userProfile
+                  );
+                  return history.push(`/chatroom/${chatRoomNumber}`);
+                }}
+              >
+                Chat With This Owner
+              </button>
+            )}
           </div>
         </div>
       </div>

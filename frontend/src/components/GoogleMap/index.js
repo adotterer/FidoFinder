@@ -4,29 +4,8 @@ import UserList from "../UserList";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { GiSittingDog } from "react-icons/gi";
-
+import createChatRoomEvent from "../../utils/createChatRoomEvent";
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-const createChatRoom = async (sessionUser, user) => {
-  const res = await fetch(
-    `/api/chatroom/add?sessionUserId=${sessionUser.id}&&otherUserId=${user.id}&&sessionUsername=${sessionUser.username}&&otherUsername=${user.username}`
-  );
-  console.log("this is res", res);
-  return await res.json();
-};
-const createChatRoomEvent = async (event, sessionUser, user) => {
-  // console.log(user, "this is user!!");
-  try {
-    const res = await createChatRoom(sessionUser, user);
-    // const jsonparse = JSON.parse(res);
-    const chatRoomNumber = res.chatRoomId;
-    // console.log("JSONPARSE", jsonparse);
-    return chatRoomNumber;
-    // history.push(`/chatroom/${chatRoomNumber}`);
-  } catch (e) {
-    console.error("FAILED TO GET CHAT ROOM NUMBER");
-  }
-};
 
 function Pin(props) {
   const history = useHistory();
@@ -41,7 +20,6 @@ function Pin(props) {
           props.sessionUser,
           props.pinUser
         );
-
         return history.push(`/chatroom/${chatRoomNumber}`);
       }}
     >
@@ -74,7 +52,6 @@ function SimpleMap({ center, nearbyUsers }) {
       >
         {mappedUsers.length > 0 &&
           mappedUsers.map((user) => {
-            
             return (
               <Pin
                 sessionUser={sessionUser}

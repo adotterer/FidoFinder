@@ -25,7 +25,7 @@ function NearbyUsers() {
 
   return (
     <div>
-      <h1>Here are nearby users: </h1>
+      <h1>Users near you: </h1>
 
       {locationInfo.currentLocation ? (
         <SimpleMap
