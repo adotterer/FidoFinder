@@ -1,6 +1,4 @@
 "use strict";
-const User = require("./user");
-const user_chatRoom = require("./user_chatRoom");
 
 module.exports = (sequelize, DataTypes) => {
   const ChatRoom = sequelize.define(
