@@ -5,6 +5,7 @@ const chatRouter = require("./chat.js");
 const chatRoomRouter = require("./chatRoom.js");
 const ipAddressRouter = require("./ipAddress.js");
 const userProfileRouter = require("./userprofile.js");
+const dogProfileRouter = require("./dogProfile.js");
 
 // GET /api/set-token-cookie
 const asyncHandler = require("express-async-handler");
@@ -54,6 +55,8 @@ router.use("/chatroom", chatRoomRouter);
 router.use("/ipAddress", ipAddressRouter);
 
 router.use("/user", userProfileRouter); // SINGULAR USER for profile use only
+
+router.use("/dogProfile", userProfileRouter);
 
 // dog profile route goes here
 
