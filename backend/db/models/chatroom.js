@@ -1,5 +1,5 @@
 "use strict";
-const User = require("./User");
+const User = require("./user");
 const user_chatRoom = require("./user_chatRoom");
 
 module.exports = (sequelize, DataTypes) => {
