@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 // name of your bucket here
-const greenGrabBucket = "green-grab-bucket";
+const fidoFinderBucket = "fido-finder-bucket";
 
 const multer = require("multer");
 
@@ -19,7 +19,7 @@ const singlePublicFileUpload = async (file) => {
   // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
   const uploadParams = {
-    Bucket: greenGrabBucket,
+    Bucket: fidoFinderBucket,
     Key,
     Body: buffer,
     ACL: "public-read",
@@ -46,7 +46,7 @@ const singlePrivateFileUpload = async (file) => {
   // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
   const uploadParams = {
-    Bucket: greenGrabBucket,
+    Bucket: fidoFinderBucket,
     Key,
     Body: buffer,
   };
@@ -68,7 +68,7 @@ const retrievePrivateFile = (key) => {
   let fileUrl;
   if (key) {
     fileUrl = s3.getSignedUrl("getObject", {
-      Bucket: greenGrabBucket,
+      Bucket: fidoFinderBucket,
       Key: key,
     });
   }

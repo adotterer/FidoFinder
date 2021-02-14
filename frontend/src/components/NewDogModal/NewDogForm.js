@@ -1,17 +1,25 @@
 import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { addDog } from "../../store/dog_actions";
+import { useSelector } from "react-redux";
 
 function NewDogForm() {
+  const history = useHistory();
   const dispatch = useDispatch();
-
+  const sessionUser = useSelector((state) => state.session.user);
   const [dogName, setDogName] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [dogImage, setDogImage] = useState();
 
   const [errors, setErrors] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("here is dogName and birthday", dogName, birthday);
+    if (!sessionUser) return;
+    await addDog(dogName, birthday, dogImage);
+
+    history.push("/");
   };
 
   return (
@@ -41,7 +49,23 @@ function NewDogForm() {
             required
           />
         </label>
-
+        <img
+          className="img__preview"
+          src={dogImage ? URL.createObjectURL(dogImage) : null}
+        />
+        <br />
+        <label>
+          <h3>Upload Image</h3>
+          <div>
+            <input
+              name="sampleFile"
+              type="file"
+              onChange={(e) => setDogImage(e.target.files[0])}
+              accept="image/x-png,image/gif,image/jpeg"
+              required
+            />
+          </div>
+        </label>
         <button type="submit">Submit</button>
       </form>
     </div>

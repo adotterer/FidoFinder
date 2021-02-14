@@ -10,7 +10,7 @@ const setNewDog = (dog) => {
 };
 
 export const addDog = (dog) => async (dispatch) => {
-  const { dogName, birthday, itemImage, interests, ownerId } = dog;
+  const { dogName, birthday, dogImage, interests, ownerId } = dog;
 
   const formData = new FormData();
   formData.append("dogName", dogName);
@@ -26,9 +26,9 @@ export const addDog = (dog) => async (dispatch) => {
   // }
 
   // for single file
-  if (itemImage) formData.append("image", itemImage);
+  if (dogImage) formData.append("image", dogImage);
 
-  const response = await fetch(`/api/dogProfile`, {
+  const response = await fetch(`/api/dogProfile/add`, {
     method: "POST",
     body: formData,
   });
