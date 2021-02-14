@@ -15,7 +15,7 @@ function NewDogForm() {
   };
 
   return (
-    <div style={{ minWidth: "35rem" }}>
+    <div style={{ minWidth: "30rem" }}>
       <h1>Create a new dog profile</h1>
       <form onSubmit={handleSubmit}>
         <ul>
