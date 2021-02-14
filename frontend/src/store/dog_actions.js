@@ -15,42 +15,43 @@ export const addDog = (dog) => async (dispatch) => {
   const formData = new FormData();
   formData.append("dogName", dogName);
   formData.append("birthday", birthday);
-  formData.append("itemImage", itemImage);
   formData.append("interests", interests);
   formData.append("ownerId", ownerId);
 
   // for multiple files
-  if (itemImages && itemImages.length !== 0) {
-    for (var i = 0; i < itemImages.length; i++) {
-      formData.append("images", itemImages[i]);
-    }
-  }
+  // if (itemImages && itemImages.length !== 0) {
+  //   for (var i = 0; i < itemImages.length; i++) {
+  //     formData.append("images", itemImages[i]);
+  //   }
+  // }
 
   // for single file
   if (itemImage) formData.append("image", itemImage);
 
-  const response = await fetch(`/api/offer-item/`, {
+  const response = await fetch(`/api/dogProfile`, {
     method: "POST",
     body: formData,
   });
 
-  dispatch(setItem(response.data.item));
+  dispatch(setNewDog(response.data.dog));
 };
 
 const initialState = {};
 
-const itemReducer = (state = initialState, action) => {
+function reducer(state = initialState, action) {
   let newState;
   switch (action.type) {
-    case SET_ITEM:
+    case SET_NEW_DOG:
       newState = Object.assign({}, state);
-      newState.item = action.payload;
+      newState = action.dog;
       return newState;
-    case REMOVE_ITEM:
-      newState = Object.assign({}, state);
-      newState.item = null;
-      return newState;
+    // case REMOVE_ITEM:
+    //   newState = Object.assign({}, state);
+    //   newState.item = null;
+    //   return newState;
     default:
       return state;
   }
-};
+}
+
+export default reducer;
