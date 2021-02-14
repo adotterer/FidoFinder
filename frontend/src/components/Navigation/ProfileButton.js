@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { FaUserAlt } from "react-icons/fa";
-// FaUserAlt
+import "./Navigation.css";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -38,7 +39,11 @@ function ProfileButton({ user }) {
       </button> */}
       {showMenu && (
         <ul className="profile-dropdown">
-          <li>{user.username}</li>
+          <li>
+            <Link className="link__hover" to={`/user/${user.id}`}>
+              {user.username}
+            </Link>
+          </li>
           <li>{user.email}</li>
           <li>
             <button onClick={logout}>Log Out</button>

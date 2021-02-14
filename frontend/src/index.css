@@ -23,6 +23,16 @@ a {
   text-decoration: none;
 }
 
+a,
+a:visited,
+a:active {
+  color: rgb(2, 117, 143);
+}
+
+a:hover {
+  color: rgb(155, 208, 255);
+}
+
 button,
 input {
   border: 1px solid lightgrey;
@@ -41,7 +51,7 @@ button:hover {
 div#div__bodyContent {
   background-color: #f2f6fd;
   position: absolute;
-  margin-top: 12vh;
+  margin-top: 5rem;
   top: 0;
   bottom: 0;
   left: 0;
@@ -57,10 +67,8 @@ div#div__bodyContent {
 
 div#div__innerContent {
   height: 100%;
-  overflow: scroll;
   overflow-x: auto;
   overflow-y: auto;
-  /* border: 2px solid green; */
   padding: 1rem 1.6rem 0 1.6rem;
   min-width: 75vw;
   max-width: 80vw;

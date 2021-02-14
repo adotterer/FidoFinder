@@ -61,12 +61,12 @@ div.div__navIcons {
   padding-right: 12.5vw;
 }
 ul.ul__navIcons {
-  /* outline: 5px solid green; */
   height: 100%;
 }
 ul.ul__navIcons,
 ul.ul__navIcons li {
   display: inline-block;
+  cursor: default;
 }
 
 li.li__buttonIcons {
@@ -86,4 +86,8 @@ li.li__buttonIcons:hover {
 #img__logo {
   height: 4rem;
   margin-right: 2rem;
+}
+
+.link__hover:hover {
+  color: rgb(155, 208, 255);
 }
