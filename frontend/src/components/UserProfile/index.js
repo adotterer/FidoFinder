@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import createChatRoomEvent from "../../utils/createChatRoomEvent";
+import ProfileMe from "./Me";
 
 function UserProfile() {
   const { userId } = useParams();
@@ -34,6 +35,7 @@ function UserProfile() {
               : "this user has no dogs"}
           </div>
           <div>
+            <ProfileMe userId={userId} dogs={userProfile.Dogs} />
             {sessionUser.id !== userProfile.id && (
               <button
                 onClick={async (event) => {

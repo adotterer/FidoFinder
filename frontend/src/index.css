@@ -25,10 +25,15 @@ a {
 
 button,
 input {
-  border: 0;
+  border: 1px solid lightgrey;
   outline: 0;
+  padding: 15px;
+  border-radius: 15px;
 }
 
+button:hover {
+  border: 1px solid rgb(159, 212, 230);
+}
 .div-hidden {
   display: hidden;
 }

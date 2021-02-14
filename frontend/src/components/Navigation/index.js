@@ -6,6 +6,7 @@ import LoginFormModal from "../LoginFormModal";
 import { GiDogHouse } from "react-icons/gi";
 import { IoIosChatbubbles } from "react-icons/io";
 import "./Navigation.css";
+import logo from "./logo_3-black.png";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -41,8 +42,8 @@ function Navigation({ isLoaded }) {
     <div id="div__nav-bar">
       <NavLink exact to="/">
         <div class="div__logo">
-          <GiDogHouse style={{ fontSize: "1.4em", paddingRight: "0.4em" }} />
-          {/* Fido411 / FidoApp / */}FidoApp
+          <img id="img__logo" src={logo} />
+          {/* Fido411 / FidoApp / */}FidoFinder
         </div>
       </NavLink>
       <div class="div__navIcons">

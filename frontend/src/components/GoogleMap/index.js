@@ -5,7 +5,6 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { GiSittingDog } from "react-icons/gi";
 import createChatRoomEvent from "../../utils/createChatRoomEvent";
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 function Pin(props) {
   const history = useHistory();
