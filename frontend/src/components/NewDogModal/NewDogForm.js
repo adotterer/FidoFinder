@@ -12,6 +12,8 @@ function NewDogForm() {
   const [dogName, setDogName] = useState("");
   const [birthday, setBirthday] = useState("");
   const [dogImage, setDogImage] = useState();
+  const [interests, setInterests] = useState();
+  const [showDogModal, setShowDogModal] = useState(true);
 
   const [errors, setErrors] = useState([]);
 
@@ -19,12 +21,13 @@ function NewDogForm() {
     e.preventDefault();
     if (!sessionUser) return;
 
-    dispatch(addDog({ dogName, birthday, dogImage }))
-      .then(() => {
-        setDogName("");
-        setBirthday("");
-      })
-
+    dispatch(addDog({ dogName, birthday, interests, dogImage })).then(() => {
+      setDogName("");
+      setBirthday("");
+      setInterests("");
+      setDogImage(null);
+      setShowDogModal(false);
+    });
   };
 
   return (
@@ -52,6 +55,14 @@ function NewDogForm() {
             value={birthday}
             onChange={(e) => setBirthday(e.target.value)}
             required
+          />
+        </label>
+        <label>
+          Interests
+          <input
+            type="text"
+            value={interests}
+            onChange={(e) => setInterests(e.target.value)}
           />
         </label>
         <img

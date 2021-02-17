@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Dog, DogProfile } = require("../../db/models");
-const { Op } = require("sequelize");
+const { Dog, DogProfile, Image } = require("../../db/models");
+// const { Op } = require("sequelize");
 const asyncHandler = require("express-async-handler");
 const { requireAuth } = require("../../utils/auth");
 const {
@@ -22,22 +22,35 @@ router.post(
   requireAuth,
   singleMulterUpload("image"),
   asyncHandler(async (req, res) => {
-    const { dogName, birthday, dogImage } = req.body;
+    const { dogName, birthday, interests, dogImage } = req.body;
 
-    console.log("req.file", req.file);
-
+    let dogProfileImgUrl;
     try {
-      const dogProfileImgUrl = await singlePublicFileUpload(req.file);
+      dogProfileImgUrl = await singlePublicFileUpload(req.file);
     } catch (e) {
       console.error(e);
     }
 
-    // const dogProfilePicUrl = await singlePublicFileUpload(req.file);
-    // const imageUrlId = await Image.addImage(dogProfilePicUrl);
+    const owner = req.user.toJSON();
 
-    // console.log(dogProfilePicUrl, "dogProfilePicUrl");
-    // console.log(imageUrlId, "imageUrlId ;)");
-    res.json({ msg: "hello from post request" });
+    const profileImageId = await Image.addImage(dogProfileImgUrl);
+
+    const newDog = await Dog.create(
+      {
+        name: dogName,
+        birthday,
+        profileImageId,
+        ownerId: owner.id,
+        vaccination: null,
+      },
+      { returning: true }
+    );
+
+    const createDogProfile = await DogProfile.create({
+      interests,
+      dogId: newDog.id,
+    });
+    res.json({ newDog, createDogProfile });
   })
 );
 
