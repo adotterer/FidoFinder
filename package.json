@@ -25,5 +25,8 @@
     "url": "https://github.com/adotterer/PupHub/issues"
   },
   "homepage": "https://github.com/adotterer/PupHub#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "socket.io": "^3.1.1"
+  }
 }

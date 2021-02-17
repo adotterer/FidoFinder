@@ -4,6 +4,7 @@ const { port } = require("../config");
 
 const app = require("../app");
 const db = require("../db/models");
+// const io = require("../sockets");
 
 // Check the database connection before starting the app
 db.sequelize
@@ -11,10 +12,10 @@ db.sequelize
   .then(() => {
     console.log("Database connection success! Sequelize is ready to use...");
 
-    // Start listening for connections
-    app.listen(port, () => console.log(`Listening on port ${port}...`));
-    // const server = app.listen(HTTPServer-instance)
-    // wss = new WebSocket.Server({ server });
+    const http = app.listen(port, () =>
+      console.log(`Listening on port ${port}...`)
+    );
+    require("../sockets").attach(http);
   })
   .catch((err) => {
     console.log("Database connection failure.");

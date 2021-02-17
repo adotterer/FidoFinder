@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
-const chatRouter = require("./chat.js");
+// const chatRouter = require("./chat.js");
 const chatRoomRouter = require("./chatRoom.js");
 const ipAddressRouter = require("./ipAddress.js");
 const userProfileRouter = require("./userprofile.js");
@@ -48,7 +48,7 @@ router.use("/session", sessionRouter);
 
 router.use("/users", usersRouter);
 
-router.use("/chat", chatRouter);
+// router.use("/chat", chatRouter);
 
 router.use("/chatroom", chatRoomRouter);
 
