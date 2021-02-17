@@ -56,7 +56,7 @@ router.use("/ipAddress", ipAddressRouter);
 
 router.use("/user", userProfileRouter); // SINGULAR USER for profile use only
 
-router.use("/dogProfile", userProfileRouter);
+router.use("/dogProfile", dogProfileRouter);
 
 // dog profile route goes here
 

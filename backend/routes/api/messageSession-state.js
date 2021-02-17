@@ -43,9 +43,6 @@ class MessageSession {
 }
 
 class GlobalChatStore {
-  // constructor() {
-  //   this.store = {};
-  // }
 
   addNewChatSession(messageSession) {
     return (this[`chatRoomNum${messageSession.chatRoomId}`] = messageSession);

@@ -9,17 +9,27 @@ const {
   singleMulterUpload,
 } = require("../../utils/awsS3");
 
+router.get(
+  "/",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    console.log("hello from router get");
+  })
+);
+
 router.post(
   "/add",
   requireAuth,
+  singleMulterUpload("image"),
   asyncHandler(async (req, res) => {
-    const { dogName, birthday, interests, ownerId } = req.body;
+    console.log(typeof req);
 
-    const dogProfilePicUrl = await singlePublicFileUpload(req.file);
-    const imageUrlId = await Image.addImage(dogProfilePicUrl);
+    console.log(req.body);
+    // const dogProfilePicUrl = await singlePublicFileUpload(req.file);
+    // const imageUrlId = await Image.addImage(dogProfilePicUrl);
 
-    console.log(dogProfilePicUrl, "dogProfilePicUrl");
-    console.log(imageUrlId, "imageUrlId ;)");
+    // console.log(dogProfilePicUrl, "dogProfilePicUrl");
+    // console.log(imageUrlId, "imageUrlId ;)");
     res.json({ msg: "hello from post request" });
   })
 );

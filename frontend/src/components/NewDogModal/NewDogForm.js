@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addDog } from "../../store/dog_actions";
 import { useSelector } from "react-redux";
+import { fetch } from "../../store/csrf.js";
 
 function NewDogForm() {
   const history = useHistory();
@@ -17,9 +18,13 @@ function NewDogForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!sessionUser) return;
-    await addDog(dogName, birthday, dogImage);
 
-    history.push("/");
+    dispatch(addDog({ dogName, birthday }))
+      .then(() => {
+        setDogName("");
+        setBirthday("");
+      })
+      
   };
 
   return (
