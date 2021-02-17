@@ -33,7 +33,7 @@ function SimpleMap({ center, nearbyUsers }) {
     // Important! Always set the container height explicitly
     <div style={{ height: "80vh", width: "100%" }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: process.env.GOOGLE_API_SECRET }}
+        bootstrapURLKeys={{ key: "AIzaSyDT_KxxLpoLwmlk3sXLpayAvW9z9_RodME" }}
         // defaultCenter={center}
         center={center}
         defaultZoom={12}

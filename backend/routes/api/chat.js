@@ -1,9 +1,10 @@
 const { Console } = require("console");
 const express = require("express");
 const router = express.Router();
-const { createServer } = require("http");
+const server = router.listen(7070);
+// const { createServer } = require("http");
 const WebSocket = require("ws");
-const server = createServer(router).listen(7070);
+// const server = createServer(router)
 const { User, ChatRoom, user_chatRoom } = require("../../db/models");
 const {
   MessageSession,
