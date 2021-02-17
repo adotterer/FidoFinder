@@ -130,7 +130,7 @@ const processIncomingMessage = (jsonData, ws) => {
 };
 
 let wss;
-wss = new WebSocket.Server({ server });
+wss = new WebSocket({ server });
 
 wss.on("connection", (ws) => {
   ws.on("message", (jsonData) => {
