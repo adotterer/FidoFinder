@@ -19,12 +19,12 @@ function NewDogForm() {
     e.preventDefault();
     if (!sessionUser) return;
 
-    dispatch(addDog({ dogName, birthday }))
+    dispatch(addDog({ dogName, birthday, dogImage }))
       .then(() => {
         setDogName("");
         setBirthday("");
       })
-      
+
   };
 
   return (

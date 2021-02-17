@@ -22,9 +22,16 @@ router.post(
   requireAuth,
   singleMulterUpload("image"),
   asyncHandler(async (req, res) => {
-    console.log(typeof req);
+    const { dogName, birthday, dogImage } = req.body;
 
-    console.log(req.body);
+    console.log("req.file", req.file);
+
+    try {
+      const dogProfileImgUrl = await singlePublicFileUpload(req.file);
+    } catch (e) {
+      console.error(e);
+    }
+
     // const dogProfilePicUrl = await singlePublicFileUpload(req.file);
     // const imageUrlId = await Image.addImage(dogProfilePicUrl);
 

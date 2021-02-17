@@ -9,8 +9,9 @@ const setNewDog = (dog) => {
   };
 };
 
-export const addDog = ({ dogName, birthday }) => async (dispatch) => {
+export const addDog = ({ dogName, birthday, dogImage }) => async (dispatch) => {
   const formData = new FormData();
+  console.log("About to add ", dogName, "and", " ", birthday, "to form");
   formData.append("dogName", dogName);
   formData.append("birthday", birthday);
   // formData.append("interests", interests);
@@ -24,17 +25,16 @@ export const addDog = ({ dogName, birthday }) => async (dispatch) => {
   // }
 
   // for single file
-  // if (dogImage) formData.append("image", dogImage);
+  if (dogImage) formData.append("image", dogImage);
 
   const response = await fetch(`/api/dogProfile/add`, {
     method: "POST",
     headers: {
       "Content-Type": "multipart/form-data",
     },
-    body: { dogName, birthday },
+    body: formData,
   });
   const dog = await response;
-  console.log("RESPONSE", dog);
 
   dispatch(setNewDog(dog));
 };
