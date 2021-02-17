@@ -13,6 +13,8 @@ db.sequelize
 
     // Start listening for connections
     app.listen(port, () => console.log(`Listening on port ${port}...`));
+  
+    // wss = new WebSocket.Server({ server });
   })
   .catch((err) => {
     console.log("Database connection failure.");
