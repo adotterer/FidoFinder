@@ -13,7 +13,6 @@ function NewDogForm() {
   const [birthday, setBirthday] = useState("");
   const [dogImage, setDogImage] = useState();
   const [interests, setInterests] = useState();
-  const [showDogModal, setShowDogModal] = useState(true);
 
   const [errors, setErrors] = useState([]);
 
@@ -26,7 +25,6 @@ function NewDogForm() {
       setBirthday("");
       setInterests("");
       setDogImage(null);
-      setShowDogModal(false);
     });
   };
 

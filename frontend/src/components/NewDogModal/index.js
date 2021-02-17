@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import NewDogForm from "./NewDogForm";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleDogModal } from "../../store/dog_actions";
 
 function NewDogModal() {
   const [showDogModal, setShowDogModal] = useState(false);
+  const dispatch = useDispatch();
+
+  const newDogRedux = useSelector((state) => state.newDog);
 
   return (
     <>
-      <button onClick={() => setShowDogModal(true)}>Add a new dog</button>
-      {showDogModal && (
-        <Modal onClose={() => setShowDogModal(false)}>
+      <button onClick={() => dispatch(toggleDogModal(true))}>
+        Add a new dog
+      </button>
+      {newDogRedux.open && (
+        <Modal onClose={() => dispatch(toggleDogModal(false))}>
           <NewDogForm />
         </Modal>
       )}

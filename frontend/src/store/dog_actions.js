@@ -1,12 +1,24 @@
 import { fetch } from "./csrf.js";
 
 const SET_NEW_DOG = "dog/addDog";
+const SET_MODAL = "modal/toggle";
 
 const setNewDog = (dog) => {
   return {
     type: SET_NEW_DOG,
     dog,
   };
+};
+
+const setDogModal = (open) => {
+  return {
+    type: SET_MODAL,
+    open,
+  };
+};
+
+export const toggleDogModal = (open) => async (dispatch) => {
+  dispatch(setDogModal(open));
 };
 
 export const addDog = ({ dogName, birthday, interests, dogImage }) => async (
@@ -35,7 +47,7 @@ export const addDog = ({ dogName, birthday, interests, dogImage }) => async (
     body: formData,
   });
 
-  dispatch(setNewDog(newDog));
+  dispatch(setNewDog(newDog.data));
 };
 
 const initialState = {};
@@ -43,6 +55,9 @@ const initialState = {};
 function reducer(state = initialState, action) {
   let newState;
   switch (action.type) {
+    case SET_MODAL:
+      newState = { ...state, open: action.open };
+      return newState;
     case SET_NEW_DOG:
       newState = Object.assign({}, state);
       newState = action.dog;
