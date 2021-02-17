@@ -1,10 +1,14 @@
 const { Console } = require("console");
 const express = require("express");
 const router = express.Router();
-// const server = router.listen(7070); fuck this shit
+const port = process.env.WEBPORT || 7070;
 const { createServer } = require("http");
-const WebSocket = require("ws");
-const server = createServer(router).listen(process.env.WEBPORT);
+const WebSocket = require("ws").Server;
+router.use(express.static(__dirname + "/"));
+const server = createServer(router).listen(port);
+
+console.log("http server listening on %d", port);
+
 const { User, ChatRoom, user_chatRoom } = require("../../db/models");
 const {
   MessageSession,
