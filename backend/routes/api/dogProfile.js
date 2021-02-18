@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Dog, DogProfile, Image } = require("../../db/models");
+const { Dog, DogProfile, Image, ChatRoom } = require("../../db/models");
 // const { Op } = require("sequelize");
 const asyncHandler = require("express-async-handler");
 const { requireAuth } = require("../../utils/auth");
@@ -8,6 +8,16 @@ const {
   singlePublicFileUpload,
   singleMulterUpload,
 } = require("../../utils/awsS3");
+
+// TODO: DELETE
+router.get("/test", async (req, res) => {
+  ChatRoom.findByPk(1, {
+    include: ["ChattingUsers"],
+  }).then((result) => {
+    console.log(result.toJSON());
+    return res.send(result.toJSON());
+  });
+});
 
 router.get(
   "/",
