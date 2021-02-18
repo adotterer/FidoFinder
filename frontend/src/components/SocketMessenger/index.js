@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 
 export default function SocketMessenger() {
+  const { chatRoomId } = useParams();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [msg, setMsg] = useState("");
@@ -11,15 +13,14 @@ export default function SocketMessenger() {
 
   function onSubmit(e) {
     e.preventDefault();
-    liveSocket.emit("message", msg);
+    liveSocket.emit("message", msg, sessionUser, chatRoomId);
   }
 
   useEffect(() => {
-    console.log("helloooo use effect");
     const socket = io(undefined, {
       query: {
         type: "chat",
-        conversation: "hello",
+        chatRoomId,
       },
     });
     setLiveSocket(socket);

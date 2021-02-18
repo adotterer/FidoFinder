@@ -10,7 +10,7 @@ const setTokenCookie = (res, user) => {
   const token = jwt.sign(
     { data: user.toSafeObject() },
     secret,
-    { expiresIn: parseInt(expiresIn) }, // 604,800 seconds = 1 week
+    { expiresIn: parseInt(expiresIn) } // 604,800 seconds = 1 week
   );
 
   const isProduction = process.env.NODE_ENV === "production";
@@ -49,18 +49,55 @@ const restoreUser = (req, res, next) => {
   });
 };
 
+const socketRequireAuth = (socket, next) => {
+  try {
+    socket.handshake.headers &&
+      socket.handshake.headers.cookie &&
+      jwt.verify(
+        socket.handshake.headers.cookie.match(
+          /(?<=(\W+)token=)([a-zA-Z0-9-._]+)/
+        )[0],
+        secret,
+        null,
+        async (err, payload) => {
+          if (err) {
+            return socket.disconnect(true);
+          }
+
+          try {
+            const { id } = payload.data;
+            socket.user = await User.scope("currentUser").findByPk(id).toJSON();
+          } catch (payloadErr) {
+            return socket.disconnect(true);
+          }
+
+          if (!socket.user) return socket.disconnect(true);
+
+          return next();
+        }
+      );
+  } catch (err) {
+    return socket.disconnect(true);
+  }
+};
+
 // If there is no current user, return an error
 const requireAuth = [
   restoreUser,
   function (req, res, next) {
     if (req.user) return next();
 
-    const err = new Error('Unauthorized');
-    err.title = 'Unauthorized';
-    err.errors = ['Unauthorized'];
+    const err = new Error("Unauthorized");
+    err.title = "Unauthorized";
+    err.errors = ["Unauthorized"];
     err.status = 401;
     return next(err);
   },
 ];
 
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+module.exports = {
+  setTokenCookie,
+  restoreUser,
+  requireAuth,
+  socketRequireAuth,
+};

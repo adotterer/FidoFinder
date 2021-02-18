@@ -1,28 +1,31 @@
 const io = require("socket.io")();
 
 const db = require("./db/models");
-// const { socketRequireAuth } = require("./utils/auth");
+const { socketRequireAuth } = require("./utils/auth");
 
 const roomMap = {};
 const liveUsers = new Set();
 
-io.on("connection", (socket) => {
-  console.log("connected");
+//
+io.use(socketRequireAuth).on("connection", (socket) => {
+  console.log("Connected");
 
   const {
     user,
     handshake: {
-      query: { type, conversation },
+      query: { type, chatRoomId },
     },
   } = socket;
+
   switch (type) {
     case "chat":
-      console.log(conversation);
-      socket.on("message", (msg) => {
-        console.log(msg);
-        io.to(socket.id).emit("message", { msg: "hello back" });
+      console.log("chatRoomId", chatRoomId);
+      socket.on("message", (msg, chatRoomId) => {
+        // user.getConversations().then((convos) => {
+        //   io.to(socket.id).emit("message", { msg: convos.toJSON() });
+        // });
       });
-    // socket.emit("");
+      break;
   }
 });
 

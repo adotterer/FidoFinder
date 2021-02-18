@@ -6,19 +6,23 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
     },
-    {}
+    {
+      defaultScope: {
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      },
+    }
   );
 
   ChatRoom.associate = function (models) {
     const userMapping = {
-      through: "user_chatRoom",
+      as: "ChattingUsers",
+      through: models.user_chatRoom,
       otherKey: "userId",
       foreignKey: "chatRoomId",
     };
     ChatRoom.belongsToMany(models.User, userMapping);
-    ChatRoom.hasMany(models.user_chatRoom, {
-      foreignKey: "chatRoomId",
-    });
   };
   // ChatRoom.get
   // ChatRoom.getAuthorizedUsers = async (chatRoomId) => {

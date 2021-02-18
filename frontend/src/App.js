@@ -43,7 +43,7 @@ function App() {
               <Route exact path="/user/:userId">
                 <UserProfile />
               </Route>
-              <Route exact path="/socketmessage">
+              <Route exact path="/socketmessage/:chatRoomId">
                 <SocketMessenger />
               </Route>
             </Switch>
