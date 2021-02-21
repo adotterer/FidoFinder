@@ -87,21 +87,26 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
             }
           );
           // SEND MESSAGE TO DATABASE
-          console.log("+++++++++++++++++++++++++++");
-          console.log("+++++++++++++++++++++++++++");
-          console.log("+++++++++++++++++++++++++++");
-          console.log("+++++++++++++++++++++++++++");
-          console.log("+++++++++++++++++++++++++++");
-          console.log("msg", msg, user);
-          console.log("+++++++++++++++++++++++++++");
-          console.log("+++++++++++++++++++++++++++");
-          console.log("+++++++++++++++++++++++++++");
-          console.log("+++++++++++++++++++++++++++");
-          console.log("+++++++++++++++++++++++++++");
+          // TODO: ABSTRACT TO METHOD
+          db.Message.create({
+            userId: user.id,
+            chatRoomId,
+            message: msg,
+            read: true,
+          });
         } else {
           // OTHERWISE, SEND TO DB FOR STORAGE ----
           // --------> ALSO NEED TO CHECK IF USER IS 'ONLINE' AND CAN RECEIVE A NOTIFICATION
-          console.log("ADD MESSAGE TO DB", user, msg);
+          const newMessage = db.Message.create(
+            {
+              userId: user.id,
+              chatRoomId,
+              message: msg,
+              read: false,
+            },
+            { returning: true }
+          );
+          console.log("ADD MESSAGE TO DB", newMessage);
         }
         // console.log("NEW MESSAGE IN", chatRoomId, msg);
         // TODO:
