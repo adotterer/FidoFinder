@@ -40,22 +40,28 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
 
   switch (type) {
     case "chat":
-      authorizeUser(user, chatRoomId).then((authorizedUser) => {
-        liveUsers.add(authorizedUser);
-        if (!roomMap[`chatRoom-${chatRoomId}`]) {
-          roomMap[`chatRoom-${chatRoomId}`] = { msgs: [] };
-        }
-        socket.join(`chatRoom-${chatRoomId}`);
+      authorizeUser(user, chatRoomId)
+        .then((authorizedUser) => {
+          liveUsers.add(authorizedUser);
+          if (!roomMap[`chatRoom-${chatRoomId}`]) {
+            roomMap[`chatRoom-${chatRoomId}`] = { msgs: [] };
+          }
+          socket.join(`chatRoom-${chatRoomId}`);
 
-        // console.log(
-        //   "room Map at chatRoomId",
-        //   roomMap[`chatRoom-${chatRoomId}`]
-        // );
-        // console.log("**********************");
-        // console.log("**********************");
-        // console.log("**********************");
-        // console.log("LIVE USERS", liveUsers);
-      });
+          // console.log(
+          //   "room Map at chatRoomId",
+          //   roomMap[`chatRoom-${chatRoomId}`]
+          // );
+          // console.log("**********************");
+          // console.log("**********************");
+          // console.log("**********************");
+          // console.log("LIVE USERS", liveUsers);
+        })
+        .catch((e) => {
+          console.log("NOT AUTHORIZED USER");
+          console.error(e);
+          return socket.disconnect(true);
+        });
 
       socket.on("message", (msg, chatRoomId) => {
         // console.log("NEW MESSAGE IN", msg, chatRoomId);
