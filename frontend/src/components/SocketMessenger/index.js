@@ -29,7 +29,6 @@ export default function SocketMessenger() {
     setLiveSocket(socket);
 
     socket.on("broadcast message to all users", (message) => {
-      console.log("MSGSGGGG", message);
       setMessageThread((oldThread) => [...oldThread, message]);
     });
 
@@ -47,10 +46,9 @@ export default function SocketMessenger() {
       <h1>FidoMessenger</h1>
       <div>
         {messageThread.length >= 1
-          ? messageThread.map((message) => {
-              console.log(message);
+          ? messageThread.map((message, i) => {
               return (
-                <p>
+                <p key={i}>
                   {message.user.username}: {message.msg}
                 </p>
               );
