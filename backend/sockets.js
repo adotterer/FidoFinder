@@ -13,7 +13,7 @@ setInterval(() => {
   console.log(liveUserMap);
 }, 5000);
 
-function authorizeUser(user, chatRoomId) {
+function authorizeUser(socket, user, chatRoomId) {
   return db.ChatRoom.findByPk(chatRoomId, {
     include: ["AuthorizedChatters"],
   })
@@ -24,10 +24,33 @@ function authorizeUser(user, chatRoomId) {
       const authorizedUser = authorizedChatters.filter((chatter) => {
         return chatter.id === user.id;
       });
-      return authorizedUser;
+      return [authorizedChatters, authorizedUser];
     })
-    .then(([authorizedUser]) => {
-      return authorizedUser;
+    .then(([authorizedChatters, [authorizedUser]]) => {
+      if (liveUserMap[`chatRoom_${chatRoomId}`]) {
+        liveUserMap[`chatRoom_${chatRoomId}`].add(authorizedUser.id);
+        // console.log("CREATED A CHATROOM_# LIVE USERMAP", liveUserMap);
+      } else {
+        liveUserMap[`chatRoom_${chatRoomId}`] = new Set();
+        liveUserMap[`chatRoom_${chatRoomId}`].add(authorizedUser.id);
+        // console.log("ADDED TO CHATROOM_# LIVE USERSMAP", liveUserMap);
+      }
+
+      // const allUsersLive = true;
+
+      //   authorizedChatters.every((chatter) => {
+      //   return liveUserMap[`chatRoom_${chatRoomId}`].has(chatter.id);
+      // });
+
+      // console.log("allUsersLive?", allUsersLive);
+
+      // CHECK TO SEE IF ALL AUTHORIZED CHATTERS ARE LIVE OR NOT
+      // authorizedChatters.map((chatter) => chatter.id);
+
+      // console.log("authorized Chatters", authorizedChatters);
+
+      // JOIN THIS SOCKET TO CHATROOM
+      socket.join(`chatRoom-${chatRoomId}`);
     })
     .catch((e) => {
       console.error(e);
@@ -47,24 +70,8 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
 
   switch (type) {
     case "chat":
-      authorizeUser(user, chatRoomId)
-        .then((authorizedUser) => {
-          if (liveUserMap[`chatRoom_${chatRoomId}`]) {
-            liveUserMap[`chatRoom_${chatRoomId}`].add(authorizedUser.id);
-            // console.log("CREATED A CHATROOM_# LIVE USERMAP", liveUserMap);
-          } else {
-            liveUserMap[`chatRoom_${chatRoomId}`] = new Set();
-            liveUserMap[`chatRoom_${chatRoomId}`].add(authorizedUser.id);
-            // console.log("ADDED TO CHATROOM_# LIVE USERSMAP", liveUserMap);
-          }
-
-          // JOIN THIS SOCKET TO CHATROOM
-          socket.join(`chatRoom-${chatRoomId}`);
-        })
-        .catch((e) => {
-          console.error(e);
-          return socket.disconnect(true);
-        });
+      authorizeUser(socket, user, chatRoomId);
+     
 
       socket.on("message", (msg, chatRoomId) => {
         // console.log("NEW MESSAGE IN", chatRoomId, msg);
