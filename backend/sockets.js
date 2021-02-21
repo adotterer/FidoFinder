@@ -36,9 +36,7 @@ function authorizeUser(socket, user, chatRoomId) {
         // console.log("ADDED TO CHATROOM_# LIVE USERSMAP", liveUserMap);
       }
 
-      // const allUsersLive = true;
-
-      //   authorizedChatters.every((chatter) => {
+      // const allUsersLive = authorizedChatters.every((chatter) => {
       //   return liveUserMap[`chatRoom_${chatRoomId}`].has(chatter.id);
       // });
 
@@ -51,6 +49,7 @@ function authorizeUser(socket, user, chatRoomId) {
 
       // JOIN THIS SOCKET TO CHATROOM
       socket.join(`chatRoom-${chatRoomId}`);
+      return authorizedChatters;
     })
     .catch((e) => {
       console.error(e);
@@ -70,10 +69,32 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
 
   switch (type) {
     case "chat":
-      authorizeUser(socket, user, chatRoomId);
-     
+      const authorizedChatters = await authorizeUser(socket, user, chatRoomId);
 
       socket.on("message", (msg, chatRoomId) => {
+        // const liveUsers = authorizedChatters.then((chatters) => {
+        //   return chatters.filter((chatUser) =>
+        //     liveUserMap[`chatRoom_${chatRoomId}`].has(chatUser.id)
+        //   );
+        // });
+        // IF LIVE USERS LENGTH > 1, ACTUALLY SEND USING WEB SOCKET
+        if (
+          liveUserMap[`chatRoom_${chatRoomId}`] &&
+          authorizedChatters.filter((chatUser) => {
+            return liveUserMap[`chatRoom_${chatRoomId}`].has(chatUser.id);
+          }).length > 1
+        ) {
+          io.to(`chatRoom-${chatRoomId}`).emit(
+            "broadcast message to all users",
+            {
+              msg,
+              user,
+            }
+          );
+        } else {
+         
+          console.log("ADD MESSAGE TO DB", msg);
+        }
         // console.log("NEW MESSAGE IN", chatRoomId, msg);
         // TODO:
         // SEE IF THE OTHER USER IS ONLINE--
@@ -82,11 +103,6 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
         // CHAT ROOM PAGE WILL DISPLAY MESSAGE REEL OF OLD MESSAGES IF THE OTHER USER ISN'T ONLINE
 
         // IF USER IS ONLINE THE APP, BUT NOT 'LIVE' THEY WILL RECEIVE A NOTIFICATION
-
-        io.to(`chatRoom-${chatRoomId}`).emit("broadcast message to all users", {
-          msg,
-          user,
-        });
       });
 
       socket.on("disconnect", () => {
