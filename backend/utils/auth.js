@@ -64,7 +64,9 @@ const socketRequireAuth = (socket, next) => {
 
       try {
         const { id } = payload.data;
-        socket.user = await User.scope("currentUser").findByPk(id);
+        socket.user = await User.scope("currentUser")
+          .findByPk(id)
+          .then((user) => user.toJSON());
       } catch (payloadErr) {
         return socket.disconnect(true);
       }

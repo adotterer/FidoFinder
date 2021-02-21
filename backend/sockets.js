@@ -72,13 +72,8 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
       const authorizedChatters = await authorizeUser(socket, user, chatRoomId);
 
       socket.on("message", (msg, chatRoomId) => {
-        // const liveUsers = authorizedChatters.then((chatters) => {
-        //   return chatters.filter((chatUser) =>
-        //     liveUserMap[`chatRoom_${chatRoomId}`].has(chatUser.id)
-        //   );
-        // });
-        // IF LIVE USERS LENGTH > 1, ACTUALLY SEND USING WEB SOCKET
         if (
+          // IF LIVE USERS LENGTH > 1, ACTUALLY SEND USING WEB SOCKET
           liveUserMap[`chatRoom_${chatRoomId}`] &&
           authorizedChatters.filter((chatUser) => {
             return liveUserMap[`chatRoom_${chatRoomId}`].has(chatUser.id);
@@ -91,9 +86,22 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
               user,
             }
           );
+          // SEND MESSAGE TO DATABASE
+          console.log("+++++++++++++++++++++++++++");
+          console.log("+++++++++++++++++++++++++++");
+          console.log("+++++++++++++++++++++++++++");
+          console.log("+++++++++++++++++++++++++++");
+          console.log("+++++++++++++++++++++++++++");
+          console.log("msg", msg, user);
+          console.log("+++++++++++++++++++++++++++");
+          console.log("+++++++++++++++++++++++++++");
+          console.log("+++++++++++++++++++++++++++");
+          console.log("+++++++++++++++++++++++++++");
+          console.log("+++++++++++++++++++++++++++");
         } else {
-         
-          console.log("ADD MESSAGE TO DB", msg);
+          // OTHERWISE, SEND TO DB FOR STORAGE ----
+          // --------> ALSO NEED TO CHECK IF USER IS 'ONLINE' AND CAN RECEIVE A NOTIFICATION
+          console.log("ADD MESSAGE TO DB", user, msg);
         }
         // console.log("NEW MESSAGE IN", chatRoomId, msg);
         // TODO:
