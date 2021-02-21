@@ -51,28 +51,31 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
         .then((authorizedUser) => {
           if (liveUserMap[`chatRoom_${chatRoomId}`]) {
             liveUserMap[`chatRoom_${chatRoomId}`].add(authorizedUser.id);
-            console.log("CREATED A CHATROOM_# LIVE USERMAP", liveUserMap);
+            // console.log("CREATED A CHATROOM_# LIVE USERMAP", liveUserMap);
           } else {
             liveUserMap[`chatRoom_${chatRoomId}`] = new Set();
             liveUserMap[`chatRoom_${chatRoomId}`].add(authorizedUser.id);
-            console.log("ADDED TO CHATROOM_# LIVE USERSMAP", liveUserMap);
+            // console.log("ADDED TO CHATROOM_# LIVE USERSMAP", liveUserMap);
           }
 
-          // MAYBE I DON'T EVEN NEED TO STORE A MAP
-          // if (!roomMap[`chatRoom-${chatRoomId}`]) {
-          //   roomMap[`chatRoom-${chatRoomId}`] = { msgs: [] };
-          // }
           // JOIN THIS SOCKET TO CHATROOM
           socket.join(`chatRoom-${chatRoomId}`);
         })
         .catch((e) => {
-          console.log("NOT AUTHORIZED USER");
           console.error(e);
           return socket.disconnect(true);
         });
 
       socket.on("message", (msg, chatRoomId) => {
         // console.log("NEW MESSAGE IN", chatRoomId, msg);
+        // TODO:
+        // SEE IF THE OTHER USER IS ONLINE--
+        // IF THEY ARE NOT ONLINE, JUST ADD THE MESSAGE TO THE DATABASE
+
+        // CHAT ROOM PAGE WILL DISPLAY MESSAGE REEL OF OLD MESSAGES IF THE OTHER USER ISN'T ONLINE
+
+        // IF USER IS ONLINE THE APP, BUT NOT 'LIVE' THEY WILL RECEIVE A NOTIFICATION
+
         io.to(`chatRoom-${chatRoomId}`).emit("broadcast message to all users", {
           msg,
           user,
