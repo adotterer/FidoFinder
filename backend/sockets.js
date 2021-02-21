@@ -20,7 +20,7 @@ function authorizeUser(user, chatRoomId) {
       return authorizedUser;
     })
     .then(([authorizedUser]) => {
-      return true;
+      return authorizedUser;
     })
     .catch((e) => {
       console.error(e);
@@ -40,10 +40,24 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
 
   switch (type) {
     case "chat":
+      authorizeUser(user, chatRoomId).then((authorizedUser) => {
+        liveUsers.add(authorizedUser);
+        if (!roomMap[`chatRoom-${chatRoomId}`]) {
+          roomMap[`chatRoom-${chatRoomId}`] = { msgs: [] };
+        }
+        console.log(
+          "room Map at chatRoomId",
+          roomMap[`chatRoom-${chatRoomId}`]
+        );
+        console.log("**********************");
+        console.log("**********************");
+        console.log("**********************");
+        console.log("LIVE USERS", liveUsers);
+      });
+
       if (await authorizeUser(user, chatRoomId)) {
         console.log("THIS USER IS AUTHORIZED");
         liveUsers.add(user.toJSON());
-        console.log("LIVE USERS", liveUsers);
       } else {
         console.log("---- UNAUTHORIZED USER ----");
         break;
