@@ -3,15 +3,15 @@ const io = require("socket.io")();
 const db = require("./db/models");
 const { socketRequireAuth } = require("./utils/auth");
 
+// liveUsersMap have chatroom id keys with a Set() which SHOWS THE USER IDs of users actively in web socket
 const liveUserMap = {};
 
+// FOR SEEING THE ACTIVE STATUS OF liveUserMap
 setInterval(() => {
   let now = new Date();
   console.log(`liveUserMap ${now.toTimeString()}`);
   console.log(liveUserMap);
 }, 5000);
-// liveUsersMap have chatroom id keys with a Set() which SHOWS THE USER IDs of users actively in web socket
-// const liveUsers = new Set();
 
 function authorizeUser(user, chatRoomId) {
   return db.ChatRoom.findByPk(chatRoomId, {
