@@ -15,7 +15,7 @@ export default function SocketMessenger() {
 
   function onSubmit(e) {
     e.preventDefault();
-    liveSocket.emit("message", msg);
+    liveSocket.emit("message", msg, chatRoomId);
     setMsg("");
   }
 
@@ -28,9 +28,9 @@ export default function SocketMessenger() {
     });
     setLiveSocket(socket);
 
-    socket.on("broadcast message to all users", (hello) => {
-      console.log("MSGSGGGG", hello);
-      setMessageThread((oldThread) => [...oldThread, hello]);
+    socket.on("broadcast message to all users", (message) => {
+      console.log("MSGSGGGG", message);
+      setMessageThread((oldThread) => [...oldThread, message]);
     });
 
     // socket.on(`chatRoom-${chatRoomId}`, (obj) => {
@@ -51,7 +51,7 @@ export default function SocketMessenger() {
               console.log(message);
               return (
                 <p>
-                  {message.user.username} : {message.msg}
+                  {message.user.username}: {message.msg}
                 </p>
               );
             })

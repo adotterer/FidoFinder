@@ -47,9 +47,6 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
         }
         socket.join(`chatRoom-${chatRoomId}`);
 
-        socket.on(`chatRoom-${chatRoomId}`, (msg) => {
-          console.log("MSG", msg);
-        });
         // console.log(
         //   "room Map at chatRoomId",
         //   roomMap[`chatRoom-${chatRoomId}`]
@@ -61,9 +58,10 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
       });
 
       socket.on("message", (msg, chatRoomId) => {
-        socket.emit("broadcast message to all users", {
+        // console.log("NEW MESSAGE IN", msg, chatRoomId);
+        io.to(`chatRoom-${chatRoomId}`).emit("broadcast message to all users", {
           msg,
-          user: user.toJSON(),
+          user,
         });
         // find chat room by Id, to create in room map
         // I want
