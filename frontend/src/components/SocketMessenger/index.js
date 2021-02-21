@@ -16,6 +16,7 @@ export default function SocketMessenger() {
   function onSubmit(e) {
     e.preventDefault();
     liveSocket.emit("message", msg);
+    setMsg("");
   }
 
   useEffect(() => {
@@ -27,9 +28,9 @@ export default function SocketMessenger() {
     });
     setLiveSocket(socket);
 
-    socket.on("broadcast message to all users", (msg) => {
-      console.log("MSGSGGGG", msg);
-      setMessageThread((newThread) => [...newThread, msg]);
+    socket.on("broadcast message to all users", (hello) => {
+      console.log("MSGSGGGG", hello);
+      setMessageThread((oldThread) => [...oldThread, hello]);
     });
 
     // socket.on(`chatRoom-${chatRoomId}`, (obj) => {
@@ -46,8 +47,13 @@ export default function SocketMessenger() {
       <h1>FidoMessenger</h1>
       <div>
         {messageThread.length >= 1
-          ? messageThread.map((msg) => {
-              return <p>{msg}</p>;
+          ? messageThread.map((message) => {
+              console.log(message);
+              return (
+                <p>
+                  {message.user.username} : {message.msg}
+                </p>
+              );
             })
           : "no messages."}
       </div>

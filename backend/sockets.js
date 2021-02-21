@@ -61,7 +61,10 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
       });
 
       socket.on("message", (msg, chatRoomId) => {
-        socket.emit("broadcast message to all users", msg);
+        socket.emit("broadcast message to all users", {
+          msg,
+          user: user.toJSON(),
+        });
         // find chat room by Id, to create in room map
         // I want
         // user.getConversations().then((convos) => {

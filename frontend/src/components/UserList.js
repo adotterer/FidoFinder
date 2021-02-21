@@ -18,7 +18,6 @@ function UserList(optionalUsers) {
   useEffect(() => {
     if (!!optionalUsers) {
       fetch("/api/users/all").then((res) => {
-        
         return setUsers(res.data);
       });
     }
@@ -36,7 +35,7 @@ function UserList(optionalUsers) {
       // const [...chatRoomUsers] = res.data.users;
       // console.log(chatRoomUsers, "chatRoomusers");
       // console.log("JSONPARSE", jsonparse);
-      history.push(`/chatroom/${chatRoomNumber}`);
+      history.push(`/socketmessage/${chatRoomNumber}`);
     } catch (e) {
       console.error("FAILED TO GET CHAT ROOM NUMBER");
     }
