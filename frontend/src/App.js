@@ -18,6 +18,13 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+  // TODO:
+  // USE THIS TO TURN THE USER'S STATUS TO OFFLINE---> SEND NOTIFICATIONS TO OTHER USER
+  // window.addEventListener("beforeunload", (ev) => {
+  //   ev.preventDefault();
+  //   return (ev.returnValue = "Are you sure you want to close?");
+  // });
+
   return (
     <>
       <Navigation isLoaded={isLoaded} />

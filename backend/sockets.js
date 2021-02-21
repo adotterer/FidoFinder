@@ -3,8 +3,15 @@ const io = require("socket.io")();
 const db = require("./db/models");
 const { socketRequireAuth } = require("./utils/auth");
 
-const roomMap = {};
-const liveUsers = new Set();
+const liveUserMap = {};
+
+setInterval(() => {
+  let now = new Date();
+  console.log(`liveUserMap ${now.toTimeString()}`);
+  console.log(liveUserMap);
+}, 5000);
+// liveUsersMap have chatroom id keys with a Set() which SHOWS THE USER IDs of users actively in web socket
+// const liveUsers = new Set();
 
 function authorizeUser(user, chatRoomId) {
   return db.ChatRoom.findByPk(chatRoomId, {
@@ -42,20 +49,21 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
     case "chat":
       authorizeUser(user, chatRoomId)
         .then((authorizedUser) => {
-          liveUsers.add(authorizedUser);
-          if (!roomMap[`chatRoom-${chatRoomId}`]) {
-            roomMap[`chatRoom-${chatRoomId}`] = { msgs: [] };
+          if (liveUserMap[`chatRoom_${chatRoomId}`]) {
+            liveUserMap[`chatRoom_${chatRoomId}`].add(authorizedUser.id);
+            console.log("CREATED A CHATROOM_# LIVE USERMAP", liveUserMap);
+          } else {
+            liveUserMap[`chatRoom_${chatRoomId}`] = new Set();
+            liveUserMap[`chatRoom_${chatRoomId}`].add(authorizedUser.id);
+            console.log("ADDED TO CHATROOM_# LIVE USERSMAP", liveUserMap);
           }
-          socket.join(`chatRoom-${chatRoomId}`);
 
-          // console.log(
-          //   "room Map at chatRoomId",
-          //   roomMap[`chatRoom-${chatRoomId}`]
-          // );
-          // console.log("**********************");
-          // console.log("**********************");
-          // console.log("**********************");
-          // console.log("LIVE USERS", liveUsers);
+          // MAYBE I DON'T EVEN NEED TO STORE A MAP
+          // if (!roomMap[`chatRoom-${chatRoomId}`]) {
+          //   roomMap[`chatRoom-${chatRoomId}`] = { msgs: [] };
+          // }
+          // JOIN THIS SOCKET TO CHATROOM
+          socket.join(`chatRoom-${chatRoomId}`);
         })
         .catch((e) => {
           console.log("NOT AUTHORIZED USER");
@@ -64,17 +72,24 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
         });
 
       socket.on("message", (msg, chatRoomId) => {
-        // console.log("NEW MESSAGE IN", msg, chatRoomId);
+        // console.log("NEW MESSAGE IN", chatRoomId, msg);
         io.to(`chatRoom-${chatRoomId}`).emit("broadcast message to all users", {
           msg,
           user,
         });
-        // find chat room by Id, to create in room map
-        // I want
-        // user.getConversations().then((convos) => {
-        //   io.to(socket.id).emit("message", { msg: convos.toJSON() });
-        // });
       });
+
+      socket.on("disconnect", () => {
+        liveUserMap[`chatRoom_${chatRoomId}`].delete(user.id);
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
+        console.log(liveUserMap);
+      });
+
       break;
     default:
       return socket.disconnect(true);

@@ -37,6 +37,7 @@ export default function SocketMessenger() {
     // });
     return () => {
       console.log("hello from return statement");
+      socket.send("disconnect");
       socket.close();
     };
   }, [username]);
