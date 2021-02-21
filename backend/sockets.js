@@ -3,16 +3,19 @@ const io = require("socket.io")();
 const db = require("./db/models");
 const { socketRequireAuth } = require("./utils/auth");
 
-// liveUsersMap have chatroom id keys with a Set() which SHOWS THE USER IDs of users actively in web socket
+// liveUsersMap {} ---> for keeping track if the users are actively in the same room
+// KEYS are chatRoomId's
+// VALUES Set() of user id's
 const liveUserMap = {};
 
 // FOR SEEING THE ACTIVE STATUS OF liveUserMap
-setInterval(() => {
-  let now = new Date();
-  console.log(`liveUserMap ${now.toTimeString()}`);
-  console.log(liveUserMap);
-}, 5000);
+// setInterval(() => {
+//   let now = new Date();
+//   console.log(`liveUserMap ${now.toTimeString()}`);
+//   console.log(liveUserMap);
+// }, 5000);
 
+// authorizeUser() RETURNS A LIST OF AUTHORIZED USERS
 function authorizeUser(socket, user, chatRoomId) {
   return db.ChatRoom.findByPk(chatRoomId, {
     include: ["AuthorizedChatters"],
@@ -35,18 +38,6 @@ function authorizeUser(socket, user, chatRoomId) {
         liveUserMap[`chatRoom_${chatRoomId}`].add(authorizedUser.id);
         // console.log("ADDED TO CHATROOM_# LIVE USERSMAP", liveUserMap);
       }
-
-      // const allUsersLive = authorizedChatters.every((chatter) => {
-      //   return liveUserMap[`chatRoom_${chatRoomId}`].has(chatter.id);
-      // });
-
-      // console.log("allUsersLive?", allUsersLive);
-
-      // CHECK TO SEE IF ALL AUTHORIZED CHATTERS ARE LIVE OR NOT
-      // authorizedChatters.map((chatter) => chatter.id);
-
-      // console.log("authorized Chatters", authorizedChatters);
-
       // JOIN THIS SOCKET TO CHATROOM
       socket.join(`chatRoom-${chatRoomId}`);
       return authorizedChatters;
@@ -58,7 +49,7 @@ function authorizeUser(socket, user, chatRoomId) {
 }
 
 io.use(socketRequireAuth).on("connection", async (socket) => {
-  console.log("Connected");
+  // console.log("Connected");
 
   const {
     user,

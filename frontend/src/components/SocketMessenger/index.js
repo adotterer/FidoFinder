@@ -1,4 +1,4 @@
-import { set } from "js-cookie";
+// import { set } from "js-cookie";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -30,6 +30,13 @@ export default function SocketMessenger() {
 
     socket.on("broadcast message to all users", (message) => {
       setMessageThread((oldThread) => [...oldThread, message]);
+    });
+
+    // TODO: THIS HAS TO BE IN A SEPARATE COMPONENT...
+
+    socket.on(`notif_room${chatRoomId}`, (notification) => {
+      console.log("here is notification for room #", chatRoomId);
+      console.log("notification", notification);
     });
 
     // socket.on(`chatRoom-${chatRoomId}`, (obj) => {
