@@ -79,25 +79,35 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
           });
           // SEND MESSAGE TO DATABASE
           // TODO: ABSTRACT TO METHOD
-          db.Message.create({
-            userId: user.id,
-            chatRoomId: payload,
-            message: msg,
-            read: true,
-          });
-        } else {
-          // OTHERWISE, SEND TO DB FOR STORAGE ----
-          // --------> ALSO NEED TO CHECK IF USER IS 'ONLINE' AND CAN RECEIVE A NOTIFICATION
-          const newMessage = db.Message.create(
-            {
+          try {
+            db.Message.create({
               userId: user.id,
               chatRoomId: payload,
               message: msg,
-              read: false,
-            },
-            { returning: true }
-          );
-          console.log("ADD MESSAGE TO DB", newMessage);
+              read: true,
+            });
+          } catch (e) {
+            console.log("payload --->", payload);
+            console.error(e);
+          }
+        } else {
+          // OTHERWISE, SEND TO DB FOR STORAGE ----
+          // --------> ALSO NEED TO CHECK IF USER IS 'ONLINE' AND CAN RECEIVE A NOTIFICATION
+          try {
+            const newMessage = db.Message.create(
+              {
+                userId: user.id,
+                chatRoomId: payload,
+                message: msg,
+                read: false,
+              },
+              { returning: true }
+            );
+            console.log("ADD MESSAGE TO DB", newMessage);
+          } catch (e) {
+            console.log("payload --->", payload);
+            console.error(e);
+          }
         }
         // console.log("NEW MESSAGE IN", chatRoomId, msg);
         // TODO:
