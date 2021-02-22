@@ -56,7 +56,7 @@ export default function SocketMessenger() {
         {messageThread.length >= 1
           ? messageThread.map((message, i) => {
               return (
-                <p key={i}>
+                <p key={i + "+" + message.user.username}>
                   {message.user.username}: {message.msg}
                 </p>
               );

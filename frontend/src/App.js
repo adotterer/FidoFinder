@@ -54,7 +54,7 @@ function App() {
               <Route exact path="/socketmessage/:chatRoomId">
                 <SocketMessenger />
               </Route>
-              <Route exact path="/notifications/:userId">
+              <Route exact path="/notifications/me">
                 <NotificationReel />
               </Route>
             </Switch>
