@@ -23,7 +23,7 @@ export default function SocketMessenger() {
     const socket = io(undefined, {
       query: {
         type: "chat",
-        chatRoomId,
+        payload: chatRoomId,
       },
     });
     setLiveSocket(socket);

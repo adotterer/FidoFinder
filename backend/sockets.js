@@ -17,6 +17,7 @@ const liveUserMap = {};
 
 // authorizeUser() RETURNS A LIST OF AUTHORIZED USERS
 function authorizeUser(socket, user, chatRoomId) {
+  console.log(chatRoomId);
   return db.ChatRoom.findByPk(chatRoomId, {
     include: ["AuthorizedChatters"],
   })
@@ -54,34 +55,33 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
   const {
     user,
     handshake: {
-      query: { type, chatRoomId },
+      query: { type, payload },
     },
   } = socket;
 
   switch (type) {
     case "chat":
-      const authorizedChatters = await authorizeUser(socket, user, chatRoomId);
+      // payload = chatRoomId
+      console.log("prefunction", payload);
+      const authorizedChatters = await authorizeUser(socket, user, payload);
 
-      socket.on("message", (msg, chatRoomId) => {
+      socket.on("message", (msg, payload) => {
         if (
           // IF LIVE USERS LENGTH > 1, ACTUALLY SEND USING WEB SOCKET
-          liveUserMap[`chatRoom_${chatRoomId}`] &&
+          liveUserMap[`chatRoom_${payload}`] &&
           authorizedChatters.filter((chatUser) => {
-            return liveUserMap[`chatRoom_${chatRoomId}`].has(chatUser.id);
+            return liveUserMap[`chatRoom_${payload}`].has(chatUser.id);
           }).length > 1
         ) {
-          io.to(`chatRoom-${chatRoomId}`).emit(
-            "broadcast message to all users",
-            {
-              msg,
-              user,
-            }
-          );
+          io.to(`chatRoom-${payload}`).emit("broadcast message to all users", {
+            msg,
+            user,
+          });
           // SEND MESSAGE TO DATABASE
           // TODO: ABSTRACT TO METHOD
           db.Message.create({
             userId: user.id,
-            chatRoomId,
+            chatRoomId: payload,
             message: msg,
             read: true,
           });
@@ -91,7 +91,7 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
           const newMessage = db.Message.create(
             {
               userId: user.id,
-              chatRoomId,
+              chatRoomId: payload,
               message: msg,
               read: false,
             },
@@ -110,7 +110,7 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
       });
 
       socket.on("disconnect", () => {
-        liveUserMap[`chatRoom_${chatRoomId}`].delete(user.id);
+        liveUserMap[`chatRoom_${payload}`].delete(user.id);
         console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
         console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
         console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
@@ -121,6 +121,9 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
       });
 
       break;
+    case "notif":
+      console.log("notification");
+      socket.on(`notif_user${userId}`);
     default:
       return socket.disconnect(true);
   }
