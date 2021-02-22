@@ -39,9 +39,9 @@ export default function NotificationReel() {
     <div>
       <h1>Notifications: </h1>
       {notifications &&
-        notifications.map((notification) => {
+        notifications.map((notificationm, i) => {
           return (
-            <p>
+            <p key={i}>
               {notification.user.username} : {notification.msg}
             </p>
           );

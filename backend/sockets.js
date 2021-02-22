@@ -140,22 +140,19 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
         liveUserMap[`chatRoom_${payload}`].delete(user.id);
         console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
         console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
-        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
-        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
-        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
-        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
         console.log(liveUserMap);
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
       });
-
       break;
     case "notif":
-      console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
+      // payload === userId
       console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
       console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
       console.log("joining: ", `notif_user${user.id}`);
+      console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
+      console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
       socket.join(`notif_user${user.id}`);
-      console.log("notification");
-      // payload === userId
       break;
     default:
       return socket.disconnect(true);
