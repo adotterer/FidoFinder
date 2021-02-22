@@ -34,10 +34,10 @@ export default function SocketMessenger() {
 
     // TODO: THIS HAS TO BE IN A SEPARATE COMPONENT...
 
-    socket.on(`notif_room${chatRoomId}`, (notification) => {
-      console.log("here is notification for room #", chatRoomId);
-      console.log("notification", notification);
-    });
+    // socket.on(`notif_room${chatRoomId}`, (notification) => {
+    //   console.log("here is notification for room #", chatRoomId);
+    //   console.log("notification", notification);
+    // });
 
     // socket.on(`chatRoom-${chatRoomId}`, (obj) => {
     //   console.log(obj);

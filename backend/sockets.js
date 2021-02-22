@@ -64,7 +64,7 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
 
       const authorizedChatters = await authorizeUser(socket, user, payload);
 
-      socket.on("message", (msg, payload) => {
+      socket.on("message", async (msg, payload) => {
         if (
           // IF LIVE USERS LENGTH > 1, ACTUALLY SEND USING WEB SOCKET
           liveUserMap[`chatRoom_${payload}`] &&
@@ -93,7 +93,7 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
           // OTHERWISE, SEND TO DB FOR STORAGE ----
           // --------> ALSO NEED TO CHECK IF USER IS 'ONLINE' AND CAN RECEIVE A NOTIFICATION
           try {
-            const newMessage = db.Message.create(
+            const newMessage = await db.Message.create(
               {
                 userId: user.id,
                 chatRoomId: payload,
@@ -102,10 +102,24 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
               },
               { returning: true }
             );
-
+            const otherUsers = await newMessage.getNotifUsers(user.id);
+            otherUsers.forEach((otherUser) => {
+              console.log(
+                "SENDING NOTIFICATION TO: ",
+                `notif_user${otherUser.id}`
+              );
+              io.to(`notif_user${otherUser.id}`).emit("notification", {
+                msg,
+                user,
+              });
+            });
+            console.log("bubblebop", otherUsers);
             // NOW SEND NOTIFICATION TO THE USERS WHO ARE ASSOCIATED WITH CHATROOMID #
 
-
+            // newMessage
+            //   .getNotifUsers(user.id)
+            //   .then((users) => console.log("USERs", users))
+            //   .catch((e) => console.error(e));
             // console.log("ADD MESSAGE TO DB", newMessage);
           } catch (e) {
             console.log("payload --->", payload);
@@ -135,8 +149,14 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
 
       break;
     case "notif":
+      console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
+      console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
+      console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
+      console.log("joining: ", `notif_user${user.id}`);
+      socket.join(`notif_user${user.id}`);
       console.log("notification");
-      socket.on(`notif_user${userId}`);
+      // payload === userId
+      break;
     default:
       return socket.disconnect(true);
   }

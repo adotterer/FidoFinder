@@ -14,5 +14,13 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Message.belongsTo(models.ChatRoom, { foreignKey: "chatRoomId" });
   };
+  Message.prototype.getNotifUsers = async function (senderId) {
+    const users = this.getChatRoom()
+      .then((chatRoom) => chatRoom.getAuthorizedChatters())
+      .then((users) => users.map((user) => user.toJSON()))
+      .then((users) => users.filter((user) => user.id !== senderId))
+      .catch((e) => console.error(e));
+    return users;
+  };
   return Message;
 };

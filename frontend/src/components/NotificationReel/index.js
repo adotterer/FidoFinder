@@ -5,10 +5,11 @@ import io from "socket.io-client";
 
 export default function NotificationReel() {
   const { userId } = useParams();
+  console.log("userId", userId);
   // const dispatch = useDispatch();
   const [liveSocket, setLiveSocket] = useState(null);
   const [notifications, setNotifications] = useState([]);
-  // const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
     const socket = io(undefined, {
@@ -19,9 +20,8 @@ export default function NotificationReel() {
     });
     setLiveSocket(socket);
 
-    // TODO: THIS HAS TO BE IN A SEPARATE COMPONENT...
-
-    socket.on(`notif_user${userId}`, (newNotification) => {
+    socket.on("notification", (newNotification) => {
+      console.log("RECEIVING NOTIFICATION");
       // console.log("here is notification for room #", chatRoomId);
       setNotifications((notif) => [...notif, newNotification]);
     });
@@ -30,17 +30,21 @@ export default function NotificationReel() {
     //   console.log(obj);
     // });
     return () => {
-      console.log("hello from return statement");
       socket.send("disconnect");
       socket.close();
     };
-  }, []);
+  }, [sessionUser]);
 
   return (
     <div>
-      {notifications.length > 0 &&
+      <h1>Notifications: </h1>
+      {notifications &&
         notifications.map((notification) => {
-          return <p>{notification.msg}</p>;
+          return (
+            <p>
+              {notification.user.username} : {notification.msg}
+            </p>
+          );
         })}
     </div>
   );

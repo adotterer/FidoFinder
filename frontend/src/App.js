@@ -9,6 +9,7 @@ import UserList from "./components/UserList";
 import GreetingPage from "./components/GreetingPage";
 import UserProfile from "./components/UserProfile";
 import SocketMessenger from "./components/SocketMessenger";
+import NotificationReel from "./components/NotificationReel";
 // import NearbyUsers from "./components/NearbyUsers";
 
 function App() {
@@ -52,6 +53,9 @@ function App() {
               </Route>
               <Route exact path="/socketmessage/:chatRoomId">
                 <SocketMessenger />
+              </Route>
+              <Route exact path="/notifications/:userId">
+                <NotificationReel />
               </Route>
             </Switch>
           </div>
