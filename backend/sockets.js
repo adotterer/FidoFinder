@@ -17,7 +17,6 @@ const liveUserMap = {};
 
 // authorizeUser() RETURNS A LIST OF AUTHORIZED USERS
 function authorizeUser(socket, user, chatRoomId) {
-  console.log(chatRoomId);
   return db.ChatRoom.findByPk(chatRoomId, {
     include: ["AuthorizedChatters"],
   })
@@ -62,7 +61,7 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
   switch (type) {
     case "chat":
       // payload = chatRoomId
-      console.log("prefunction", payload);
+
       const authorizedChatters = await authorizeUser(socket, user, payload);
 
       socket.on("message", (msg, payload) => {
@@ -103,7 +102,11 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
               },
               { returning: true }
             );
-            console.log("ADD MESSAGE TO DB", newMessage);
+
+            // NOW SEND NOTIFICATION TO SPECIFIED USER IDS
+
+            
+            // console.log("ADD MESSAGE TO DB", newMessage);
           } catch (e) {
             console.log("payload --->", payload);
             console.error(e);
