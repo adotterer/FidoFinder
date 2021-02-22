@@ -103,9 +103,9 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
               { returning: true }
             );
 
-            // NOW SEND NOTIFICATION TO SPECIFIED USER IDS
+            // NOW SEND NOTIFICATION TO THE USERS WHO ARE ASSOCIATED WITH CHATROOMID #
 
-            
+
             // console.log("ADD MESSAGE TO DB", newMessage);
           } catch (e) {
             console.log("payload --->", payload);
