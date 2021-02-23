@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
-import { BsBell } from "react-icons/bs";
+import { BsBell, BsLock } from "react-icons/bs";
 import "./notifications.css";
 import NotificationReel from "./Reel";
 
@@ -10,9 +10,47 @@ export default function Notifications() {
   const [notifications, setNotifications] = useState([]);
   const sessionUser = useSelector((state) => state.session.user);
   const [showNotification, setShowNotification] = useState(false);
+  const [styleBell, setStyleBell] = useState({
+    fontSize: "1.8rem",
+    color: "white",
+  });
+  const [fadeout, setFadeout] = useState({ opacity: 100 });
+
+  useEffect(() => {
+    if (notifications.length > 0) {
+      setFadeout({
+        opacity: 100,
+        transitionProperty: "opacity",
+        transitionDuration: "2000ms",
+      });
+      setStyleBell({
+        fontSize: "1.8rem",
+        color: "yellow",
+        transitionDuration: "1000ms",
+        transitionProperty: "color",
+      });
+      setTimeout(() => {
+        setStyleBell({
+          fontSize: "1.8rem",
+          color: "white",
+          transitionDuration: "1000ms",
+          transitionProperty: "color",
+        });
+        setFadeout({
+          opacity: 0,
+          transitionProperty: "opacity",
+          transitionDuration: "1000ms",
+        });
+      }, 5000);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 5001);
+    }
+  }, [notifications]);
 
   const openNotifs = () => {
     if (showNotification || notifications.length === 0) return;
+
     setShowNotification(true);
   };
 
@@ -51,21 +89,25 @@ export default function Notifications() {
   return (
     <div>
       <div>
-        <BsBell
-          id="bs__bell"
-          style={{
-            fontSize: "1.8rem",
-          }}
-          onClick={openNotifs}
-        />
         <span
-          class={`mail-status ${notifications.length === 0 ? "unread" : null}`}
-          style={notifications.length === 0 ? { display: "hidden" } : null}
+          style={
+            notifications.length > 0
+              ? {
+                  display: "block",
+                  transitionProperty: "display",
+                  transitionDuration: "1s",
+                }
+              : {
+                  display: "none",
+                }
+          }
+          className="mail-status"
         ></span>
+        <BsBell onClick={openNotifs} id="bs__bell" style={styleBell} />
       </div>
 
       {notifications && showNotification && (
-        <div className="div__notifications">
+        <div style={fadeout} className={"div__notifications"}>
           <NotificationReel notifications={notifications} />
         </div>
       )}
