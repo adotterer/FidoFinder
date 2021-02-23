@@ -36,7 +36,7 @@
 }
 
 ul.profile-dropdown {
-  width: 30px;
+  min-width: 30px;
   font-size: 1.2rem;
   padding: 10px;
   color: black;
