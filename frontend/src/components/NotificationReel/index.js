@@ -16,9 +16,6 @@ export default function Notifications() {
     setShowNotification(true);
   };
 
-  setInterval(() => {
-    console.log("notiflength", notifications.length);
-  }, 2000);
   useEffect(() => {
     if (!showNotification) return;
 
@@ -41,14 +38,10 @@ export default function Notifications() {
     setLiveSocket(socket);
 
     socket.on("notification", (newNotification) => {
-      // console.log("RECEIVING NOTIFICATION");
-      // console.log("here is notification for room #", chatRoomId);
       setNotifications((notif) => [...notif, newNotification]);
+      setShowNotification(true);
     });
 
-    // socket.on(`chatRoom-${chatRoomId}`, (obj) => {
-    //   console.log(obj);
-    // });
     return () => {
       socket.send("disconnect");
       socket.close();
@@ -66,8 +59,8 @@ export default function Notifications() {
           onClick={openNotifs}
         />
         <span
-          class={`mail-status ${notifications.length === 0 && "unread"}`}
-          style={notifications.length === 0 && { display: "hidden" }}
+          class={`mail-status ${notifications.length === 0 ? "unread" : null}`}
+          style={notifications.length === 0 ? { display: "hidden" } : null}
         ></span>
       </div>
 

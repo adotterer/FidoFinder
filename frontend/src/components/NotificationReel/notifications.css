@@ -1,5 +1,6 @@
 div.div__notifications {
   color: black;
+  font-size: 1rem;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
@@ -17,7 +18,7 @@ div.div__notifications {
   width: 14px;
   height: 14px;
   color: white;
-  background-image: linear-gradient(#fff454, #ed8e00);
+  background-image: linear-gradient(#5490ff, #0082ed);
   background-clip: padding-box;
   border: 1px solid white;
   border-radius: 50%;
