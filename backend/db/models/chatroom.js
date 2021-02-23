@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-
   ChatRoom.associate = function (models) {
     const userMapping = {
       as: "AuthorizedChatters",

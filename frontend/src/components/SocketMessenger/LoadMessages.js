@@ -8,7 +8,6 @@ export default function LoadMessages({ chatRoomId }) {
   useEffect(() => {
     fetch(`/api/chatroom/${chatRoomId}/loadMessages`)
       .then((msgs) => {
-        console.log("msgs", msgs.data);
         return setLoadedMsgs(msgs.data);
       })
       .catch((e) => console.error(e));
