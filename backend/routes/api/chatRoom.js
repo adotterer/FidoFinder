@@ -22,6 +22,7 @@ router.get(
     })
       .then((chatRoom) => {
         return chatRoom.getMessageThread({
+          include: User,
           order: [["createdAt", "DESC"]],
           limit: 50,
         });

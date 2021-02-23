@@ -1,7 +1,7 @@
 // import { set } from "js-cookie";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import io from "socket.io-client";
 import LoadMessages from "./LoadMessages";
 
@@ -49,6 +49,8 @@ export default function SocketMessenger() {
       socket.close();
     };
   }, [username]);
+
+  if (!username) return <Redirect to="/" />;
 
   return (
     <>

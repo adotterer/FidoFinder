@@ -9,7 +9,7 @@ export default function LoadMessages({ chatRoomId }) {
     fetch(`/api/chatroom/${chatRoomId}/loadMessages`)
       .then((msgs) => {
         console.log("msgs", msgs.data);
-        setLoadedMsgs(msgs.data);
+        return setLoadedMsgs(msgs.data);
       })
       .catch((e) => console.error(e));
   }, []);

@@ -83,6 +83,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasOne(models.UserDetail, { foreignKey: "userId" });
     User.belongsToMany(models.ChatRoom, chatRoomMapping);
     User.hasMany(models.Dog, { foreignKey: "ownerId" });
+    User.hasMany(models.Message, { foreignKey: "userId" });
   };
   User.prototype.toSafeObject = function () {
     // remember, this cannot be an arrow function
