@@ -1,22 +1,24 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 import { BsBell } from "react-icons/bs";
 import "./notifications.css";
 import NotificationReel from "./Reel";
 
-export default function Notification() {
+export default function Notifications() {
   const [liveSocket, setLiveSocket] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const sessionUser = useSelector((state) => state.session.user);
   const [showNotification, setShowNotification] = useState(false);
 
   const openNotifs = () => {
-    if (showNotification) return;
+    if (showNotification || notifications.length === 0) return;
     setShowNotification(true);
   };
 
+  setInterval(() => {
+    console.log("notiflength", notifications.length);
+  }, 2000);
   useEffect(() => {
     if (!showNotification) return;
 
@@ -56,9 +58,17 @@ export default function Notification() {
   return (
     <div>
       <div>
-        <h1>
-          <BsBell onClick={openNotifs} />
-        </h1>
+        <BsBell
+          id="bs__bell"
+          style={{
+            fontSize: "1.8rem",
+          }}
+          onClick={openNotifs}
+        />
+        <span
+          class={`mail-status ${notifications.length === 0 && "unread"}`}
+          style={notifications.length === 0 && { display: "hidden" }}
+        ></span>
       </div>
 
       {notifications && showNotification && (

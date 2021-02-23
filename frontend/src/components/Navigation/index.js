@@ -7,6 +7,7 @@ import { GiDogHouse } from "react-icons/gi";
 import { IoIosChatbubbles } from "react-icons/io";
 import "./Navigation.css";
 import logo from "./logo_3-black.png";
+import Notifications from "../NotificationReel";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -23,6 +24,9 @@ function Navigation({ isLoaded }) {
             <IoIosChatbubbles />
           </li>
         </NavLink>
+        <li class="li__buttonIcons">
+          <Notifications />
+        </li>
       </>
     );
   } else {

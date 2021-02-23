@@ -43,7 +43,7 @@ ul.profile-dropdown {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px 0px rgba(179, 179, 179, 0.2);
   border-radius: 15px;
   padding: 12px 16px;
   z-index: 3;
@@ -69,7 +69,8 @@ ul.ul__navIcons li {
   cursor: default;
 }
 
-li.li__buttonIcons {
+li.li__buttonIcons,
+.li__buttonIcons {
   font-size: 1.8rem;
   color: white;
   list-style-type: none;
@@ -78,7 +79,8 @@ li.li__buttonIcons {
   /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
 }
 
-li.li__buttonIcons:hover {
+li.li__buttonIcons:hover,
+.li__buttonIcons:hover {
   cursor: pointer;
   color: rgb(155, 208, 255);
 }

@@ -9,7 +9,7 @@ import UserList from "./components/UserList";
 import GreetingPage from "./components/GreetingPage";
 import UserProfile from "./components/UserProfile";
 import SocketMessenger from "./components/SocketMessenger";
-import NotificationReel from "./components/NotificationReel";
+import Notifications from "./components/NotificationReel";
 // import NearbyUsers from "./components/NearbyUsers";
 
 function App() {
@@ -55,7 +55,7 @@ function App() {
                 <SocketMessenger />
               </Route>
               <Route exact path="/notifications/me">
-                <NotificationReel />
+                <Notifications />
               </Route>
             </Switch>
           </div>
