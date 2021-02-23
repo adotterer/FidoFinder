@@ -17,9 +17,13 @@ export default function LoadMessages({ chatRoomId }) {
   return (
     <div>
       {loadedMsgs.length > 0 &&
-        loadedMsgs.map((msg) => {
+        loadedMsgs.slice(0, 16).map((msg, i) => {
           console.log("msg", msg);
-          return <p>msg</p>;
+          return (
+            <p key={i + msg}>
+              {msg.User.username}: {msg.message}
+            </p>
+          );
         })}
     </div>
   );
