@@ -27,3 +27,7 @@ div.div__notifications {
 .unread {
   display: none;
 }
+
+.profile-dropdown a {
+  font-size: 1rem;
+}
