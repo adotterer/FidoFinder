@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
+import LoadMessages from "./LoadMessages";
 
 export default function SocketMessenger() {
   const { chatRoomId } = useParams();
@@ -53,7 +54,7 @@ export default function SocketMessenger() {
     <>
       <h1>FidoMessenger</h1>
       <div>
-        {/* <LoadMessages /> */}
+        <LoadMessages chatRoomId={chatRoomId} />
         {messageThread.length >= 1
           ? messageThread.map((message, i) => {
               return (
