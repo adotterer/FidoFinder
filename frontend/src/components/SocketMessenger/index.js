@@ -53,6 +53,7 @@ export default function SocketMessenger() {
     <>
       <h1>FidoMessenger</h1>
       <div>
+        {/* <LoadMessages /> */}
         {messageThread.length >= 1
           ? messageThread.map((message, i) => {
               return (

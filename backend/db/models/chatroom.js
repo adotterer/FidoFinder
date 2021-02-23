@@ -23,7 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "chatRoomId",
     };
     ChatRoom.belongsToMany(models.User, userMapping);
-    ChatRoom.hasMany(models.Message, { foreignKey: "chatRoomId" });
+    ChatRoom.hasMany(models.Message, {
+      as: "MessageThread",
+      foreignKey: "chatRoomId",
+    });
   };
   // ChatRoom.get
   // ChatRoom.getAuthorizedUsers = async (chatRoomId) => {

@@ -5,6 +5,33 @@ const { Op } = require("sequelize");
 const asyncHandler = require("express-async-handler");
 const { requireAuth } = require("../../utils/auth");
 
+// SEND MESSAGES IN DATABASE TO CHATROOM ON FRONTEND
+router.get(
+  "/:chatRoomId/loadMessages",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    // TODO: MAKE SURE AUTHORIZED USER ID IS ONE OF THE AUTHORIZED USERS IN CHATROOM
+    const { chatRoomId } = req.params;
+
+    ChatRoom.findByPk(chatRoomId, {
+      // include: {
+      //   model: "MessageThread",
+      //   order: ["createdAt", "DESC"],
+      //   limit: 50,
+      // },
+    })
+      .then((chatRoom) => {
+        return chatRoom.getMessageThread({
+          order: [["createdAt", "DESC"]],
+          limit: 50,
+        });
+      })
+      .then((thread) => thread.map((msg) => msg.toJSON()))
+      .then((json) => res.json(json))
+      .catch((e) => console.error(e));
+  })
+);
+
 // SEND BACK AUTHORIZED USERS OF CHATROOM ID
 router.get(
   "/:chatRoomId/auth",
