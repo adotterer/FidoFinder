@@ -20,10 +20,21 @@ router.post(
   "/status",
   requireAuth,
   asyncHandler(async (req, res, next) => {
-    // const { status } = req.body;
-    console.log("req to jsON", req.body);
-    // console.log("STATUS", status);
-    // res.json("Hey bitch");
+    const { status } = req.body;
+
+    const updatedStatusTime = await User.findByPk(req.user.toJSON().id)
+      .then((user) => user.getUserDetail())
+      .then((userDetail) => userDetail.update({ status }))
+      .then((updatedUserDetail) => updatedUserDetail.toJSON())
+      .then((userDetailObj) => {
+        const now = new Date();
+        return userDetailObj.updatedAt
+          ? userDetailObj.updatedAt
+          : now.toLocaleString();
+      })
+      .catch((e) => console.error(e));
+    console.log(updatedStatusTime);
+    res.json(updatedStatusTime);
   })
 );
 

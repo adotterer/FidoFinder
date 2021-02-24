@@ -11,15 +11,14 @@ const setStatus = (status) => {
 
 export const setUserStatus = (status) => async (dispatch) => {
   dispatch(setStatus(status));
-  fetch(`/api/user/status`, {
+  const res = fetch(`/api/user/status`, {
     method: "POST",
     body: JSON.stringify({ status }),
-    headers: {
-      "Content-Type": "application/json",
-    },
   })
-    .then((res) => console.log("here is res.status", res.status))
+    .then((wtf) => wtf)
     .catch((e) => console.error(e));
+
+  console.log("DATETIME", res.data);
 };
 
 const initialState = {};
