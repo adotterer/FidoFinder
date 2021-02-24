@@ -14,7 +14,6 @@ export default function StatusInput() {
     if (!status) {
       try {
         const dbStatus = await fetch(`/api/user/${user.id}/status`);
-        console.log(dbStatus.data, "dbStatus");
         dispatch(setUserStatus(dbStatus.data));
         setStatus(dbStatus.data);
       } catch (e) {

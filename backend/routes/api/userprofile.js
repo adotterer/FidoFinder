@@ -26,7 +26,6 @@ router.get(
         model: UserDetail,
       },
     }).then((user) => user.toJSON());
-    console.log("hey", userDetails.UserDetail.status);
     res.json(userDetails.UserDetail.status);
   })
 );
