@@ -11,14 +11,14 @@ const setStatus = (status) => {
 
 export const setUserStatus = (status) => async (dispatch) => {
   dispatch(setStatus(status));
-  const res = fetch(`/api/user/status`, {
+  const dateTime = await fetch(`/api/user/status`, {
     method: "POST",
     body: JSON.stringify({ status }),
   })
-    .then((wtf) => wtf)
+    .then((time) => time.data)
     .catch((e) => console.error(e));
 
-  console.log("DATETIME", res.data);
+  console.log("DATETIME OF UPDATED STATUS", dateTime);
 };
 
 const initialState = {};
