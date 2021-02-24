@@ -37,14 +37,19 @@ export default function Notifications() {
         setFadeout({
           opacity: 0,
         });
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 1000);
       }, 5000);
     }
   }, [notifications]);
 
   const openNotifs = () => {
     if (showNotification || notifications.length === 0) return;
-
     setShowNotification(true);
+    setFadeout({
+      opacity: 1,
+    });
   };
 
   useEffect(() => {
