@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
-import { BsBell, BsLock } from "react-icons/bs";
+import { BsBell } from "react-icons/bs";
 import "./notifications.css";
 import NotificationReel from "./Reel";
 

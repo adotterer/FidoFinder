@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "./notifications.css";
 
 export default function NotificationReel({ notifications }) {

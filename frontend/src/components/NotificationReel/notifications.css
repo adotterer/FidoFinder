@@ -42,3 +42,21 @@ ul.profile-dropdown,
   display: flex;
   flex-direction: column;
 }
+
+.FiChevronUp {
+  color: lightgrey;
+  font-size: 1.4rem;
+}
+
+.FiChevronUp:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.div__username {
+  font-size: 1rem;
+}
+
+input.input__status::placeholder {
+  color: lightgrey;
+}

@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { FaUserAlt } from "react-icons/fa";
+import { FiChevronUp } from "react-icons/fi";
 import "./Navigation.css";
 
 function ProfileButton({ user }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const usermenuButton = useRef(null);
 
-  const openMenu = () => {
-    if (showMenu) return;
-    setShowMenu(true);
-  };
+  const toggleMenu = () => (showMenu ? setShowMenu(false) : setShowMenu(true));
 
   useEffect(() => {
     if (!showMenu) return;
@@ -22,7 +21,8 @@ function ProfileButton({ user }) {
       setShowMenu(false);
     };
 
-    document.addEventListener("click", closeMenu);
+    // usermenuButton.addEventListener("click", toggleMenu);
+    // TODO: could send in another ref for adding event listener for this ref...
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
@@ -35,12 +35,30 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <FaUserAlt onClick={openMenu} />
+      <FaUserAlt onClick={toggleMenu} />
       {showMenu && (
         <ul className="profile-dropdown">
           <li>
-            <div>{user.username}</div>
-            <hr />
+            <div onClick={toggleMenu}>
+              <FiChevronUp className="FiChevronUp" />
+            </div>
+            <hr
+              className="FiChevronUp"
+              style={{
+                backgroundColor: "lightgrey",
+                height: "1px",
+                border: "none",
+                marginBottom: "8px",
+              }}
+            />
+            <div className="div__username">{user.username}</div>
+          </li>
+          <li>
+            <input
+              className="input__status"
+              type="text"
+              placeholder="Set your status"
+            />
           </li>
           <li>
             <Link className="link__hover" to={`/user/${user.id}`}>
