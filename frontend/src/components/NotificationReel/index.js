@@ -14,14 +14,12 @@ export default function Notifications() {
     fontSize: "1.8rem",
     color: "white",
   });
-  const [fadeout, setFadeout] = useState({ opacity: 100 });
+  const [fadeout, setFadeout] = useState();
 
   useEffect(() => {
     if (notifications.length > 0) {
       setFadeout({
-        opacity: 100,
-        transitionProperty: "opacity",
-        transitionDuration: "2000ms",
+        opacity: 1,
       });
       setStyleBell({
         fontSize: "1.8rem",
@@ -33,18 +31,13 @@ export default function Notifications() {
         setStyleBell({
           fontSize: "1.8rem",
           color: "white",
-          transitionDuration: "1000ms",
           transitionProperty: "color",
+          transitionDuration: "5000ms",
         });
         setFadeout({
           opacity: 0,
-          transitionProperty: "opacity",
-          transitionDuration: "1000ms",
         });
       }, 5000);
-      setTimeout(() => {
-        setShowNotification(false);
-      }, 5001);
     }
   }, [notifications]);
 
@@ -94,8 +87,6 @@ export default function Notifications() {
             notifications.length > 0
               ? {
                   display: "block",
-                  transitionProperty: "display",
-                  transitionDuration: "1s",
                 }
               : {
                   display: "none",
@@ -107,7 +98,7 @@ export default function Notifications() {
       </div>
 
       {notifications && showNotification && (
-        <div style={fadeout} className={"div__notifications"}>
+        <div style={fadeout} className="div__notifications">
           <NotificationReel notifications={notifications} />
         </div>
       )}
