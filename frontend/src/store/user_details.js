@@ -11,6 +11,15 @@ const setStatus = (status) => {
 
 export const setUserStatus = (status) => async (dispatch) => {
   dispatch(setStatus(status));
+  fetch(`/api/user/status`, {
+    method: "POST",
+    body: JSON.stringify({ status }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => console.log("here is res.status", res.status))
+    .catch((e) => console.error(e));
 };
 
 const initialState = {};

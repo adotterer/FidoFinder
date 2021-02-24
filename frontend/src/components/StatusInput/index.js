@@ -4,11 +4,16 @@ import { setUserStatus } from "../../store/user_details";
 
 export default function StatusInput() {
   const dispatch = useDispatch();
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(
+    useSelector((state) => state.userDetails.status)
+  );
   const inputListenerRef = useRef(null); // TODO: DO I NEED THIS?
+
+  // TODO: USESELECTOR() TO ADD SAVED STATUS TO INPUT VALUE
 
   return (
     <input
+      maxLength="255"
       ref={inputListenerRef}
       value={status}
       onChange={(e) => setStatus(e.target.value)}

@@ -16,4 +16,15 @@ router.get(
   })
 );
 
+router.post(
+  "/status",
+  requireAuth,
+  asyncHandler(async (req, res, next) => {
+    // const { status } = req.body;
+    console.log("req to jsON", req.body);
+    // console.log("STATUS", status);
+    // res.json("Hey bitch");
+  })
+);
+
 module.exports = router;
