@@ -1,20 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserStatus } from "../../store/user_details";
+import { fetch } from "../../store/csrf.js";
 
 export default function StatusInput() {
   const dispatch = useDispatch();
   const [status, setStatus] = useState(
-    useSelector((state) => state.userDetails.status)
+    useSelector((state) => state.userDetails.status || null)
   );
-  const inputListenerRef = useRef(null); // TODO: DO I NEED THIS?
+  const user = useSelector((state) => state.session.user);
 
-  // TODO: USESELECTOR() TO ADD SAVED STATUS TO INPUT VALUE
+  useEffect(async () => {
+    if (!status) {
+      try {
+        const dbStatus = await fetch(`/api/user/${user.id}/status`);
+        console.log(dbStatus.data, "dbStatus");
+        dispatch(setUserStatus(dbStatus.data));
+        setStatus(dbStatus.data);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [status]);
 
   return (
     <input
       maxLength="255"
-      ref={inputListenerRef}
       value={status}
       onChange={(e) => setStatus(e.target.value)}
       onBlur={(e) => dispatch(setUserStatus(e.target.value))}

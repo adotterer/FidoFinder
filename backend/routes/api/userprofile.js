@@ -16,6 +16,21 @@ router.get(
   })
 );
 
+router.get(
+  "/:userId/status",
+  requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const { userId } = req.params;
+    const userDetails = await User.findByPk(userId, {
+      include: {
+        model: UserDetail,
+      },
+    }).then((user) => user.toJSON());
+    console.log("hey", userDetails.UserDetail.status);
+    res.json(userDetails.UserDetail.status);
+  })
+);
+
 router.post(
   "/status",
   requireAuth,
