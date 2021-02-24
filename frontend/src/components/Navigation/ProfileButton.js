@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { FaUserAlt } from "react-icons/fa";
 import { FiChevronUp } from "react-icons/fi";
+import StatusInput from "../StatusInput";
 import "./Navigation.css";
 
 function ProfileButton({ user }) {
@@ -54,11 +55,7 @@ function ProfileButton({ user }) {
             <div className="div__username">{user.username}</div>
           </li>
           <li>
-            <input
-              className="input__status"
-              type="text"
-              placeholder="Set your status"
-            />
+            <StatusInput />
           </li>
           <li>
             <Link className="link__hover" to={`/user/${user.id}`}>
