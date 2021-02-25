@@ -23,13 +23,19 @@ const { userArray, userDetailsArray, profileImageArray } = jsonData;
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     console.log("length of userarray", userArray.length);
+    console.log("length of userDetailsArray", userDetailsArray.length);
+    console.log("length of profileImageArray", profileImageArray.length);
     try {
       await queryInterface.bulkInsert("Users", userArray, {});
       console.log("SEEDED USER ARRAY");
       await queryInterface.bulkInsert("Images", profileImageArray, {});
       console.log("SEEDED IMAGES");
-      await queryInterface.bulkInsert("UserDetails", userDetailsArray, {});
-      console.log("SEEDED USERDETAILS");
+      try {
+        await queryInterface.bulkInsert("UserDetails", userDetailsArray, {});
+        console.log("SEEDED USERDETAILS");
+      } catch (e) {
+        console.error(e);
+      }
     } catch (e) {
       console.error(e);
     }
