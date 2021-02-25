@@ -80,8 +80,8 @@ const randomStatus = () => {
 
 const userArray = [
   {
-    email: "demo@user.io",
-    username: "Demo-lition",
+    email: "doglover45@dogmail.com",
+    username: "DogLover45",
     hashedPassword: bcrypt.hashSync("password"),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
@@ -158,15 +158,6 @@ for (let i = 0; i < 1000; i++) {
       Math.floor(Math.random() * Math.floor(900)) +
       letters[Math.floor(Math.random() * letters.length)] +
       initialEmail[1];
-    // try {
-    //   let emailSymbol = Symbol();
-    //   createdEmails.push(emailSymbol);
-    //   return email;
-    // } catch (e) {
-    //   console.log("already created email");
-    //   console.error(e);
-    //   return i + email;
-    // }
     return email;
   };
   userArray.push({
@@ -199,8 +190,6 @@ const latLngVariation = () => {
   return Number.parseFloat((Math.random() * num).toPrecision(3));
 };
 
-console.log("heiewfja", latLngVariation(), latLngVariation());
-
 let userDetailsArray = [];
 // CREATE NEW YORK LOCATIONS
 for (let i = 1; i <= 100; i++) {
@@ -224,7 +213,10 @@ let currentLength = userDetailsArray.length + 1;
 
 // CREATE LOS ANGELES LOCATIONS
 for (let i = currentLength; i <= currentLength + 100; i++) {
-  let [lat, lng] = faker.address.nearbyGPSCoordinate(["34.0", "-118.2"], 20);
+  let [lat, lng] = faker.address.nearbyGPSCoordinate(
+    [34.0 + latLngVariation(), -118.2 + latLngVariation()],
+    zoomVariation()
+  );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
     liveLocationLng: Number(lng),
@@ -240,7 +232,10 @@ for (let i = currentLength; i <= currentLength + 100; i++) {
 currentLength = userDetailsArray.length + 1;
 // CREATE CHICAGO LOCATIONS
 for (let i = currentLength; i <= currentLength + 100; i++) {
-  let [lat, lng] = faker.address.nearbyGPSCoordinate(["41.8", "-87.6"], 20);
+  let [lat, lng] = faker.address.nearbyGPSCoordinate(
+    [41.8 + latLngVariation(), -87.6 + latLngVariation()],
+    zoomVariation()
+  );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
     liveLocationLng: Number(lng),
@@ -256,7 +251,10 @@ for (let i = currentLength; i <= currentLength + 100; i++) {
 currentLength = userDetailsArray.length + 1;
 // CREATE DALLAS LOCATIONS
 for (let i = currentLength; i <= currentLength + 100; i++) {
-  let [lat, lng] = faker.address.nearbyGPSCoordinate(["32.8", "-96.8"], 20);
+  let [lat, lng] = faker.address.nearbyGPSCoordinate(
+    [32.8 + latLngVariation(), -96.8 + latLngVariation()],
+    zoomVariation()
+  );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
     liveLocationLng: Number(lng),
@@ -272,7 +270,10 @@ for (let i = currentLength; i <= currentLength + 100; i++) {
 currentLength = userDetailsArray.length + 1;
 // CREATE DENVER LOCATIONS
 for (let i = currentLength; i <= currentLength + 100; i++) {
-  let [lat, lng] = faker.address.nearbyGPSCoordinate(["39.7", "-105.0"], 20);
+  let [lat, lng] = faker.address.nearbyGPSCoordinate(
+    [39.7 + latLngVariation(), -105.0 + latLngVariation()],
+    zoomVariation()
+  );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
     liveLocationLng: Number(lng),
@@ -288,7 +289,10 @@ for (let i = currentLength; i <= currentLength + 100; i++) {
 currentLength = userDetailsArray.length + 1;
 // CREATE ATLANTA LOCATIONS
 for (let i = currentLength; i <= currentLength + 100; i++) {
-  let [lat, lng] = faker.address.nearbyGPSCoordinate(["33.7", "-84.4"], 20);
+  let [lat, lng] = faker.address.nearbyGPSCoordinate(
+    [33.7 + latLngVariation(), -84.4 + latLngVariation()],
+    zoomVariation()
+  );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
     liveLocationLng: Number(lng),
@@ -304,7 +308,10 @@ for (let i = currentLength; i <= currentLength + 100; i++) {
 currentLength = userDetailsArray.length + 1;
 // CREATE ATLANTA LOCATIONS
 for (let i = currentLength; i <= currentLength + 100; i++) {
-  let [lat, lng] = faker.address.nearbyGPSCoordinate(["33.7", "-84.4"], 20);
+  let [lat, lng] = faker.address.nearbyGPSCoordinate(
+    [33.7 + latLngVariation(), -84.4 + latLngVariation()],
+    zoomVariation()
+  );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
     liveLocationLng: Number(lng),
@@ -320,7 +327,10 @@ for (let i = currentLength; i <= currentLength + 100; i++) {
 currentLength = userDetailsArray.length + 1;
 // CREATE SF LOCATIONS
 for (let i = currentLength; i <= currentLength + 100; i++) {
-  let [lat, lng] = faker.address.nearbyGPSCoordinate(["37.8", "-122.4"], 20);
+  let [lat, lng] = faker.address.nearbyGPSCoordinate(
+    [37.8 + latLngVariation(), -122.4 + latLngVariation()],
+    zoomVariation()
+  );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
     liveLocationLng: Number(lng),
@@ -336,7 +346,10 @@ for (let i = currentLength; i <= currentLength + 100; i++) {
 currentLength = userDetailsArray.length + 1;
 // CREATE HAWAII COORDINATES
 for (let i = currentLength; i <= currentLength + 100; i++) {
-  let [lat, lng] = faker.address.nearbyGPSCoordinate(["19.89", "-155.58"], 10);
+  let [lat, lng] = faker.address.nearbyGPSCoordinate(
+    [19.89 + latLngVariation(), -155.58 + latLngVariation()],
+    zoomVariation()
+  );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
     liveLocationLng: Number(lng),
@@ -352,7 +365,10 @@ for (let i = currentLength; i <= currentLength + 100; i++) {
 currentLength = userDetailsArray.length + 1;
 // CREATE PHONEIX COORDINATES
 for (let i = currentLength; i <= currentLength + 96; i++) {
-  let [lat, lng] = faker.address.nearbyGPSCoordinate(["33.44", "-112.07"], 10);
+  let [lat, lng] = faker.address.nearbyGPSCoordinate(
+    [33.44 + latLngVariation(), -112.07 + latLngVariation()],
+    zoomVariation()
+  );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
     liveLocationLng: Number(lng),
@@ -371,6 +387,10 @@ console.log(
   userDetailsArray.length,
   profileImageArray.length
 );
+
+// TODO:
+// DRY up code
+// fs remove previous json file if it exists
 
 try {
   fs.writeFileSync(
