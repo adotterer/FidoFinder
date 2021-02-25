@@ -76,6 +76,7 @@ li.li__buttonIcons,
   list-style-type: none;
   filter: drop-shadow(0.2rem 0.2rem 0.4rem rgb(59, 89, 142));
   padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  transition: color 0.2s linear;
   /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
 }
 
