@@ -187,10 +187,27 @@ for (let i = 0; i < 1005; i++) {
   });
 }
 
+const zoomVariation = () => {
+  return Math.ceil(Math.random() * 20);
+};
+
+const latLngVariation = () => {
+  const positive = 0.4;
+  const negative = -0.4;
+  const num = Math.floor(Math.random() * 2) === 0 ? positive : negative;
+
+  return Number.parseFloat((Math.random() * num).toPrecision(3));
+};
+
+console.log("heiewfja", latLngVariation(), latLngVariation());
+
 let userDetailsArray = [];
 // CREATE NEW YORK LOCATIONS
 for (let i = 1; i <= 100; i++) {
-  let [lat, lng] = faker.address.nearbyGPSCoordinate(["40.7", "-74.0"], 20);
+  let [lat, lng] = faker.address.nearbyGPSCoordinate(
+    [40.7 + latLngVariation(), -74.0 + latLngVariation()],
+    20
+  );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
     liveLocationLng: Number(lng),
@@ -355,15 +372,15 @@ console.log(
   profileImageArray.length
 );
 
-try {
-  fs.writeFileSync(
-    "userUserDetailJson.js",
-    JSON.stringify({
-      userArray: userArray,
-      userDetailsArray: userDetailsArray,
-      profileImageArray: profileImageArray,
-    })
-  );
-} catch (err) {
-  console.error(err);
-}
+// try {
+//   fs.writeFileSync(
+//     "userUserDetailJson.js",
+//     JSON.stringify({
+//       userArray: userArray,
+//       userDetailsArray: userDetailsArray,
+//       profileImageArray: profileImageArray,
+//     })
+//   );
+// } catch (err) {
+//   console.error(err);
+// }
