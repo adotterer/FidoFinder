@@ -44,6 +44,10 @@ module.exports = {
     const Op = Sequelize.Op;
     queryInterface.bulkDelete("UserDetails");
     queryInterface.bulkDelete("Images");
+    queryInterface.bulkDelete("Dogs");
+    queryInterface.bulkDelete("DogProfiles");
+    queryInterface.bulkDelete("user_chatRooms");
+    queryInterface.bulkDelete("ChatRooms");
     return queryInterface.bulkDelete("Users");
   },
 };
