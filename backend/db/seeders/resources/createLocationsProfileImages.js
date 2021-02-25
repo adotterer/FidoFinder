@@ -126,7 +126,7 @@ const userArray = [
 const createdNames = [];
 const createdEmails = [];
 
-for (let i = 0; i < 100000; i++) {
+for (let i = 0; i < 100; i++) {
   let userName;
 
   const createUserName = function () {
@@ -178,7 +178,7 @@ for (let i = 0; i < 100000; i++) {
 }
 
 let profileImageArray = [];
-for (let i = 0; i < 100005; i++) {
+for (let i = 0; i < 105; i++) {
   profileImageArray.push({
     URL: faker.image.imageUrl(),
   });
@@ -186,7 +186,7 @@ for (let i = 0; i < 100005; i++) {
 
 let userDetailsArray = [];
 // CREATE NEW YORK LOCATIONS
-for (let i = 1; i <= 10000; i++) {
+for (let i = 1; i <= 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(["40.7", "-74.0"], 20);
   userDetailsArray.push({
     liveLocationLat: Number(lat),
@@ -203,7 +203,7 @@ for (let i = 1; i <= 10000; i++) {
 let currentLength = userDetailsArray.length + 1;
 
 // CREATE LOS ANGELES LOCATIONS
-for (let i = currentLength; i <= currentLength + 10000; i++) {
+for (let i = currentLength; i <= currentLength + 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(["34.0", "-118.2"], 20);
   userDetailsArray.push({
     liveLocationLat: Number(lat),
@@ -219,7 +219,7 @@ for (let i = currentLength; i <= currentLength + 10000; i++) {
 
 currentLength = userDetailsArray.length + 1;
 // CREATE CHICAGO LOCATIONS
-for (let i = currentLength; i <= currentLength + 10000; i++) {
+for (let i = currentLength; i <= currentLength + 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(["41.8", "-87.6"], 20);
   userDetailsArray.push({
     liveLocationLat: Number(lat),
@@ -235,7 +235,7 @@ for (let i = currentLength; i <= currentLength + 10000; i++) {
 
 currentLength = userDetailsArray.length + 1;
 // CREATE DALLAS LOCATIONS
-for (let i = currentLength; i <= currentLength + 10000; i++) {
+for (let i = currentLength; i <= currentLength + 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(["32.8", "-96.8"], 20);
   userDetailsArray.push({
     liveLocationLat: Number(lat),
@@ -251,7 +251,7 @@ for (let i = currentLength; i <= currentLength + 10000; i++) {
 
 currentLength = userDetailsArray.length + 1;
 // CREATE DENVER LOCATIONS
-for (let i = currentLength; i <= currentLength + 10000; i++) {
+for (let i = currentLength; i <= currentLength + 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(["39.7", "-105.0"], 20);
   userDetailsArray.push({
     liveLocationLat: Number(lat),
@@ -267,7 +267,7 @@ for (let i = currentLength; i <= currentLength + 10000; i++) {
 
 currentLength = userDetailsArray.length + 1;
 // CREATE ATLANTA LOCATIONS
-for (let i = currentLength; i <= currentLength + 10000; i++) {
+for (let i = currentLength; i <= currentLength + 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(["33.7", "-84.4"], 20);
   userDetailsArray.push({
     liveLocationLat: Number(lat),
@@ -283,7 +283,7 @@ for (let i = currentLength; i <= currentLength + 10000; i++) {
 
 currentLength = userDetailsArray.length + 1;
 // CREATE ATLANTA LOCATIONS
-for (let i = currentLength; i <= currentLength + 10000; i++) {
+for (let i = currentLength; i <= currentLength + 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(["33.7", "-84.4"], 20);
   userDetailsArray.push({
     liveLocationLat: Number(lat),
@@ -299,7 +299,7 @@ for (let i = currentLength; i <= currentLength + 10000; i++) {
 
 currentLength = userDetailsArray.length + 1;
 // CREATE SF LOCATIONS
-for (let i = currentLength; i <= currentLength + 10000; i++) {
+for (let i = currentLength; i <= currentLength + 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(["37.8", "-122.4"], 20);
   userDetailsArray.push({
     liveLocationLat: Number(lat),
@@ -315,7 +315,7 @@ for (let i = currentLength; i <= currentLength + 10000; i++) {
 
 currentLength = userDetailsArray.length + 1;
 // CREATE HAWAII COORDINATES
-for (let i = currentLength; i <= currentLength + 10000; i++) {
+for (let i = currentLength; i <= currentLength + 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(["19.89", "-155.58"], 10);
   userDetailsArray.push({
     liveLocationLat: Number(lat),
@@ -331,7 +331,7 @@ for (let i = currentLength; i <= currentLength + 10000; i++) {
 
 currentLength = userDetailsArray.length + 1;
 // CREATE PHONEIX COORDINATES
-for (let i = currentLength; i <= currentLength + 9996; i++) {
+for (let i = currentLength; i <= currentLength + 96; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(["33.44", "-112.07"], 10);
   userDetailsArray.push({
     liveLocationLat: Number(lat),

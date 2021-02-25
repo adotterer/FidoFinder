@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import createChatRoomEvent from "../../utils/createChatRoomEvent";
+import DogProfile from "../DogProfile";
 import ProfileMe from "./Me";
 
 function UserProfile() {
@@ -31,7 +32,7 @@ function UserProfile() {
           <div>status: {userProfile.UserDetail.status}</div>
           <div>
             {userProfile.Dogs.length > 0
-              ? `this user has ${userProfile.Dogs.length} dogs`
+              ? userProfile.Dogs.map((dog) => <DogProfile dog={dog} />)
               : "this user has no dogs"}
           </div>
           <div>

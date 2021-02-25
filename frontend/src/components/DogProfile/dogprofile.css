@@ -1,0 +1,9 @@
+.div__dogcard {
+  min-width: 300px;
+  min-height: 300px;
+  padding: 1.5rem;
+  border-radius: 10px;
+  -moz-transition: all 0.15s linear;
+  transition: all 0.15s linear;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+}
