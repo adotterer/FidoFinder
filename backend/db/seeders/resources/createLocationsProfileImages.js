@@ -206,7 +206,7 @@ let userDetailsArray = [];
 for (let i = 1; i <= 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(
     [40.7 + latLngVariation(), -74.0 + latLngVariation()],
-    20
+    zoomVariation()
   );
   userDetailsArray.push({
     liveLocationLat: Number(lat),
@@ -372,15 +372,15 @@ console.log(
   profileImageArray.length
 );
 
-// try {
-//   fs.writeFileSync(
-//     "userUserDetailJson.js",
-//     JSON.stringify({
-//       userArray: userArray,
-//       userDetailsArray: userDetailsArray,
-//       profileImageArray: profileImageArray,
-//     })
-//   );
-// } catch (err) {
-//   console.error(err);
-// }
+try {
+  fs.writeFileSync(
+    "userUserDetailJson.js",
+    JSON.stringify({
+      userArray: userArray,
+      userDetailsArray: userDetailsArray,
+      profileImageArray: profileImageArray,
+    })
+  );
+} catch (err) {
+  console.error(err);
+}
