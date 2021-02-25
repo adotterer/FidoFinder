@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { requireAuth } = require("../../utils/auth");
 const asyncHandler = require("express-async-handler");
-const { User, UserDetail, Dog, Image } = require("../../db/models");
+const { User, UserDetail, Dog, DogProfile, Image } = require("../../db/models");
 const user = require("../../db/models/user");
 
 router.get(
@@ -12,7 +12,13 @@ router.get(
     const userProfile = await User.findByPk(userId, {
       include: [
         { model: UserDetail },
-        { model: Dog, include: [{ model: Image, as: "ProfileImage" }] },
+        {
+          model: Dog,
+          include: [
+            { model: DogProfile },
+            { model: Image, as: "ProfileImage" },
+          ],
+        },
       ],
     }).catch((e) => console.error(e));
     res.json(userProfile.toJSON());

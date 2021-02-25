@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   DogProfile.associate = function (models) {
-    DogProfile.belongsTo(models.Dog);
+    DogProfile.belongsTo(models.Dog, { foreignKey: "dogId" });
   };
   return DogProfile;
 };

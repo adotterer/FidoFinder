@@ -5,7 +5,8 @@ export default function DogProfile({ dog }) {
   return (
     <div className="div__dogcard">
       <h3>{dog.name}</h3>
-      <img src={dog.name} />
+      <img className="img__dogProfileImg" src={dog.ProfileImage.URL} />
+      {/* <p>{dog.DogProfiles.interests}</p> */}
     </div>
   );
 }
