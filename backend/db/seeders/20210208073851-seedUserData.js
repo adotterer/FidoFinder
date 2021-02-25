@@ -25,8 +25,11 @@ module.exports = {
     console.log("length of userarray", userArray.length);
     try {
       await queryInterface.bulkInsert("Users", userArray, {});
+      console.log("SEEDED USER ARRAY");
       await queryInterface.bulkInsert("Images", profileImageArray, {});
+      console.log("SEEDED IMAGES");
       await queryInterface.bulkInsert("UserDetails", userDetailsArray, {});
+      console.log("SEEDED USERDETAILS");
     } catch (e) {
       console.error(e);
     }
