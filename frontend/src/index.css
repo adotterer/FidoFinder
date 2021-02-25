@@ -79,3 +79,14 @@ div#div__innerContent {
 img.img__preview {
   max-width: 8rem;
 }
+
+div.div__dogprofileContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+em {
+  color: rgb(2, 117, 143);
+}

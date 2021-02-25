@@ -4,9 +4,20 @@ import "./dogprofile.css";
 export default function DogProfile({ dog }) {
   return (
     <div className="div__dogcard">
-      <h3>{dog.name}</h3>
-      <img className="img__dogProfileImg" src={dog.ProfileImage.URL} />
-      {/* <p>{dog.DogProfiles.interests}</p> */}
+      <div className="div__profileImg">
+        <img className="img__dogProfileImg" src={dog.ProfileImage.URL} />
+      </div>
+      <div>
+        <h2>{dog.name}</h2>
+        <br />
+        <p>
+          <h4>
+            <em>Interests: </em>
+          </h4>
+
+          {dog.DogProfile.interests}
+        </p>
+      </div>
     </div>
   );
 }

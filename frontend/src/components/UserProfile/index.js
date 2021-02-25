@@ -28,12 +28,19 @@ function UserProfile() {
       <div>
         <h1>{userProfile.firstName}'s Profile</h1>
         <div>
-          <div>username: {userProfile.username}</div>
-          <div>status: {userProfile.UserDetail.status}</div>
           <div>
+            <em>Username: </em>
+
+            {userProfile.username}
+          </div>
+
+          <div>
+            <em>Status:</em> {userProfile.UserDetail.status}
+          </div>
+          <div className="div__dogprofileContainer">
             {userProfile.Dogs.length > 0
               ? userProfile.Dogs.map((dog) => <DogProfile dog={dog} />)
-              : "this user has no dogs"}
+              : "NO DOG PROFILES YET! 🐶"}
           </div>
           <div>
             <ProfileMe userId={userId} dogs={userProfile.Dogs} />
