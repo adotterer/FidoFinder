@@ -21,6 +21,7 @@ function LoginForm() {
     );
   };
 
+  // TODO: dry up these demo logins
   const demoLogin1 = (e) => {
     e.preventDefault();
     const demoUsername = "DogLover45";
