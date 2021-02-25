@@ -19,6 +19,7 @@ module.exports = {
       profileImageId: {
         type: Sequelize.INTEGER,
         allowNull: true,
+        references: { model: "Images" },
       },
       ownerId: {
         type: Sequelize.INTEGER,
