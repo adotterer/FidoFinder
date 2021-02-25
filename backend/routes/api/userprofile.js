@@ -12,10 +12,10 @@ router.get(
     const userProfile = await User.findByPk(userId, {
       include: [
         { model: UserDetail },
-        { model: Dog, include: [{ model: Image }] },
+        { model: Dog, include: [{ model: Image, as: "ProfileImage" }] },
       ],
     }).catch((e) => console.error(e));
-    // res.json(userProfile.toJSON());
+    res.json(userProfile.toJSON());
   })
 );
 
