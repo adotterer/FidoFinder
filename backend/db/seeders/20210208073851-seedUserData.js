@@ -24,7 +24,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     console.log("length of userarray", userArray.length);
     try {
-      await queryInterface.bulkInsert("Users", userArray.slice(0, 2000), {});
+      await queryInterface.bulkInsert("Users", userArray, {});
       await queryInterface.bulkInsert("Images", profileImageArray, {});
       await queryInterface.bulkInsert("UserDetails", userDetailsArray, {});
     } catch (e) {
@@ -33,7 +33,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    const Op = Sequelize.Op;
     queryInterface.bulkDelete("UserDetails");
     queryInterface.bulkDelete("Images");
     queryInterface.bulkDelete("Dogs");
