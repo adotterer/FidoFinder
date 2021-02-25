@@ -25,16 +25,8 @@ module.exports = {
     console.log("length of userarray", userArray.length);
     try {
       await queryInterface.bulkInsert("Users", userArray.slice(0, 2000), {});
-      await queryInterface.bulkInsert(
-        "Images",
-        profileImageArray.slice(0, 2000),
-        {}
-      );
-      await queryInterface.bulkInsert(
-        "UserDetails",
-        userDetailsArray.slice(0, 2000),
-        {}
-      );
+      await queryInterface.bulkInsert("Images", profileImageArray, {});
+      await queryInterface.bulkInsert("UserDetails", userDetailsArray, {});
     } catch (e) {
       console.error(e);
     }
