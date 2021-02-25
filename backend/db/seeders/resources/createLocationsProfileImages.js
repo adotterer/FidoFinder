@@ -2,6 +2,9 @@ const fs = require("fs");
 const faker = require("faker");
 const bcrypt = require("bcryptjs");
 
+// TODO: WRITE VARIABLE FOR DIFFERENT NUMBER
+// OF SEEDERS
+
 const letters = [
   "A",
   "B",
@@ -126,7 +129,7 @@ const userArray = [
 const createdNames = [];
 const createdEmails = [];
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 1000; i++) {
   let userName;
 
   const createUserName = function () {
@@ -178,7 +181,7 @@ for (let i = 0; i < 100; i++) {
 }
 
 let profileImageArray = [];
-for (let i = 0; i < 105; i++) {
+for (let i = 0; i < 1005; i++) {
   profileImageArray.push({
     URL: faker.image.imageUrl(),
   });
@@ -345,7 +348,12 @@ for (let i = currentLength; i <= currentLength + 96; i++) {
   });
 }
 
-// console.log(userArray.length === userDetailsArray.length);
+// THESE NEED TO BE EQUAL
+console.log(
+  userArray.length,
+  userDetailsArray.length,
+  profileImageArray.length
+);
 
 try {
   fs.writeFileSync(
