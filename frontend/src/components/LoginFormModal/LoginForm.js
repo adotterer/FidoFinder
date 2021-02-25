@@ -23,7 +23,7 @@ function LoginForm() {
 
   const demoLogin1 = (e) => {
     e.preventDefault();
-    const demoUsername = "demo@user.io";
+    const demoUsername = "DogLover45";
     const demoPassword = ["p", "a", "s", "s", "w", "o", "r", "d"];
 
     demoUsername.split("").forEach((letter, index) => {
@@ -111,7 +111,6 @@ function LoginForm() {
             Demo User 2
           </button>
         </div>
-      
       </form>
     </>
   );

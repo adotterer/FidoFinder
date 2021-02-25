@@ -138,17 +138,6 @@ for (let i = 0; i < 1000; i++) {
       Math.floor(Math.random() * Math.floor(900)) +
       letters[Math.floor(Math.random() * letters.length)]
     );
-    // try {
-    //   let userSymbol = Symbol();
-    //   createdNames.push(userSymbol);
-    //   return userName;
-    // } catch (e) {
-    //   console.log("already created username");
-    //   console.error(e);
-    //   userName = faker.internet.color() + "_" + faker.internet.userName();
-    //   // createdNames.push(Symbol(userName));
-    //   return userName;
-    // }
   };
   let email;
   const createEmail = function () {
@@ -390,7 +379,7 @@ console.log(
 
 // TODO:
 // DRY up code
-// fs remove previous json file if it exists
+// fs remove previous json file, if it exists
 
 try {
   fs.writeFileSync(
