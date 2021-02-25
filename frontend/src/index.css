@@ -39,9 +39,13 @@ input {
   outline: 0;
   padding: 15px;
   border-radius: 15px;
+  transition: border 0.15s linear;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  transition: border 0.15s linear;
 }
 
-button:hover {
+button:hover,
+input:hover {
   border: 1px solid rgb(159, 212, 230);
 }
 .div-hidden {

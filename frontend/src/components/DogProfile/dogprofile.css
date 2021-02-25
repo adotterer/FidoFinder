@@ -1,4 +1,5 @@
 .div__dogcard {
+  border: 1px solid white;
   flex-grow: 1;
   margin: 4px 8px 8px 0;
   display: flex;
@@ -6,12 +7,15 @@
   max-width: 25rem;
   padding: 1.5rem;
   border-radius: 10px;
-  -moz-transition: all 0.15s linear;
-  transition: all 0.15s linear;
+  /* -moz-transition: all 0.15s linear; */
+  transition: border 0.15s linear;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
   overflow: hidden;
 }
 
+.div__dogcard:hover {
+  border: 1px solid rgb(159, 212, 230);
+}
 img.img__dogProfileImg {
   max-height: 210px;
   max-width: 140px;
