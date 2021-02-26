@@ -39,24 +39,40 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const { chatRoomId } = req.params;
+    console.log(chatRoomId, "chatroomid");
+    console.log("*************************");
+    console.log("*************************");
+    console.log("*************************");
+    console.log("*************************");
+    const authorizedUsers = await ChatRoom.findByPk(chatRoomId, {
+      include: [{ model: User, as: "AuthorizedChatters" }],
+    })
+      .then((chatRoom) => chatRoom.toJSON())
+      .then((chatRoomObj) => chatRoomObj.AuthorizedChatters)
+      .catch((e) => console.error(e));
+
+    console.log("AUTHORIZEDUSERS", authorizedUsers);
+    res.json(authorizedUsers);
+    // console.log(authorizedUsers, "jjj");
+    // res.json({ authorizedUsers: authorizedUsers });
     // TODO:
     // ------> Refactor in ChatRoom model
-    try {
-      const authorizedUsers = await user_chatRoom
-        .findAll({
-          where: {
-            chatRoomId,
-          },
-          include: {
-            model: User,
-          },
-        })
-        .then((users) => users.map((user) => user.toJSON()))
-        .catch((e) => console.error(e));
-      res.json({ msg: "chatRoomId sent!", authorizedUsers });
-    } catch (e) {
-      console.error(e);
-    }
+    // try {
+    //   const authorizedUsers = await user_chatRoom
+    //     .findAll({
+    //       where: {
+    //         chatRoomId,
+    //       },
+    //       include: {
+    //         model: User,
+    //       },
+    //     })
+    //     .then((users) => users.map((user) => user.toJSON()))
+    //     .catch((e) => console.error(e));
+    //   res.json({ msg: "chatRoomId sent!", authorizedUsers });
+    // } catch (e) {
+    //   console.error(e);
+    // }
   })
 );
 

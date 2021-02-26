@@ -5,7 +5,7 @@ import Home from "./Home";
 import MessageCore from "./MessageCore";
 // import { fetch } from "../../store/csrf.js";
 import { useParams } from "react-router-dom";
-import "./chatroom.css";
+// import "./chatroom.css";
 
 const ChatRoom = () => {
   const { chatRoomId } = useParams();
@@ -55,7 +55,6 @@ const ChatRoom = () => {
         case "start-message-session":
         case "update-message-session":
         case "end-message-session":
-
           // debugger ==> for seeing the message.data before it's set;
           setMessageSession(message.data);
           break;

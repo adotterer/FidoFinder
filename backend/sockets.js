@@ -73,8 +73,8 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
           }).length > 1
         ) {
           io.to(`chatRoom-${payload}`).emit("broadcast message to all users", {
-            msg,
-            user,
+            message: msg,
+            User: user,
           });
           // SEND MESSAGE TO DATABASE
           // TODO: ABSTRACT TO METHOD

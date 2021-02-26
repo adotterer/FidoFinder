@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, Redirect } from "react-router-dom";
 import io from "socket.io-client";
 import LoadMessages from "./LoadMessages";
+import "./chatroom.css";
 
 export default function SocketMessenger() {
   const { chatRoomId } = useParams();
@@ -13,6 +14,14 @@ export default function SocketMessenger() {
   const [messageThread, setMessageThread] = useState([]);
   const [liveSocket, setLiveSocket] = useState(null);
   const [username, setUserName] = useState(sessionUser.username);
+
+  const [authorizedUsers, setAuthorizedUsers] = useState();
+
+  if (!authorizedUsers) {
+    fetch(`/api/chatroom/${chatRoomId}/auth`)
+      .then((res) => res.json())
+      .then((authUsers) => setAuthorizedUsers(authUsers));
+  }
 
   function onSubmit(e) {
     e.preventDefault();
@@ -33,16 +42,6 @@ export default function SocketMessenger() {
       setMessageThread((oldThread) => [...oldThread, message]);
     });
 
-    // TODO: THIS HAS TO BE IN A SEPARATE COMPONENT...
-
-    // socket.on(`notif_room${chatRoomId}`, (notification) => {
-    //   console.log("here is notification for room #", chatRoomId);
-    //   console.log("notification", notification);
-    // });
-
-    // socket.on(`chatRoom-${chatRoomId}`, (obj) => {
-    //   console.log(obj);
-    // });
     return () => {
       console.log("hello from return statement");
       socket.send("disconnect");
@@ -53,30 +52,37 @@ export default function SocketMessenger() {
   if (!username) return <Redirect to="/" />;
 
   return (
-    <>
-      <h1>FidoMessenger</h1>
+    <div className="div__chatSession">
+      <div className="div__authorizedUsers">
+        {authorizedUsers &&
+          authorizedUsers.map((user, i) => {
+            return (
+              <div className={`div__chatUsername div__username${i}`}>
+                @{user.username}
+              </div>
+            );
+          })}
+      </div>
       <div>
-        <LoadMessages chatRoomId={chatRoomId} />
-        {messageThread.length >= 1
-          ? messageThread.map((message, i) => {
-              return (
-                <p key={i + "+" + message.user.username}>
-                  {message.user.username}: {message.msg}
-                </p>
-              );
-            })
-          : "no messages."}
+        <LoadMessages
+          authorizedUsers={authorizedUsers}
+          messageThread={messageThread}
+          chatRoomId={chatRoomId}
+        />
       </div>
       <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          value={msg}
-          onChange={(e) => {
-            setMsg(e.target.value);
-          }}
-        />
-        <button>Submit</button>
+        <div className="div__msgSend">
+          <input
+            type="text"
+            value={msg}
+            onChange={(e) => {
+              setMsg(e.target.value);
+            }}
+          />
+
+          <button>Submit</button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }

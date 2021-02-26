@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import styles from "./MessageCore.module.css";
-import "./chatroom.css";
+// import "./chatroom.css";
 
 const MessageCore = ({
   username,
