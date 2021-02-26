@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const dogProfileImgArr = [
   {
     URL:
-      "https://fido-finder-bucket.s3-us-west-1.amazonaws.com/birthdaycake.jpeg",
+      "https://fido-finder-bucket.s3-us-west-1.amazonaws.com/1614335904242.jpeg",
   },
   {
     URL:

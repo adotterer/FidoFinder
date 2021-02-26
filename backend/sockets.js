@@ -21,6 +21,10 @@ function authorizeUser(socket, user, chatRoomId) {
     include: ["AuthorizedChatters"],
   })
     .then((authorizedChatters) => {
+      console.log("****************");
+      console.log("****************");
+      console.log("****************");
+      console.log("DEBUGGING authorizedChatters", authorizedChatters);
       return authorizedChatters.toJSON().AuthorizedChatters;
     })
     .then((authorizedChatters) => {
