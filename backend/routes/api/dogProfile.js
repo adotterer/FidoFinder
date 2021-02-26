@@ -67,7 +67,7 @@ router.post(
     const sendDog = await Dog.findByPk(newDog.id, {
       include: [{ model: DogProfile }, { model: Image, as: "ProfileImage" }],
     });
-    console.log(sendDog, "newDog");
+
     // const sendObj = {
     //   newDog,
     //   ProfileImage: { URL: dogProfileImgUrl },

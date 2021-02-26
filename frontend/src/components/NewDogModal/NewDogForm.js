@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addDog, toggleDogModal } from "../../store/dog_actions";
+import { addDog, toggleDogModal, submitNewDog } from "../../store/dog_actions";
 import { useSelector } from "react-redux";
 import { fetch } from "../../store/csrf.js";
 
@@ -20,13 +20,17 @@ function NewDogForm() {
     e.preventDefault();
     if (!sessionUser) return;
 
-    dispatch(addDog({ dogName, birthday, interests, dogImage })).then(() => {
-      setDogName("");
-      setBirthday("");
-      setInterests("");
-      setDogImage(null);
-      dispatch(toggleDogModal(false));
-    });
+    dispatch(addDog({ dogName, birthday, interests, dogImage })).then(
+      (newDog) => {
+        console.log("AOSIJDOAIDJF", newDog);
+        dispatch(submitNewDog(newDog));
+        setDogName("");
+        setBirthday("");
+        setInterests("");
+        setDogImage(null);
+        dispatch(toggleDogModal(false));
+      }
+    );
     // .then((dog) => );
   };
 

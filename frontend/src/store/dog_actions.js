@@ -47,10 +47,11 @@ export const addDog = ({ dogName, birthday, interests, dogImage }) => async (
     body: formData,
   });
 
-  // console.log("NEWDOG", newDog.data);
-
-  dispatch(setNewDog(newDog.data));
   return newDog.data;
+};
+
+export const submitNewDog = (newDog) => async (dispatch) => {
+  dispatch(setNewDog(newDog));
 };
 
 const initialState = {};
@@ -62,8 +63,7 @@ function reducer(state = initialState, action) {
       newState = { ...state, open: action.open };
       return newState;
     case SET_NEW_DOG:
-      newState = Object.assign({}, state);
-      newState = action.dog;
+      newState = { ...state, dogProfile: action.dog };
       return newState;
     // case REMOVE_ITEM:
     //   newState = Object.assign({}, state);

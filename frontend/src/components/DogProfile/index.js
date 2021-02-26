@@ -14,7 +14,6 @@ export default function DogProfile({ dog }) {
           <h4>
             <em>Interests: </em>
           </h4>
-
           {dog.DogProfile.interests}
         </p>
       </div>

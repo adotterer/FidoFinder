@@ -9,7 +9,7 @@ import DogProfileReel from "../DogProfileReel";
 function UserProfile() {
   const { userId } = useParams();
   const [userProfile, setUserProfile] = useState();
-  const [dogProfiles, setDogProfiles] = useState([]);
+  // const [dogProfiles, setDogProfiles] = useState([]);
 
   const [dogReel, setDogReel] = useState([]);
 
@@ -25,21 +25,21 @@ function UserProfile() {
       .then((user) => {
         setUserProfile(user);
         setDogReel(user.Dogs);
-        console.log(user.Dogs, "dogReel");
+        // console.log(user.Dogs, "dogReel");
       });
   }
 
   useEffect(() => {
-    newDog.length && console.log("GET RID OF ME", newDog);
-    // newDog && setDogReel((dogreel) => [...dogreel, newDog]);
+    if (!newDog) return;
+    newDog.dogProfile &&
+      setDogReel((dogReel) => {
+        if (dogReel[dogReel.length - 1].id === newDog.dogProfile.id)
+          return dogReel;
+        else {
+          return [...dogReel, newDog.dogProfile];
+        }
+      });
   }, [newDog]);
-
-  useEffect(() => {
-    // USER PROFILE OBJ
-    // console.log(userProfile);
-    // *************************
-    userProfile && setDogProfiles(userProfile.Dogs);
-  }, [userProfile]);
 
   if (userProfile) {
     return (
@@ -65,7 +65,7 @@ function UserProfile() {
           <DogProfileReel dogReel={dogReel} />
 
           <div>
-            <ProfileMe userId={userId} dogs={dogProfiles} />
+            <ProfileMe userId={userId} />
             {sessionUser.id !== userProfile.id && (
               <button
                 onClick={async (event) => {
