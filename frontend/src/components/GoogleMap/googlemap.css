@@ -1,0 +1,21 @@
+.div__userDetailBubble {
+  position: absolute;
+  width: 140px;
+  background-color: white;
+  z-index: 100;
+  padding: 5px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.div__bubbleUsername {
+  background-color: rgba(43, 107, 226, 0.4);
+  color: white;
+  /* font-size: 1.4rem; */
+  line-height: 1.4rem;
+  border-radius: 2rem;
+}
+
+.div__bubbleUserStatus {
+  line-height: 1.4rem;
+}
