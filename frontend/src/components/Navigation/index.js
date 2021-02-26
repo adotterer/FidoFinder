@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import LoginFormModal from "../LoginFormModal";
@@ -10,6 +10,7 @@ import logo from "./logo_3-black.png";
 import Notifications from "../NotificationReel";
 
 function Navigation({ isLoaded }) {
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;
@@ -36,7 +37,14 @@ function Navigation({ isLoaded }) {
           <LoginFormModal />
         </li>
         <li>
-          <NavLink to="/signup">Sign Up</NavLink>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              history.push("/signup");
+            }}
+          >
+            Sign Up
+          </button>
         </li>
       </>
     );
