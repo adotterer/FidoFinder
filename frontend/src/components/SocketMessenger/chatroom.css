@@ -59,14 +59,27 @@ div.div__msgSend {
 }
 
 .div__username0 {
-  background-color: rgb(112, 112, 112);
+  background-color: rgba(108, 158, 224, 0.5);
 }
 
 .div__username1 {
-  background-color: rgb(43, 107, 226);
+  background-color: rgba(43, 107, 226, 0.5);
 }
 
 .div__authorizedUsers {
   display: flex;
   flex-direction: row;
+  margin-bottom: 2rem;
+}
+
+.div__messageBubble {
+  color: rgb(14, 14, 14);
+  padding: 0.3rem 0.3rem 0.6rem 0.5rem;
+  border-radius: 0.8rem;
+  margin: 4px 0 4px 0;
+  line-height: 1.3rem;
+}
+
+.span__username-bold {
+  font-weight: 600;
 }

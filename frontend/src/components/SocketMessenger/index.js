@@ -1,7 +1,7 @@
 // import { set } from "js-cookie";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, Redirect, Link } from "react-router-dom";
 import io from "socket.io-client";
 import LoadMessages from "./LoadMessages";
 import "./chatroom.css";
@@ -57,9 +57,11 @@ export default function SocketMessenger() {
         {authorizedUsers &&
           authorizedUsers.map((user, i) => {
             return (
-              <div className={`div__chatUsername div__username${i}`}>
-                @{user.username}
-              </div>
+              <Link to={`/user/${user.id}`}>
+                <div className={`div__chatUsername div__username${i}`}>
+                  @{user.username}
+                </div>
+              </Link>
             );
           })}
       </div>

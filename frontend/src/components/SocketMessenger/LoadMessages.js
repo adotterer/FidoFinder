@@ -1,12 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetch } from "../../store/csrf.js";
+import "./chatroom.css";
 
-function Message({ message, i }) {
+function Message({ message, classI }) {
   console.log(message, "message");
   return (
-    <div className={``} key={i + message}>
-      @{message.User.username}: {message.message}
+    <div
+      className={`div__messageBubble div__username${classI}`}
+      key={classI + message}
+    >
+      <span className="span__username-bold">{message.User.username}:</span>
+      <br />
+      {message.message}
     </div>
   );
 }
@@ -31,19 +37,20 @@ export default function LoadMessages({
     mappedUserNames = authorizedUsers.map((user) => {
       return user.username;
     });
-
-    console.log("MAPPED USER NAMES", mappedUserNames);
   }
   return (
     <div>
       {loadedMsgs.length > 0 &&
+        mappedUserNames &&
         loadedMsgs.slice(0, 16).map((msg) => {
           const classI = mappedUserNames.indexOf(msg.User.username);
           return <Message message={msg} classI={classI} />;
         })}
       {messageThread.length > 0 &&
+        mappedUserNames &&
         messageThread.map((message, i) => {
-          return <Message message={message} i={i} />;
+          const classI = mappedUserNames.indexOf(message.User.username);
+          return <Message message={message} classI={classI} />;
         })}
     </div>
   );
