@@ -183,7 +183,7 @@ let userDetailsArray = [];
 // CREATE NEW YORK LOCATIONS
 for (let i = 1; i <= 100; i++) {
   let [lat, lng] = faker.address.nearbyGPSCoordinate(
-    [40.7 + latLngVariation(), -74.0 + latLngVariation()],
+    [40.73 + latLngVariation(), -74.17 + latLngVariation()],
     zoomVariation()
   );
   userDetailsArray.push({

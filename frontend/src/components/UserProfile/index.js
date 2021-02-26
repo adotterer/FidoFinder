@@ -9,8 +9,6 @@ import DogProfileReel from "../DogProfileReel";
 function UserProfile() {
   const { userId } = useParams();
   const [userProfile, setUserProfile] = useState();
-  // const [dogProfiles, setDogProfiles] = useState([]);
-
   const [dogReel, setDogReel] = useState([]);
 
   const history = useHistory();
@@ -56,12 +54,6 @@ function UserProfile() {
             <em>Status:</em> {userProfile.UserDetail.status}
           </div>
           <hr className="hr__profilePage" />
-          {/* abstract out into component */}
-          {/* <div className="div__dogprofileContainer">
-            {dogProfiles.length > 0
-              ? dogProfiles.map((dog) => <DogProfile dog={dog} />)
-              : "NO DOG PROFILES YET! 🐶"}
-          </div> */}
           <DogProfileReel dogReel={dogReel} />
 
           <div>
