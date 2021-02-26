@@ -29,7 +29,6 @@ function UserProfile() {
 
   useEffect(() => {
     if (!newDog.dogProfile) return;
-    console.log(newDog.dogProfile, "WHAT THE FUCK IS THIS");
     newDog.dogProfile &&
       setDogReel((dogReel) => {
         if (!dogReel.length) return [newDog.dogProfile];
