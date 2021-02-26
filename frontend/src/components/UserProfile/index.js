@@ -28,12 +28,14 @@ function UserProfile() {
   }
 
   useEffect(() => {
-    if (!newDog) return;
+    if (!newDog.dogProfile) return;
+    console.log(newDog.dogProfile, "WHAT THE FUCK IS THIS");
     newDog.dogProfile &&
       setDogReel((dogReel) => {
-        if (dogReel[dogReel.length - 1].id === newDog.dogProfile.id)
+        if (!dogReel.length) return [newDog.dogProfile];
+        else if (dogReel[dogReel.length - 1].id === newDog.dogProfile.id) {
           return dogReel;
-        else {
+        } else {
           return [...dogReel, newDog.dogProfile];
         }
       });
@@ -67,7 +69,7 @@ function UserProfile() {
                     sessionUser,
                     userProfile
                   );
-                  return history.push(`/chatroom/${chatRoomNumber}`);
+                  return history.push(`/socketmessage/${chatRoomNumber}`);
                 }}
               >
                 Chat With This Owner
