@@ -45,13 +45,10 @@ function App() {
               <Route path="/users/all">
                 <UserList />
               </Route>
-              <Route exact path="/chatroom/:chatRoomId">
-                <ChatRoom />
-              </Route>
               <Route exact path="/user/:userId">
                 <UserProfile />
               </Route>
-              <Route exact path="/socketmessage/:chatRoomId">
+              <Route exact path="/chatroom/:chatRoomId">
                 <SocketMessenger />
               </Route>
               <Route exact path="/notifications/me">

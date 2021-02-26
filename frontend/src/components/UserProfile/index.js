@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import createChatRoomEvent from "../../utils/createChatRoomEvent";
-import DogProfile from "../DogProfile";
 import ProfileMe from "./Me";
 import DogProfileReel from "../DogProfileReel";
+import StatusInput from "../StatusInput";
 
 function UserProfile() {
   const { userId } = useParams();
@@ -53,7 +53,12 @@ function UserProfile() {
           </div>
 
           <div>
-            <em>Status:</em> {userProfile.UserDetail.status}
+            <em>Status:</em>{" "}
+            {sessionUser.id !== userProfile.id ? (
+              userProfile.UserDetail.status
+            ) : (
+              <StatusInput />
+            )}
           </div>
           <hr className="hr__profilePage" />
           <DogProfileReel dogReel={dogReel} />
@@ -69,7 +74,7 @@ function UserProfile() {
                     sessionUser,
                     userProfile
                   );
-                  return history.push(`/socketmessage/${chatRoomNumber}`);
+                  return history.push(`/chatroom/${chatRoomNumber}`);
                 }}
               >
                 Chat With This Owner

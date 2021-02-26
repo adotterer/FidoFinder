@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addDog, toggleDogModal, submitNewDog } from "../../store/dog_actions";
 import { useSelector } from "react-redux";
-import { fetch } from "../../store/csrf.js";
 
 function NewDogForm() {
   const history = useHistory();
@@ -22,7 +21,6 @@ function NewDogForm() {
 
     dispatch(addDog({ dogName, birthday, interests, dogImage })).then(
       (newDog) => {
-        console.log("AOSIJDOAIDJF", newDog);
         dispatch(submitNewDog(newDog));
         setDogName("");
         setBirthday("");
@@ -31,7 +29,6 @@ function NewDogForm() {
         dispatch(toggleDogModal(false));
       }
     );
-    // .then((dog) => );
   };
 
   return (

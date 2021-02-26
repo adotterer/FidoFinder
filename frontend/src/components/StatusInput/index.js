@@ -20,7 +20,7 @@ export default function StatusInput() {
         console.error(e);
       }
     }
-  }, [status]);
+  }, []);
 
   return (
     <input

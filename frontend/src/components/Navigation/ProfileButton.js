@@ -11,7 +11,7 @@ function ProfileButton({ user }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  const usermenuButton = useRef(null);
+  // const usermenuButton = useRef(null);
 
   const toggleMenu = () => (showMenu ? setShowMenu(false) : setShowMenu(true));
 
@@ -62,11 +62,11 @@ function ProfileButton({ user }) {
               My Profile
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link className="link__hover" to={`/user/${user.id}`}>
               My Dogs [ADD_LINK]
             </Link>
-          </li>
+          </li> */}
 
           <li>
             <button onClick={logout}>Log Out</button>
