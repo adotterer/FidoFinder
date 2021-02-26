@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addDog } from "../../store/dog_actions";
+import { addDog, toggleDogModal } from "../../store/dog_actions";
 import { useSelector } from "react-redux";
 import { fetch } from "../../store/csrf.js";
 
@@ -25,7 +25,9 @@ function NewDogForm() {
       setBirthday("");
       setInterests("");
       setDogImage(null);
+      dispatch(toggleDogModal(false));
     });
+    // .then((dog) => );
   };
 
   return (

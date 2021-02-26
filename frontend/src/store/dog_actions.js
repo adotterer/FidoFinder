@@ -47,7 +47,10 @@ export const addDog = ({ dogName, birthday, interests, dogImage }) => async (
     body: formData,
   });
 
+  // console.log("NEWDOG", newDog.data);
+
   dispatch(setNewDog(newDog.data));
+  return newDog.data;
 };
 
 const initialState = {};

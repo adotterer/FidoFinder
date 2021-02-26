@@ -63,7 +63,18 @@ router.post(
       interests,
       dogId: newDog.id,
     });
-    res.json({ newDog, createDogProfile });
+
+    const sendDog = await Dog.findByPk(newDog.id, {
+      include: [{ model: DogProfile }, { model: Image, as: "ProfileImage" }],
+    });
+    console.log(sendDog, "newDog");
+    // const sendObj = {
+    //   newDog,
+    //   ProfileImage: { URL: dogProfileImgUrl },
+    //   DogProfile: { createDogProfile },
+    // };
+    // console.log(sendObj, "obj");
+    res.json(sendDog);
   })
 );
 
