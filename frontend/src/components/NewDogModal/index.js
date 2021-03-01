@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleDogModal } from "../../store/dog_actions";
 
 function NewDogModal() {
-  const [showDogModal, setShowDogModal] = useState(false);
   const dispatch = useDispatch();
 
   const newDogRedux = useSelector((state) => state.newDog);
