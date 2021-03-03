@@ -2,56 +2,76 @@ import { useState, useEffect } from "react";
 import { fetch } from "../store/csrf.js";
 import SplashMap from "./SplashMap";
 import "./SplashMap/splashmap.css";
+const cityReelArr = [
+  // philadelphia
+  {
+    latlng: { lat: 39.95, lng: -75.17 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+  // new york
+  {
+    latlng: { lat: 40.71, lng: -74 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+  // hawaii
+  {
+    latlng: { lat: 21.3, lng: -157.858 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+  // dc
+  {
+    latlng: { lat: 38.9, lng: -77.03 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+  // chicago
+  {
+    latlng: { lat: 41.8, lng: -87.6 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+  // los angeles
+  {
+    latlng: { lat: 34.0, lng: -118.2 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+
+  // san fran
+  {
+    latlng: { lat: 37.77, lng: -122.41 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+  // balitmore
+  {
+    latlng: { lat: 39.29, lng: -76.6 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+  // denver
+  {
+    latlng: { lat: 39.7, lng: -105.0 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+  // seattle
+  {
+    latlng: { lat: 47.6, lng: -122.33 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+];
 
 function GetIpAddress() {
   const [ipAddress, setIpAddress] = useState();
-
-  const cityReelArr = [
-    // new york
-    {
-      latlng: { lat: 40.71, lng: -74 },
-      nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
-    },
-    // philadelphia
-    {
-      latlng: { lat: 39.95, lng: -75.17 },
-      nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
-    },
-    // balitmore
-    {
-      latlng: { lat: 39.29, lng: -76.6 },
-      nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
-    },
-    // dc
-    {
-      latlng: { lat: 38.9, lng: -77.03 },
-      nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
-    },
-  ];
-
-  if (!ipAddress) {
-    fetch("/api/ipAddress/").then((res) => setIpAddress(res.data));
-  }
+  const [cityReel, setCityReel] = useState(cityReelArr);
 
   useEffect(() => {
-    // cityReelArr.forEach((city, i) => {
-    //   setTimeout(() => {
-    //     setIpAddress(city);
-    //   }, 6000 * i + 0.5);
-    // });
-
+    if (!ipAddress) {
+      fetch("/api/ipAddress/").then((res) => {
+        setIpAddress(res.data);
+        setCityReel((reel) => [...reel, res.data]);
+      });
+    }
     let i = 0;
     setInterval(() => {
-      // setMapTransition({ opacity: 1, transition: "opacity 0.5s linear" });
-
-      if (i === cityReelArr.length) i = 0;
-      setIpAddress(cityReelArr[i]);
+      if (i === cityReel.length) i = 0;
+      setIpAddress(cityReel[i]);
       i++;
-      // setTimeout(
-      //   () =>
-      //     setMapTransition({ opacity: 0, transition: "opacity 0.5s linear" }),
-      //   2000
-      // );
     }, 6000);
   }, []);
 
