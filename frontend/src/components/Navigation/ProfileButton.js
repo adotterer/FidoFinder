@@ -62,11 +62,6 @@ function ProfileButton({ user }) {
               My Profile
             </Link>
           </li>
-          {/* <li>
-            <Link className="link__hover" to={`/user/${user.id}`}>
-              My Dogs [ADD_LINK]
-            </Link>
-          </li> */}
 
           <li>
             <button onClick={logout}>Log Out</button>
