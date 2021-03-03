@@ -59,21 +59,30 @@ const cityReelArr = [
 function GetIpAddress() {
   const [ipAddress, setIpAddress] = useState();
   const [cityReel, setCityReel] = useState(cityReelArr);
+  const [userLoc, setUserLoc] = useState();
 
   useEffect(() => {
     if (!ipAddress) {
       fetch("/api/ipAddress/").then((res) => {
         setIpAddress(res.data);
+        setUserLoc(res.data);
         setCityReel((reel) => [...reel, res.data]);
       });
     }
-    let i = 0;
-    setInterval(() => {
-      if (i === cityReel.length) i = 0;
-      setIpAddress(cityReel[i]);
-      i++;
-    }, 6000);
   }, []);
+
+  useEffect(() => {
+    if (userLoc && cityReel) {
+      let i = 0;
+      setInterval(() => {
+        // console.log(cityReel, "cityReel", userLoc, "userLoc");
+        if (i === cityReel.length) i = 0;
+
+        setIpAddress(cityReel[i]);
+        i++;
+      }, 6000);
+    }
+  }, [cityReel]);
 
   return ipAddress ? (
     <div className="div__splashmap">
