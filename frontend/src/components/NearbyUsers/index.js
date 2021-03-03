@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { fetch } from "../../store/csrf.js";
 import SimpleMap from "../GoogleMap";
@@ -21,6 +21,7 @@ function NearbyUsers() {
 
   useEffect(async () => {
     setCenter(locationInfo.currentLocation);
+    console.log(locationInfo, "LOCATIONINFO");
   }, [locationInfo]);
 
   return (

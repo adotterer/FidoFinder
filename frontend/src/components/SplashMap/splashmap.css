@@ -1,0 +1,9 @@
+.div__splashmap {
+  width: 100%;
+  /* border: 5px solid red; */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+}

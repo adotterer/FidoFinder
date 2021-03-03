@@ -11,20 +11,21 @@ function GreetingPage() {
   function LogInSignUpBlock() {
     if (!sessionUser) {
       return (
-        <div class="div__LogInSignUpBlock">
-          <GetIpAddress />
-          <div>
-            Please log in or sign up to start chatting with dog owners near you.
-          </div>
-          <div>
-            <LoginFormModal />
-          </div>
-          <Link to="/signup">
-            <div>
-              <button>Sign up</button>
-            </div>
-          </Link>
-        </div>
+        <GetIpAddress />
+        // <div class="div__LogInSignUpBlock">
+        //   <GetIpAddress />
+        //   <div>
+        //     Please log in or sign up to start chatting with dog owners near you.
+        //   </div>
+        //   <div>
+        //     <LoginFormModal />
+        //   </div>
+        //   <Link to="/signup">
+        //     <div>
+        //       <button>Sign up</button>
+        //     </div>
+        //   </Link>
+        // </div>
       );
     } else {
       return null;
