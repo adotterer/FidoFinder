@@ -28,7 +28,7 @@ export default function SplashMap({ center, nearbyUsers }) {
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyDT_KxxLpoLwmlk3sXLpayAvW9z9_RodME" }}
         center={center}
-        defaultZoom={11}
+        zoom={12}
       >
         <InfoCircle
           lat={center.lat}
