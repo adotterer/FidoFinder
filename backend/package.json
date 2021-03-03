@@ -11,7 +11,7 @@
     "sequelize-cli": "sequelize-cli",
     "start": "per-env",
     "start:development": "nodemon -r dotenv/config ./bin/www",
-    "start:production": "node ./bin/www"
+    "start:production": "node ./node_modules/geoip-lite/scripts/updatedb.js license_key=YqPoWGNWiYEgXzIx && node ./bin/www"
   },
   "keywords": [],
   "author": "",
