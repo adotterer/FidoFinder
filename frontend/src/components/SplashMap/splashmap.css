@@ -15,12 +15,23 @@
   height: 20rem;
   background: url(blue_circle.png);
   background-size: contain;
-
-  font-size: 2rem;
+  font-size: 1.4rem;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  color: blanchedalmond;
 }
 
-.div__bluecircle span {
+/* .div__bluecircle span {
+} */
+
+.div__bluecircle_loginSignUp {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1.3rem;
+}
+.div__bluecircle_loginSignUp button {
+  margin: 5px;
 }
