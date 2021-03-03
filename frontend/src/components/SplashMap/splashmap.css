@@ -7,3 +7,20 @@
   right: 0;
   top: 0;
 }
+
+.div__bluecircle {
+  margin-top: -10rem;
+  margin-left: -10rem;
+  width: 20rem;
+  height: 20rem;
+  background: url(blue_circle.png);
+  background-size: contain;
+
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div__bluecircle span {
+}
