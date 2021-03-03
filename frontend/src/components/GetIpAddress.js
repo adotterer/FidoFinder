@@ -1,25 +1,22 @@
 import { useState, useEffect } from "react";
-import { fetch } from "../../store/csrf.js";
+import { fetch } from "../store/csrf.js";
 
 function GetIpAddress() {
   const [ipAddress, setIpAddress] = useState();
 
-  const getIpAddress = async () => {
-    const res = await fetch("/api/ipAddress/");
-    return res.data;
-  };
+  if (!ipAddress) {
+    fetch("/api/ipAddress/").then((res) => setIpAddress(res.data));
+  }
 
   useEffect(async () => {
-    const { clientIp, geoObj } = await getIpAddress();
-    console.log("CLIENT IP", clientIp);
-    setIpAddress(clientIp);
-  }, []);
+    if (ipAddress) console.log("ipAddress, actually res.data", ipAddress);
+  }, [ipAddress]);
 
   return (
     <div>
       <h1>GreetingPage</h1>
 
-      <div>your ip address: {ipAddress && ipAddress} </div>
+      <div>your ip address: </div>
     </div>
   );
 }

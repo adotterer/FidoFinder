@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetch } from "../store/csrf.js";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-async function createChatRoom(sessionUser, user) {
-  const res = await fetch(
-    `/api/chatroom/add?sessionUserId=${sessionUser.id}&&otherUserId=${user.id}&&sessionUsername=${sessionUser.username}&&otherUsername=${user.username}`
-  );
-  return res;
-}
 
 function UserList(optionalUsers) {
   const [users, setUsers] = useState(optionalUsers);
