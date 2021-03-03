@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import GoogleMapReact from "google-map-react";
-import UserList from "../UserList";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { GiSittingDog } from "react-icons/gi";
-import createChatRoomEvent from "../../utils/createChatRoomEvent";
 import "./googlemap.css";
 
 function UserDetailsBubble({ user }) {
@@ -19,7 +17,6 @@ function UserDetailsBubble({ user }) {
 }
 
 function Pin({ pinUser }) {
-  const history = useHistory();
   const [showBubble, setShowBubble] = useState(false);
 
   return (
@@ -44,7 +41,6 @@ function Pin({ pinUser }) {
 }
 
 function SimpleMap({ center, nearbyUsers }) {
-  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const mappedUsers = nearbyUsers.map((user) => {
     const {
@@ -63,7 +59,6 @@ function SimpleMap({ center, nearbyUsers }) {
     <div style={{ height: "80vh", width: "100%" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyDT_KxxLpoLwmlk3sXLpayAvW9z9_RodME" }}
-        // defaultCenter={center}
         center={center}
         defaultZoom={11}
       >

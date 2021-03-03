@@ -1,11 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
 import "./dogprofile.css";
 
 export default function DogProfile({ dog }) {
   return (
     <div className="div__dogcard">
       <div className="div__profileImg">
-        <img className="img__dogProfileImg" src={dog.ProfileImage.URL} />
+        <img
+          className="img__dogProfileImg"
+          alt={"dog"}
+          src={dog.ProfileImage.URL}
+        />
       </div>
       <div>
         <h2>{dog.name}</h2>

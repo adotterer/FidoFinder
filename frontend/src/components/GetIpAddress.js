@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { fetch } from "../../store/csrf.js";
 
 function GetIpAddress() {
@@ -11,35 +11,9 @@ function GetIpAddress() {
 
   useEffect(async () => {
     const { clientIp, geoObj } = await getIpAddress();
-    console.log(clientIp);
+    console.log("CLIENT IP", clientIp);
     setIpAddress(clientIp);
   }, []);
-  // var options = {
-  //   enableHighAccuracy: false,
-  //   timeout: 0,
-  //   maximumAge: 0,
-  // };
-
-  // function success(pos) {
-  //   var crd = pos.coords;
-
-  //   console.log("Your current position is:");
-  //   console.log(`Latitude : ${crd.latitude}`);
-  //   console.log(`Longitude: ${crd.longitude}`);
-  //   console.log(`More or less ${crd.accuracy} meters.`);
-  // }
-
-  // function error(err) {
-  //   console.warn(`ERROR(${err.code}): ${err.message}`);
-  // }
-
-  // try {
-  //   navigator.geolocation.getCurrentPosition(success, error, options);
-  // } catch (e) {
-  //   console.log(e);
-  // }
-  // console.log(geolocation);
-  // getIpAddress();
 
   return (
     <div>
