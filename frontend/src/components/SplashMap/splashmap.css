@@ -6,6 +6,11 @@
   left: 0;
   right: 0;
   top: 0;
+  transition: opacity 0.4s linear;
+}
+
+.div__splashmap * {
+  transition: opacity 0.4s linear;
 }
 
 .div__bluecircle {
@@ -23,13 +28,26 @@
   text-align: center;
   color: blanchedalmond;
 }
+/* .div__transition--hidden {
+  opacity: 0;
+  transition: all 1s ease-out;
+} */
 
-/* .div__bluecircle span {
+/* .div__bluecircle-hidden * {
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+
+div.div__bluecircle-show * {
+  opacity: 1;
+  transition: all 0.2s linear;
 } */
 
 .div__bluecircle_loginSignUp {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   margin-top: 1.3rem;
 }
 .div__bluecircle_loginSignUp button {
