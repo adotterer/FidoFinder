@@ -6,7 +6,6 @@ const { User, UserDetail } = require("../../db/models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
-// inside middleware handler
 const ipMiddleware = function (req, res, next) {
   const clientIp = requestIp.getClientIp(req);
   req.clientIp = clientIp;
@@ -26,15 +25,24 @@ const ipMiddleware = function (req, res, next) {
 
 router.get("/logs/:date", async (req, res, next) => {
   const { date } = req.params;
-  try {
-    fs.readFile(`./logs/log__${date}.txt`, "utf8", (err, data) => {
+  if (fs.existsSync(__dirname + `/logs/log__${date}.txt`)) {
+    //file exists
+    fs.readFile(__dirname + `/logs/log__${date}.txt`, "utf8", (err, data) => {
       if (err) throw err;
+      // console.log(data, "DATA!!");
       console.log("data, about to be sent back, split", data.split("\n"));
       res.json(data.split("\n"));
     });
-  } catch (e) {
-    console.error(e);
-    next();
+  } else {
+    res.json([
+      "-------------------",
+      "-------------------",
+      "-------------------",
+      "-----NO RECORDS----",
+      "-------------------",
+      "-------------------",
+      "-------------------",
+    ]);
   }
 });
 
@@ -54,9 +62,12 @@ router.get("/", ipMiddleware, async (req, res, next) => {
 
   if (!geoObj) {
     latlng = { lat: 40.71, lng: -74.0 };
-    const logStream = fs.createWriteStream(`./logs/log__${todaysDate}.txt`, {
-      flags: "a",
-    });
+    const logStream = fs.createWriteStream(
+      __dirname + `/logs/log__${todaysDate}.txt`,
+      {
+        flags: "a",
+      }
+    );
     logStream.write(
       `\n######### Anonymous User #########
        ## IP Address: ${clientIp}
@@ -67,11 +78,15 @@ router.get("/", ipMiddleware, async (req, res, next) => {
     console.log(geoObj);
     latlng = { lat: geoObj.ll[0], lng: geoObj.ll[1] };
 
-    const logStream = fs.createWriteStream(`./logs/log__${todaysDate}.txt`, {
-      flags: "a",
-    });
+    const logStream = fs.createWriteStream(
+      __dirname + `/logs/log__${todaysDate}.txt`,
+      {
+        flags: "a",
+      }
+    );
     logStream.write(
       `######### Anonymous User #########
+       ### IP Address: ${clientIp}
        ### Country: ${geoObj.country}
        ## City: ${geoObj.city}
        ## Lat: ${geoObj.ll[0]}
