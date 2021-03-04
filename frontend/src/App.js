@@ -10,7 +10,7 @@ import UserProfile from "./components/UserProfile";
 import SocketMessenger from "./components/SocketMessenger";
 import Notifications from "./components/NotificationReel";
 import Logs from "./components/Logs";
-// import NearbyUsers from "./components/NearbyUsers";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +58,7 @@ function App() {
           </div>
         </div>
       )}
+      <Footer />
     </>
   );
 }

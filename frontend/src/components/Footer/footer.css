@@ -1,0 +1,40 @@
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 1rem;
+}
+
+.div__footer {
+  opacity: 0.7;
+  height: 2rem;
+  color: rgb(37, 37, 37);
+  border: 1px solid lightgrey;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  transition: all 0.28s linear;
+}
+
+.div__footer:hover {
+  color: black;
+  opacity: 1;
+}
+
+.div__footer_name {
+  line-height: 0.8rem;
+  /* padding-bottom: 5px; */
+  padding-right: 5px;
+}
+
+.div__footer_icons {
+  padding-top: 5px;
+}
+
+.div__footer_icons a {
+  padding: 0 2px 0 2px;
+}

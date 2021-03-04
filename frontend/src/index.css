@@ -28,6 +28,7 @@ a,
 a:visited,
 a:active {
   color: rgb(2, 117, 143);
+  transition: color 0.2s linear;
 }
 
 a:hover {
@@ -72,7 +73,7 @@ div#div__innerContent {
   height: 100%;
   overflow-x: auto;
   overflow-y: auto;
-  /* padding: 1rem 1.6rem 0 1.6rem; */
+  padding: 1rem 1.6rem 0 1.6rem;
   min-width: 75vw;
   max-width: 80vw;
   background-color: white;
