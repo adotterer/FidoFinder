@@ -85,7 +85,7 @@ router.get("/", ipMiddleware, async (req, res, next) => {
       }
     );
     logStream.write(
-      `######### Anonymous User #########
+      `\n######### Anonymous User #########
        ### IP Address: ${clientIp}
        ### Country: ${geoObj.country}
        ## City: ${geoObj.city}
