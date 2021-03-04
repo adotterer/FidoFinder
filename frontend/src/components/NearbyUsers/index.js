@@ -13,16 +13,12 @@ async function getNearbyUsersMyLocation(sessionUser) {
 function NearbyUsers() {
   const [locationInfo, setLocationInfo] = useState([]);
   const sessionUser = useSelector((state) => state.session.user);
-  const [center, setCenter] = useState();
 
-  useEffect(async () => {
-    setLocationInfo(await getNearbyUsersMyLocation(sessionUser));
+  useEffect(() => {
+    getNearbyUsersMyLocation(sessionUser).then((res) => {
+      setLocationInfo(res);
+    });
   }, [sessionUser]);
-
-  useEffect(async () => {
-    setCenter(locationInfo.currentLocation);
-    console.log(locationInfo, "LOCATIONINFO");
-  }, [locationInfo]);
 
   return (
     <div>

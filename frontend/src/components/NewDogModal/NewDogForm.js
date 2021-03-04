@@ -1,11 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { addDog, toggleDogModal, submitNewDog } from "../../store/dog_actions";
 import { useSelector } from "react-redux";
 
 function NewDogForm() {
-  const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [dogName, setDogName] = useState("");
@@ -13,7 +11,7 @@ function NewDogForm() {
   const [dogImage, setDogImage] = useState();
   const [interests, setInterests] = useState();
 
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,9 +34,9 @@ function NewDogForm() {
       <h1>Create a new dog profile</h1>
       <form onSubmit={handleSubmit}>
         <ul>
-          {errors.map((error, idx) => (
+          {/* {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
-          ))}
+          ))} */}
         </ul>
         <label>
           Name
@@ -68,6 +66,7 @@ function NewDogForm() {
         </label>
         <img
           className="img__preview"
+          alt="preview"
           src={dogImage ? URL.createObjectURL(dogImage) : null}
         />
         <br />

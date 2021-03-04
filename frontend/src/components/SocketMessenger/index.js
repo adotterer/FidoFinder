@@ -1,6 +1,5 @@
-// import { set } from "js-cookie";
 import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams, Redirect, Link } from "react-router-dom";
 import io from "socket.io-client";
 import LoadMessages from "./LoadMessages";
@@ -8,12 +7,12 @@ import "./chatroom.css";
 
 export default function SocketMessenger() {
   const { chatRoomId } = useParams();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [msg, setMsg] = useState("");
   const [messageThread, setMessageThread] = useState([]);
   const [liveSocket, setLiveSocket] = useState(null);
-  const [username, setUserName] = useState(sessionUser.username);
+  // const [username, setUserName] = useState(sessionUser.username);
 
   const [authorizedUsers, setAuthorizedUsers] = useState();
 
@@ -47,9 +46,9 @@ export default function SocketMessenger() {
       socket.send("disconnect");
       socket.close();
     };
-  }, [username]);
+  }, [sessionUser]);
 
-  if (!username) return <Redirect to="/" />;
+  if (!sessionUser) return <Redirect to="/" />;
 
   return (
     <div className="div__chatSession">

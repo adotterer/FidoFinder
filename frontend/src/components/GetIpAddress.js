@@ -73,7 +73,7 @@ function GetIpAddress() {
         setCityReel((reel) => [...reel, res.data]);
       });
     }
-  }, []);
+  }, [ipAddress]);
 
   useEffect(() => {
     if (userLoc && cityReel) {
@@ -86,7 +86,7 @@ function GetIpAddress() {
         i++;
       }, 6000);
     }
-  }, [cityReel]);
+  }, [userLoc, cityReel]);
 
   return ipAddress ? (
     <div className="div__splashmap">

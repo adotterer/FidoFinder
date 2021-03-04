@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import NewDogForm from "./NewDogForm";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,7 +5,6 @@ import { toggleDogModal } from "../../store/dog_actions";
 
 function NewDogModal() {
   const dispatch = useDispatch();
-
   const newDogRedux = useSelector((state) => state.newDog);
 
   return (

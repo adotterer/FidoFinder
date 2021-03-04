@@ -3,7 +3,6 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import LoginFormModal from "../LoginFormModal";
-import { GiDogHouse } from "react-icons/gi";
 import { IoIosChatbubbles } from "react-icons/io";
 import "./Navigation.css";
 import logo from "./logo_3-black.png";
@@ -54,8 +53,8 @@ function Navigation({ isLoaded }) {
     <div id="div__nav-bar">
       <NavLink exact to="/">
         <div class="div__logo">
-          <img id="img__logo" src={logo} />
-          {/* Fido411 / FidoApp / */}FidoFinder
+          <img id="img__logo" alt="FidoFinder" src={logo} />
+          FidoFinder
         </div>
       </NavLink>
       <div class="div__navIcons">

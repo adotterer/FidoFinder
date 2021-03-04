@@ -37,21 +37,25 @@ router.get(
 router.get(
   "/:chatRoomId/auth",
   requireAuth,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const { chatRoomId } = req.params;
-    console.log(chatRoomId, "chatroomid");
-    console.log("*************************");
-    console.log("*************************");
-    console.log("*************************");
-    console.log("*************************");
+
     const authorizedUsers = await ChatRoom.findByPk(chatRoomId, {
       include: [{ model: User, as: "AuthorizedChatters" }],
     })
       .then((chatRoom) => chatRoom.toJSON())
       .then((chatRoomObj) => chatRoomObj.AuthorizedChatters)
-      .catch((e) => console.error(e));
+      .catch((e) => next(e));
 
-    console.log("AUTHORIZEDUSERS", authorizedUsers);
+    console.log("*************************");
+    console.log("*************************");
+    console.log("*************************");
+    console.log("*************************");
+    console.log("AUTHORIZED USERS: \n", authorizedUsers);
+    console.log("*************************");
+    console.log("*************************");
+    console.log("*************************");
+    console.log("*************************");
     res.json(authorizedUsers);
     // console.log(authorizedUsers, "jjj");
     // res.json({ authorizedUsers: authorizedUsers });
@@ -79,7 +83,7 @@ router.get(
 router.get(
   "/add",
   requireAuth,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const {
       sessionUserId,
       otherUserId,
@@ -104,6 +108,7 @@ router.get(
     } catch (e) {
       console.log("ERROR FROM CHAT TABLE QUERY");
       console.error(e);
+      next(e);
     }
 
     // If no chat room exists yet, it creates a new one

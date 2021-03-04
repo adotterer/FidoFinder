@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
 import "./Greeting.css";
-import LoginFormModal from "../LoginFormModal";
 import GetIpAddress from "../GetIpAddress";
-import { Link } from "react-router-dom";
 import NearbyUsers from "../NearbyUsers";
 
 function GreetingPage() {
