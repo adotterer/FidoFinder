@@ -3,9 +3,9 @@ import { fetch } from "../store/csrf.js";
 import SplashMap from "./SplashMap";
 import "./SplashMap/splashmap.css";
 const cityReelArr = [
-  // philadelphia
+  // san fran
   {
-    latlng: { lat: 39.95, lng: -75.17 },
+    latlng: { lat: 37.77, lng: -122.41 },
     nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
   },
   // new york
@@ -33,12 +33,6 @@ const cityReelArr = [
     latlng: { lat: 34.0, lng: -118.2 },
     nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
   },
-
-  // san fran
-  {
-    latlng: { lat: 37.77, lng: -122.41 },
-    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
-  },
   // balitmore
   {
     latlng: { lat: 39.29, lng: -76.6 },
@@ -49,9 +43,19 @@ const cityReelArr = [
     latlng: { lat: 39.7, lng: -105.0 },
     nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
   },
+  // philadelphia
+  {
+    latlng: { lat: 39.95, lng: -75.17 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
   // seattle
   {
     latlng: { lat: 47.6, lng: -122.33 },
+    nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
+  },
+  // pittsburgh
+  {
+    latlng: { lat: 40.44, lng: -79.99 },
     nearbyUsers: new Array(Math.ceil(Math.random() * 290)),
   },
 ];

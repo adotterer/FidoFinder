@@ -9,6 +9,7 @@ import GreetingPage from "./components/GreetingPage";
 import UserProfile from "./components/UserProfile";
 import SocketMessenger from "./components/SocketMessenger";
 import Notifications from "./components/NotificationReel";
+import Logs from "./components/Logs";
 // import NearbyUsers from "./components/NearbyUsers";
 
 function App() {
@@ -49,6 +50,9 @@ function App() {
               </Route>
               <Route exact path="/notifications/me">
                 <Notifications />
+              </Route>
+              <Route exact path="/logs">
+                <Logs />
               </Route>
             </Switch>
           </div>
