@@ -5,3 +5,4 @@ node_modules/
 .icloud
 backend/logs
 backend/routes/api/logs
+*.icloud
