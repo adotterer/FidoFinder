@@ -10,19 +10,13 @@ _By Andrew Dotterer - [Visit FidoFinder App](https://fidofinderapp.herokuapp.com
 - [Getting Started](#getting-started)
 - [Updates](#updates)
 
-Meant to be a clone of [StackOverflow](https://www.stackoverflow.com), the updated project can be found [here](https://jsjungle.herokuapp.com/), while the original project and repo can be found [here](https://javascriptjungle.herokuapp.com) and [here](https://github.com/Giiaga/JavaScriptJungle), respectively.
-
 # Application Architecture
-
-![ApplicationArchitecture](./public/images/readme_appdesign.png)
 
 # Frontend Overview
 
 ### _React_
 
 The template engine implemented by Node.js.
-
-![HOMEPAGE](./public/images/js_jungle_Screenshot_HOME.png)
 
 # Backend Overview
 
@@ -58,11 +52,15 @@ Express handles all routes using RESTful API and sends all information from the 
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/jm-alan/JSJ-retooling
+   git clone https://github.com/adotterer/FidoFinder.git
    ```
 2. Install NPM packages
    ```sh
-   npm install
+   cd backend && npm install
+   ```
+   (back in the main directory)
+   ```sh
+   cd frontend & npm install
    ```
 3. Make a .env file
 
