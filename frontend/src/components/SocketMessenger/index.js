@@ -7,12 +7,11 @@ import "./chatroom.css";
 
 export default function SocketMessenger() {
   const { chatRoomId } = useParams();
-  // const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [msg, setMsg] = useState("");
   const [messageThread, setMessageThread] = useState([]);
   const [liveSocket, setLiveSocket] = useState(null);
-  // const [username, setUserName] = useState(sessionUser.username);
+
 
   const [authorizedUsers, setAuthorizedUsers] = useState();
 
