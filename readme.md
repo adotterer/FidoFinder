@@ -55,13 +55,17 @@ Express handles all routes using RESTful API and sends all information from the 
    git clone https://github.com/adotterer/FidoFinder.git
    ```
 2. Install NPM packages
+
    ```sh
    cd backend && npm install
    ```
+
    (back in the main directory)
+
    ```sh
    cd frontend & npm install
    ```
+
 3. Make a .env file
 
    ```JS
@@ -93,8 +97,14 @@ Express handles all routes using RESTful API and sends all information from the 
    ```
 5. Start the app
 
-   ```JS
-   npm start
+   ```sh
+   cd backend && npm start
+   ```
+
+   (back in the main directory)
+
+   ```sh
+   cd frontend & npm start
    ```
 
 6. Go to localhost:8080
