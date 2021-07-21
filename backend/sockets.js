@@ -106,6 +106,15 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
               },
               { returning: true }
             );
+            // TEST: CAN I JUST SEND ALL MESSAGES AND IT BE FINE
+            
+            io.to(`chatRoom-${payload}`).emit(
+              "broadcast message to all users",
+              {
+                message: msg,
+                User: user,
+              }
+            );
             const otherUsers = await newMessage.getNotifUsers(user.id);
             otherUsers.forEach((otherUser) => {
               console.log(
@@ -117,7 +126,7 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
                 user,
               });
             });
-            console.log("bubblebop", otherUsers);
+
             // NOW SEND NOTIFICATION TO THE USERS WHO ARE ASSOCIATED WITH CHATROOMID #
 
             // newMessage

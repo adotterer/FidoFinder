@@ -4,7 +4,6 @@ import { fetch } from "../../store/csrf.js";
 import "./chatroom.css";
 
 function Message({ message, classI }) {
-  console.log(message, "message");
   return (
     <div
       className={`div__messageBubble div__username${classI}`}
