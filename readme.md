@@ -65,13 +65,17 @@ Express handles all routes using RESTful API and sends all information from the 
 3. Make a .env file
 
    ```JS
-   DB_USERNAME=junglemaster
+   PORT=5000
+   WEBPORT=3000
+   DB_USERNAME=dog_db_admin
    DB_PASSWORD=password
-   DB_DATABASE=db_name
+   DB_DATABASE=dog_db
    DB_HOST=localhost
-   JWT_SECRET=your_secret
-   JWT_EXPIRES_IN=604800
-   SESSION_SECRET=your_secret
+   JWT_SECRET=[YOUR SETUP]
+   JWT_EXPIRES_IN=[YOUR SETUP]
+   AWS_ACCESS_KEY_ID=[YOUR SETUP]
+   AWS_SECRET_ACCESS_KEY=[YOUR SETUP]
+   GOOGLE_API_SECRET=[YOUR SETUP]
    ```
 
 4. Sequelize commands
