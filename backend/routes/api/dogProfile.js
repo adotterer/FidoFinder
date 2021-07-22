@@ -9,14 +9,6 @@ const {
   singleMulterUpload,
 } = require("../../utils/awsS3");
 
-router.get(
-  "/",
-  requireAuth,
-  asyncHandler(async (req, res) => {
-    console.log("hello from router get");
-  })
-);
-
 router.post(
   "/add",
   requireAuth,
