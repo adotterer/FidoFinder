@@ -107,7 +107,7 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
               { returning: true }
             );
             // TEST: CAN I JUST SEND ALL MESSAGES AND IT BE FINE
-            
+
             io.to(`chatRoom-${payload}`).emit(
               "broadcast message to all users",
               {
@@ -154,12 +154,6 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
       });
       break;
     case "notif":
-      // payload === userId
-      // console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
-      // console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
-      // console.log("joining: ", `notif_user${user.id}`);
-      // console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
-      // console.log("😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏😏");
       socket.join(`notif_user${user.id}`);
       break;
     default:

@@ -47,15 +47,7 @@ router.get(
       .then((chatRoomObj) => chatRoomObj.AuthorizedChatters)
       .catch((e) => next(e));
 
-    console.log("*************************");
-    console.log("*************************");
-    console.log("*************************");
-    console.log("*************************");
-    console.log("AUTHORIZED USERS: \n", authorizedUsers);
-    console.log("*************************");
-    console.log("*************************");
-    console.log("*************************");
-    console.log("*************************");
+    
     res.json(authorizedUsers);
     // console.log(authorizedUsers, "jjj");
     // res.json({ authorizedUsers: authorizedUsers });

@@ -6,15 +6,10 @@ const WebSocket = require("ws");
 const { User } = require("../db/models/user.js");
 const app = require("../app");
 
-// const { port } = require("./config");
 const { MessageSession, Person } = require("./messageSession-state");
 
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "/public")));
-
-// app.get("/chatSystem", (req, res) => {
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
 
 const server = createServer(chatApp);
 
@@ -71,10 +66,8 @@ const recordChat = (chatData) => {
   updateMessageSession();
 };
 
-// //Processing incoming message {"type":"chat-message","data":{"username":"p2","msg":"hi there"}}
-const processIncomingMessage = (jsonData, ws) => {
-  console.log(`Processing incoming message ${jsonData}...`);
 
+const processIncomingMessage = (jsonData, ws) => {
   const message = JSON.parse(jsonData);
 
   switch (message.type) {
