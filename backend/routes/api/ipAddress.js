@@ -11,13 +11,13 @@ const ipMiddleware = function (req, res, next) {
   req.clientIp = clientIp;
 
   const geoObj = geoip.lookup(clientIp);
-  console.log("*********************");
-  console.log("*******(inside ipMiddleware)*******");
-  console.log("*********************");
-  console.log("geoObj ---->", geoObj);
-  console.log("*********************");
-  console.log("*********************");
-  console.log("*********************");
+  // console.log("*********************");
+  // console.log("*******(inside ipMiddleware)*******");
+  // console.log("*********************");
+  // console.log("geoObj ---->", geoObj);
+  // console.log("*********************");
+  // console.log("*********************");
+  // console.log("*********************");
   req.geoObj = geoObj;
 
   next();
@@ -47,13 +47,13 @@ router.get("/logs/:date", async (req, res, next) => {
 });
 
 router.get("/", ipMiddleware, async (req, res, next) => {
-  console.log("*********************");
-  console.log("*********************");
-  console.log("*********************");
-  console.log("here is clientIP ---->", req.clientIp);
-  console.log("*********************");
-  console.log("*********************");
-  console.log("*********************");
+  // console.log("*********************");
+  // console.log("*********************");
+  // console.log("*********************");
+  // console.log("here is clientIP ---->", req.clientIp);
+  // console.log("*********************");
+  // console.log("*********************");
+  // console.log("*********************");
   const { clientIp, geoObj } = req;
 
   let latlng;

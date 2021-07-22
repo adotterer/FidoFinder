@@ -91,7 +91,7 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
             });
           } catch (e) {
             console.log("payload --->", payload);
-            console.error(e);
+            console.error(e.message);
           }
         } else {
           // OTHERWISE, SEND TO DB FOR STORAGE ----
@@ -135,7 +135,7 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
             //   .catch((e) => console.error(e));
             // console.log("ADD MESSAGE TO DB", newMessage);
           } catch (e) {
-            console.log("payload --->", payload);
+            console.log("error payload --->", payload);
             console.error(e);
           }
         }

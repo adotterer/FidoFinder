@@ -9,19 +9,6 @@ const {
   singleMulterUpload,
 } = require("../../utils/awsS3");
 
-// TODO: DELETE TESTING ROUTE
-router.get("/test", async (req, res) => {
-  const allUserConversations = User.findByPk(1)
-    .then((user) => user.getConversations())
-    .then((convos) => console.log(convos));
-  // ChatRoom.findByPk(1, {
-  //   include: ["ChattingUsers"],
-  // }).then((result) => {
-  //   console.log(result.toJSON());
-  //   return res.send(result.toJSON());
-  // });
-});
-
 router.get(
   "/",
   requireAuth,

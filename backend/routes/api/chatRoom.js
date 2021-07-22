@@ -47,7 +47,7 @@ router.get(
       .then((chatRoomObj) => chatRoomObj.AuthorizedChatters)
       .catch((e) => next(e));
 
-    
+
     res.json(authorizedUsers);
     // console.log(authorizedUsers, "jjj");
     // res.json({ authorizedUsers: authorizedUsers });
@@ -105,7 +105,7 @@ router.get(
 
     // If no chat room exists yet, it creates a new one
     let newChatRoom;
-    console.log("!alreadyCreatedRoom = ", !alreadyCreatedRoom);
+    
     if (!alreadyCreatedRoom) {
       try {
         newChatRoom = await ChatRoom.create({
