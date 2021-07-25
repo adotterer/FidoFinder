@@ -3,7 +3,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import LoginFormModal from "../LoginFormModal";
-import { IoIosChatbubbles } from "react-icons/io";
+import { BsEnvelopeFill } from "react-icons/bs";
 import "./Navigation.css";
 import logo from "./logo_3-black.png";
 import Notifications from "../NotificationReel";
@@ -19,9 +19,9 @@ function Navigation({ isLoaded }) {
         <li class="li__buttonIcons">
           <ProfileButton user={sessionUser} />
         </li>
-        <NavLink exact to="/users/all">
+        <NavLink exact to="/inbox">
           <li class="li__buttonIcons">
-            <IoIosChatbubbles />
+            <BsEnvelopeFill />
           </li>
         </NavLink>
         <li class="li__buttonIcons">
