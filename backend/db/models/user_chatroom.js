@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const user_chatRoom = sequelize.define(
     "user_chatRoom",
     {
+      id: { type: DataTypes.INTEGER, primaryKey: true },
       userId: DataTypes.INTEGER,
       chatRoomId: DataTypes.INTEGER,
     },
@@ -23,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   user_chatRoom.prototype.toSafeObject = function () {
-    // remember, this cannot be an arrow function
-    const { userId, chatRoomId } = this; // context will be the User instance
-    return { userId, chatRoomId };
+    const { id, userId, chatRoomId } = this;
+    console.log("line 27 of user_chatroom.js", id);
+    return { id, userId, chatRoomId };
   };
 
   return user_chatRoom;
