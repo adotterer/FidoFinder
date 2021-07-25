@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Dog, DogProfile, Image, ChatRoom, User } = require("../../db/models");
+const { Dog, DogProfile, Image } = require("../../db/models");
 // const { Op } = require("sequelize");
 const asyncHandler = require("express-async-handler");
 const { requireAuth } = require("../../utils/auth");

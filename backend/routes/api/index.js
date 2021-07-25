@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
-// const chatRouter = require("./chat.js");
 const chatRoomRouter = require("./chatRoom.js");
 const ipAddressRouter = require("./ipAddress.js");
 const userProfileRouter = require("./userprofile.js");
 const dogProfileRouter = require("./dogProfile.js");
+const inboxRouter = require("./inbox.js");
 
 // GET /api/set-token-cookie
 const asyncHandler = require("express-async-handler");
@@ -48,8 +48,6 @@ router.use("/session", sessionRouter);
 
 router.use("/users", usersRouter);
 
-// router.use("/chat", chatRouter);
-
 router.use("/chatroom", chatRoomRouter);
 
 router.use("/ipAddress", ipAddressRouter);
@@ -58,6 +56,6 @@ router.use("/user", userProfileRouter); // SINGULAR USER for profile use only
 
 router.use("/dogProfile", dogProfileRouter);
 
-// dog profile route goes here
+router.use("/inbox", inboxRouter);
 
 module.exports = router;
