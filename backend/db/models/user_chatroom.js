@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       getterMethods: {
         info() {
-          const { id, username, email } = this;
-          return { id, username, email };
+          const { id, userId, chatRoomId } = this;
+          return { id, userId, chatRoomId };
         },
       },
     }

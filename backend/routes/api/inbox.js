@@ -9,9 +9,11 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const currentUser = req.user.info;
-
-    console.log(currentUser, "got it bitch");
-
+    const chatRooms = await user_chatRoom.findAll({
+      where: { userId: currentUser.id },
+    });
+    console.log(chatRooms, "got it bitch");
+    return res.json(chatRooms);
   })
 );
 
