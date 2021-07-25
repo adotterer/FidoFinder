@@ -21,5 +21,12 @@ module.exports = (sequelize, DataTypes) => {
       hooks: true,
     });
   };
+
+  user_chatRoom.prototype.toSafeObject = function () {
+    // remember, this cannot be an arrow function
+    const { userId, chatRoomId } = this; // context will be the User instance
+    return { userId, chatRoomId };
+  };
+
   return user_chatRoom;
 };
