@@ -12,8 +12,11 @@ router.get(
     const chatRooms = await user_chatRoom.findAll({
       where: { userId: currentUser.id },
     });
-    console.log(chatRooms, "got it bitch");
-    return res.json(chatRooms);
+    const mappedChatRooms = chatRooms.map(
+      (chatRoom) => chatRoom.info.chatRoomId
+    );
+
+    return res.json(mappedChatRooms);
   })
 );
 
