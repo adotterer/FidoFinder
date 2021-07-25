@@ -21,10 +21,6 @@ function authorizeUser(socket, user, chatRoomId) {
     include: ["AuthorizedChatters"],
   })
     .then((authorizedChatters) => {
-      // console.log("****************");
-      // console.log("****************");
-      // console.log("****************");
-      // console.log("DEBUGGING authorizedChatters", authorizedChatters);
       return authorizedChatters.toJSON().AuthorizedChatters;
     })
     .then((authorizedChatters) => {
@@ -39,6 +35,7 @@ function authorizeUser(socket, user, chatRoomId) {
         // console.log("CREATED A CHATROOM_# LIVE USERMAP", liveUserMap);
       } else {
         liveUserMap[`chatRoom_${chatRoomId}`] = new Set();
+
         liveUserMap[`chatRoom_${chatRoomId}`].add(authorizedUser.id);
         // console.log("ADDED TO CHATROOM_# LIVE USERSMAP", liveUserMap);
       }

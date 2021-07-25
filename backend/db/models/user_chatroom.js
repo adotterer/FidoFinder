@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const user_chatRoom = sequelize.define(
     "user_chatRoom",
     {
-      id: { type: DataTypes.INTEGER, primaryKey: true },
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
       userId: DataTypes.INTEGER,
       chatRoomId: DataTypes.INTEGER,
     },
