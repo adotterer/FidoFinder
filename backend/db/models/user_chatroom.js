@@ -7,7 +7,14 @@ module.exports = (sequelize, DataTypes) => {
       userId: DataTypes.INTEGER,
       chatRoomId: DataTypes.INTEGER,
     },
-    {}
+    {
+      getterMethods: {
+        info() {
+          const { id, username, email } = this;
+          return { id, username, email };
+        },
+      },
+    }
   );
   user_chatRoom.associate = function (models) {
     user_chatRoom.belongsTo(models.User, {

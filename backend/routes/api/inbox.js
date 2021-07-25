@@ -8,15 +8,10 @@ router.get(
   "/",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const currentUser = req.user.toSafeObject();
+    const currentUser = req.user.info;
 
-    const conversations = await user_chatRoom.findAll({
-      where: { userId: currentUser.id },
-    });
+    console.log(currentUser, "got it bitch");
 
-    console.log(
-      conversations.map((conversation) => conversation.toSafeObject())
-    );
   })
 );
 

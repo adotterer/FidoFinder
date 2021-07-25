@@ -62,6 +62,12 @@ module.exports = (sequelize, DataTypes) => {
           ],
         },
       },
+      getterMethods: {
+        info() {
+          const { id, username, email } = this;
+          return { id, username, email };
+        },
+      },
       scopes: {
         currentUser: {
           attributes: { exclude: ["hashedPassword"] },
@@ -84,11 +90,6 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(models.ChatRoom, chatRoomMapping);
     User.hasMany(models.Dog, { foreignKey: "ownerId" });
     User.hasMany(models.Message, { foreignKey: "userId" });
-  };
-  User.prototype.toSafeObject = function () {
-    // remember, this cannot be an arrow function
-    const { id, username, email } = this; // context will be the User instance
-    return { id, username, email };
   };
 
   User.prototype.validatePassword = function (password) {
