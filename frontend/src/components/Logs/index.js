@@ -15,7 +15,6 @@ export default function Logs() {
 
   useEffect(() => {
     if (!date) return;
-    console.log("new date", date);
     fetch(`/api/ipAddress/logs/${date}`)
       .then((res) => {
         setLogs(res.data);

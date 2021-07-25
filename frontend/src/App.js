@@ -11,6 +11,7 @@ import SocketMessenger from "./components/SocketMessenger";
 import Notifications from "./components/NotificationReel";
 import Logs from "./components/Logs";
 import Footer from "./components/Footer";
+import Inbox from "./components/Inbox";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ function App() {
             <Switch>
               <Route exact path="/">
                 <GreetingPage />
+              </Route>
+              <Route exact path="/inbox">
+                <Inbox />
               </Route>
               <Route path="/signup">
                 <SignUp />

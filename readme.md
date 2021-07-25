@@ -22,21 +22,13 @@ The template engine implemented by Node.js.
 
 ### _Sequelize_
 
-Sequelize establishes the database, models, and seeders. Seeder data fills Pug templates.
+Sequelize establishes the database, models, and seeders.
 
 ### _Express_
 
 Express handles all routes using RESTful API and sends all information from the database.
 
-### _API Routes (routes/index.js)_
-
-```JS
-  const homeRouter = require('./home');
-  const usersRouter = require('./users');
-  const apiRouter = require('./api');
-  const questionRouter = require('./questions');
-  const postRouter = require('./posts');
-```
+### _API Routes_
 
 # Getting Started
 
@@ -116,5 +108,3 @@ Express handles all routes using RESTful API and sends all information from the 
 # Updates
 
 _12/07/2020_
-
-Fixed a bug where voting and delete functionality was not active on AJAX-rendered new answers to a question.
