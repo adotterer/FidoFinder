@@ -27,16 +27,5 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "chatRoomId",
     });
   };
-  // ChatRoom.get
-  // ChatRoom.getAuthorizedUsers = async (chatRoomId) => {
-  //   try {
-  //     const res = await ChatRoom.findAll({
-  //       // { model: User },
-  //     });
-  //     return res;
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
   return ChatRoom;
 };

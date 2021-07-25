@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   user_chatRoom.associate = function (models) {
-    // associations can be defined here
     user_chatRoom.belongsTo(models.User, {
       foreignKey: "userId",
       onDelete: "CASCADE",
@@ -25,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
 
   user_chatRoom.prototype.toSafeObject = function () {
     const { id, userId, chatRoomId } = this;
-    console.log("line 27 of user_chatroom.js", id);
     return { id, userId, chatRoomId };
   };
 
