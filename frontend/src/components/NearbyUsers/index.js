@@ -10,7 +10,7 @@ async function getNearbyUsersMyLocation(sessionUser) {
   return nearbyUsers;
 }
 
-function NearbyUsers() {
+export default function NearbyUsers() {
   const [locationInfo, setLocationInfo] = useState([]);
   const sessionUser = useSelector((state) => state.session.user);
 
@@ -35,5 +35,3 @@ function NearbyUsers() {
     </div>
   );
 }
-
-export default NearbyUsers;
