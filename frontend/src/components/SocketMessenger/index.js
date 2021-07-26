@@ -48,7 +48,7 @@ export default function SocketMessenger() {
 
   if (!sessionUser) return <Redirect to="/" />;
   if (
-    authorizedUsers &&
+    !authorizedUsers ||
     !authorizedUsers.find((authUser) => authUser.id === sessionUser.id)
   )
     return <Redirect to="/" />;
