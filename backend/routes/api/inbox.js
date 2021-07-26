@@ -14,7 +14,6 @@ router.get(
     });
     const mappedChatRooms = chatRooms.map(({ info: { chatRoomId } }) => {
       return ChatRoom.findByPk(chatRoomId);
-      // return messages;
     });
 
     const chatRoomModels = await Promise.all(mappedChatRooms);
