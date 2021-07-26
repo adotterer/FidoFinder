@@ -19,15 +19,24 @@ export default function SocketMessenger() {
     liveSocket.emit("message", msg, chatRoomId);
     setMsg("");
   }
+  if (!authorizedUsers) {
+  }
 
   useEffect(() => {
     if (!authorizedUsers) {
-      fetch(`/api/chatroom/${chatRoomId}/auth`)
+      return fetch(`/api/chatroom/${chatRoomId}/auth`)
         .then((res) => res.json())
         .then((authUsers) => setAuthorizedUsers(authUsers));
+    } else {
+      console.log(sessionUser.id, authorizedUsers, "authorized users");
+      console.log(
+        "session User",
+        authorizedUsers.find((authUser) => authUser.id === sessionUser.id)
+      );
     }
-    console.log(sessionUser.id, authorizedUsers, "authorized users");
+  }, [authorizedUsers]);
 
+  useEffect(() => {
     const socket = io(undefined, {
       query: {
         type: "chat",
@@ -46,47 +55,59 @@ export default function SocketMessenger() {
     };
   }, [sessionUser]);
 
-  if (!sessionUser) return <Redirect to="/" />;
   if (
-    !authorizedUsers ||
-    !authorizedUsers.find((authUser) => authUser.id === sessionUser.id)
-  )
-    return <Redirect to="/" />;
-
-  return (
-    <div className="div__chatSession">
-      <div className="div__authorizedUsers">
-        {authorizedUsers &&
-          authorizedUsers.map((user, i) => {
-            return (
-              <Link to={`/user/${user.id}`}>
-                <div className={`div__chatUsername div__username${i}`}>
-                  @{user.username}
-                </div>
-              </Link>
-            );
-          })}
-      </div>
-      <div>
-        <LoadMessages
-          authorizedUsers={authorizedUsers}
-          messageThread={messageThread}
-          chatRoomId={chatRoomId}
-        />
-      </div>
-      <form onSubmit={onSubmit}>
-        <div className="div__msgSend">
-          <input
-            type="text"
-            value={msg}
-            onChange={(e) => {
-              setMsg(e.target.value);
-            }}
-          />
-
-          <button>Submit</button>
+    !sessionUser
+    // !authorizedUsers
+    // !authorizedUsers.find((authUser) => authUser.id === sessionUser.id)
+  ) {
+    return <Redirect to="/inbox" />;
+  } else if (
+    authorizedUsers &&
+    !!authorizedUsers.find((authUser) => authUser.id === sessionUser.id)
+  ) {
+    return (
+      <div className="div__chatSession">
+        <div className="div__authorizedUsers">
+          {authorizedUsers &&
+          !!authorizedUsers.find(
+            (authUser) => authUser.id === sessionUser.id
+          ) ? (
+            authorizedUsers.map((user, i) => {
+              return (
+                <Link to={`/user/${user.id}`}>
+                  <div className={`div__chatUsername div__username${i}`}>
+                    @{user.username}
+                  </div>
+                </Link>
+              );
+            })
+          ) : (
+            <div> Hey bitch</div>
+          )}
         </div>
-      </form>
-    </div>
-  );
+        <div>
+          <LoadMessages
+            authorizedUsers={authorizedUsers}
+            messageThread={messageThread}
+            chatRoomId={chatRoomId}
+          />
+        </div>
+        <form onSubmit={onSubmit}>
+          <div className="div__msgSend">
+            <input
+              type="text"
+              value={msg}
+              onChange={(e) => {
+                setMsg(e.target.value);
+              }}
+            />
+
+            <button>Submit</button>
+          </div>
+        </form>
+      </div>
+    );
+  } else {
+    return <div>404 Not Found</div>;
+  }
 }

@@ -54,7 +54,6 @@ router.get(
         } else return chatRoom.toJSON();
       })
       .then((chatRoomObj) => res.json(chatRoomObj.AuthorizedChatters))
-
       .catch((e) => next(e));
   })
 );

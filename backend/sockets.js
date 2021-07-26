@@ -22,6 +22,13 @@ function authorizeUser(socket, user, chatRoomId) {
   })
     .then((authorizedChatters) => {
       if (!authorizedChatters) throw Error("invalid chat room");
+      authorizedChatters = authorizedChatters.toJSON().AuthorizedChatters;
+      if (
+        !authorizedChatters.find((chatter) => {
+          return chatter.id === user.id;
+        })
+      )
+        throw Error("user not authorized!".toUpperCase());
       return authorizedChatters.toJSON().AuthorizedChatters;
     })
     .then((authorizedChatters) => {
@@ -124,7 +131,6 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
                 user,
               });
             });
-
           } catch (e) {
             console.log("error payload --->", payload);
             console.error(e);
