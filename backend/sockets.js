@@ -23,6 +23,7 @@ function authorizeUser(socket, user, chatRoomId) {
     .then((authorizedChatters) => {
       if (!authorizedChatters) throw Error(chatRoomId, "does not exist");
       authorizedChatters = authorizedChatters.toJSON().AuthorizedChatters;
+
       if (
         !authorizedChatters.find((chatter) => {
           return chatter.id === user.id;
@@ -30,7 +31,7 @@ function authorizeUser(socket, user, chatRoomId) {
       )
         throw Error(`
           USER_ID: ${user.id} USERNAME: ${user.username} UNAUTHORIZED ATTEMPT TO ENTER CHAT ROOM #${chatRoomId}`);
-      return authorizedChatters.toJSON().AuthorizedChatters;
+      return authorizedChatters;
     })
     .then((authorizedChatters) => {
       const authorizedUser = authorizedChatters.filter((chatter) => {
