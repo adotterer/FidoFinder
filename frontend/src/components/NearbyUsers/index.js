@@ -30,7 +30,7 @@ export default function NearbyUsers() {
           nearbyUsers={locationInfo.nearbyUsers}
         />
       ) : (
-        "no center"
+        "loading...."
       )}
     </div>
   );
