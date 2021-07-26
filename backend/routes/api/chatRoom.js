@@ -9,11 +9,11 @@ const { requireAuth } = require("../../utils/auth");
 router.get(
   "/:chatRoomId/loadMessages",
   requireAuth,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     // TODO: MAKE SURE AUTHORIZED USER ID IS ONE OF THE AUTHORIZED USERS IN CHATROOM
     const { chatRoomId } = req.params;
 
-    ChatRoom.findByPk(chatRoomId, {
+    return ChatRoom.findByPk(chatRoomId, {
       // include: {
       //   model: "MessageThread",
       //   order: ["createdAt", "DESC"],
@@ -21,6 +21,9 @@ router.get(
       // },
     })
       .then((chatRoom) => {
+        if (!chatRoom) {
+          throw Error("no chatRoom");
+        }
         return chatRoom.getMessageThread({
           include: User,
           order: [["createdAt", "DESC"]],
@@ -29,7 +32,9 @@ router.get(
       })
       .then((thread) => thread.map((msg) => msg.toJSON()))
       .then((json) => res.json(json))
-      .catch((e) => console.error(e));
+      .catch((e) => {
+        next(e);
+      });
   })
 );
 
@@ -40,35 +45,17 @@ router.get(
   asyncHandler(async (req, res, next) => {
     const { chatRoomId } = req.params;
 
-    const authorizedUsers = await ChatRoom.findByPk(chatRoomId, {
+    return ChatRoom.findByPk(chatRoomId, {
       include: [{ model: User, as: "AuthorizedChatters" }],
     })
-      .then((chatRoom) => chatRoom.toJSON())
-      .then((chatRoomObj) => chatRoomObj.AuthorizedChatters)
+      .then((chatRoom) => {
+        if (!chatRoom) {
+          throw Error("no chatRoom");
+        } else return chatRoom.toJSON();
+      })
+      .then((chatRoomObj) => res.json(chatRoomObj.AuthorizedChatters))
+
       .catch((e) => next(e));
-
-
-    res.json(authorizedUsers);
-    // console.log(authorizedUsers, "jjj");
-    // res.json({ authorizedUsers: authorizedUsers });
-    // TODO:
-    // ------> Refactor in ChatRoom model
-    // try {
-    //   const authorizedUsers = await user_chatRoom
-    //     .findAll({
-    //       where: {
-    //         chatRoomId,
-    //       },
-    //       include: {
-    //         model: User,
-    //       },
-    //     })
-    //     .then((users) => users.map((user) => user.toJSON()))
-    //     .catch((e) => console.error(e));
-    //   res.json({ msg: "chatRoomId sent!", authorizedUsers });
-    // } catch (e) {
-    //   console.error(e);
-    // }
   })
 );
 
@@ -76,12 +63,8 @@ router.get(
   "/add",
   requireAuth,
   asyncHandler(async (req, res, next) => {
-    const {
-      sessionUserId,
-      otherUserId,
-      sessionUsername,
-      otherUsername,
-    } = req.query;
+    const { sessionUserId, otherUserId, sessionUsername, otherUsername } =
+      req.query;
 
     // FIND ONE user_chatRoom associations
     let alreadyCreatedRoom;
@@ -105,7 +88,7 @@ router.get(
 
     // If no chat room exists yet, it creates a new one
     let newChatRoom;
-    
+
     if (!alreadyCreatedRoom) {
       try {
         newChatRoom = await ChatRoom.create({

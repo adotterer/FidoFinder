@@ -12,14 +12,7 @@ export default function SocketMessenger() {
   const [messageThread, setMessageThread] = useState([]);
   const [liveSocket, setLiveSocket] = useState(null);
 
-
   const [authorizedUsers, setAuthorizedUsers] = useState();
-
-  if (!authorizedUsers) {
-    fetch(`/api/chatroom/${chatRoomId}/auth`)
-      .then((res) => res.json())
-      .then((authUsers) => setAuthorizedUsers(authUsers));
-  }
 
   function onSubmit(e) {
     e.preventDefault();
@@ -28,6 +21,13 @@ export default function SocketMessenger() {
   }
 
   useEffect(() => {
+    if (!authorizedUsers) {
+      fetch(`/api/chatroom/${chatRoomId}/auth`)
+        .then((res) => res.json())
+        .then((authUsers) => setAuthorizedUsers(authUsers));
+    }
+    console.log(sessionUser.id, authorizedUsers, "authorized users");
+
     const socket = io(undefined, {
       query: {
         type: "chat",
@@ -47,6 +47,11 @@ export default function SocketMessenger() {
   }, [sessionUser]);
 
   if (!sessionUser) return <Redirect to="/" />;
+  if (
+    authorizedUsers &&
+    !authorizedUsers.find((authUser) => authUser.id === sessionUser.id)
+  )
+    return <Redirect to="/" />;
 
   return (
     <div className="div__chatSession">

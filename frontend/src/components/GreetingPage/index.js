@@ -15,7 +15,7 @@ function GreetingPage() {
   }
   return (
     <div>
-      <div class="div__greetingPage">
+      <div className="div__greetingPage">
         <LogInSignUpBlock />
       </div>
       {sessionUser && <NearbyUsers />}

@@ -32,7 +32,7 @@ export const setUserStatus = (status) => async (dispatch) => {
     .then((time) => time.data)
     .catch((e) => console.error(e));
 
-  console.log("DATETIME OF UPDATED STATUS", dateTime);
+  // console.log("DATETIME OF UPDATED STATUS", dateTime);
 };
 
 const initialState = {};

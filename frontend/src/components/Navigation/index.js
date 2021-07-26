@@ -16,15 +16,15 @@ function Navigation({ isLoaded }) {
   if (sessionUser) {
     sessionLinks = (
       <>
-        <li class="li__buttonIcons">
+        <li className="li__buttonIcons">
           <ProfileButton user={sessionUser} />
         </li>
         <NavLink exact to="/inbox">
-          <li class="li__buttonIcons">
+          <li className="li__buttonIcons">
             <BsEnvelopeFill />
           </li>
         </NavLink>
-        <li class="li__buttonIcons">
+        <li className="li__buttonIcons">
           <Notifications />
         </li>
       </>
@@ -52,13 +52,13 @@ function Navigation({ isLoaded }) {
   return (
     <div id="div__nav-bar">
       <NavLink exact to="/">
-        <div class="div__logo">
+        <div className="div__logo">
           <img id="img__logo" alt="FidoFinder" src={logo} />
           FidoFinder
         </div>
       </NavLink>
-      <div class="div__navIcons">
-        <ul class="ul__navIcons">{isLoaded && sessionLinks}</ul>
+      <div className="div__navIcons">
+        <ul className="ul__navIcons">{isLoaded && sessionLinks}</ul>
       </div>
     </div>
   );

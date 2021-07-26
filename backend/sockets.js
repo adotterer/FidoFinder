@@ -21,6 +21,7 @@ function authorizeUser(socket, user, chatRoomId) {
     include: ["AuthorizedChatters"],
   })
     .then((authorizedChatters) => {
+      if (!authorizedChatters) throw Error("invalid chat room");
       return authorizedChatters.toJSON().AuthorizedChatters;
     })
     .then((authorizedChatters) => {
@@ -124,13 +125,6 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
               });
             });
 
-            // NOW SEND NOTIFICATION TO THE USERS WHO ARE ASSOCIATED WITH CHATROOMID #
-
-            // newMessage
-            //   .getNotifUsers(user.id)
-            //   .then((users) => console.log("USERs", users))
-            //   .catch((e) => console.error(e));
-            // console.log("ADD MESSAGE TO DB", newMessage);
           } catch (e) {
             console.log("error payload --->", payload);
             console.error(e);
@@ -147,7 +141,11 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
       });
 
       socket.on("disconnect", () => {
-        liveUserMap[`chatRoom_${payload}`].delete(user.id);
+        try {
+          liveUserMap[`chatRoom_${payload}`].delete(user.id);
+        } catch (e) {
+          console.log(e);
+        }
       });
       break;
     case "notif":
