@@ -8,7 +8,21 @@ module.exports = (sequelize, DataTypes) => {
       message: DataTypes.STRING,
       read: DataTypes.BOOLEAN,
     },
-    {}
+    {
+      getterMethods: {
+        info() {
+          let { userId, chatRoomId, message, read, createdAt } = this;
+          return {
+            username: this.User.username,
+            userId,
+            chatRoomId,
+            message,
+            read,
+            createdAt,
+          };
+        },
+      },
+    }
   );
   Message.associate = function (models) {
     // associations can be defined here
