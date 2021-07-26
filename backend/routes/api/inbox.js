@@ -12,6 +12,7 @@ router.get(
     const chatRooms = await user_chatRoom.findAll({
       where: { userId: currentUser.id },
     });
+
     const mappedChatRooms = chatRooms.map(({ info: { chatRoomId } }) => {
       return ChatRoom.findByPk(chatRoomId);
     });
@@ -33,7 +34,7 @@ router.get(
 
     inboxArray = inboxArray.filter((chatRoom) => chatRoom.length);
 
-    const sortedInboxArr = inboxArray.sort(([firstEl], [secondEl]) => {
+    let sortedInboxArr = inboxArray.sort(([firstEl], [secondEl]) => {
       const firstParsedDate = Date.parse(firstEl.createdAt);
       const secondParsedDate = Date.parse(secondEl.createdAt);
       return secondParsedDate - firstParsedDate;
@@ -41,6 +42,20 @@ router.get(
 
     // INBOX SORTED IN DESC ORDER FROM MOST RECENT MESSAGE
     // meaning, sortedInboxArry[0] is the most recent message thread
+
+    sortedInboxArr = sortedInboxArr.map(async (messages) => {
+      const topMessage = messages[0];
+      const authorizedChatters = await ChatRoom.findByPk(topMessage.chatRoomId)
+        .then((chatRoom) => chatRoom.getAuthorizedChatters())
+        .then((authorizedChatters) =>
+          authorizedChatters.map((chatter) => chatter.info)
+        );
+
+      messages[0]["authorizedChatters"] = authorizedChatters;
+      return messages;
+    });
+    sortedInboxArr = await Promise.all(sortedInboxArr);
+    // TOP MESSAGE NOW INCLUDES AUTHORIZED CHATTERS
     return res.json(sortedInboxArr);
   })
 );

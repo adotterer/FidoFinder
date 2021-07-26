@@ -1,5 +1,5 @@
 "use strict";
-
+// const { User } = require("./user");
 module.exports = (sequelize, DataTypes) => {
   const ChatRoom = sequelize.define(
     "ChatRoom",
