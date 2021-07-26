@@ -31,26 +31,17 @@ router.get(
         });
     });
     let inboxArray = await Promise.all(messageThreads);
-    // const getMessageInfo = messageModels.map((chatRoom) => {
-    //   return chatRoom.map((message) => {
-    //     return message.info;
-    //   });
-    // });
-
-    // TODO: sort by the most recent message
 
     inboxArray = inboxArray.filter((chatRoom) => chatRoom.length);
 
     const sortedInboxArr = inboxArray.sort(([firstEl], [secondEl]) => {
       const firstParsedDate = Date.parse(firstEl.createdAt);
       const secondParsedDate = Date.parse(secondEl.createdAt);
-
       return secondParsedDate - firstParsedDate;
     });
 
-    console.log(sortedInboxArr, "sortedArr");
-
-    // THE ARRAY IS SORTED SO THE FIRST ELEMENT HOLDS THE MOST RECENT MESSAGE
+    // INBOX SORTED IN DESC ORDER FROM MOST RECENT MESSAGE
+    // meaning, sortedInboxArry[0] is the most recent message thread
     return res.json(sortedInboxArr);
   })
 );
