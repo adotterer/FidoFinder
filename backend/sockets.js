@@ -23,6 +23,7 @@ function authorizeUser(socket, user, chatRoomId) {
     .then((authorizedChatters) => {
       if (!authorizedChatters) throw Error(chatRoomId, "does not exist");
       authorizedChatters = authorizedChatters.toJSON().AuthorizedChatters;
+
       if (
         !authorizedChatters.find((chatter) => {
           return chatter.id === user.id;

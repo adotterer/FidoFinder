@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import MessageHead from "./MessageHead.js";
 
 const fetchInbox = async function () {
   return await fetch("/api/inbox")
@@ -13,7 +14,19 @@ export default function Inbox() {
     setInbox(await fetchInbox());
   }, []);
 
-  useEffect(() => console.log(inbox, "new inbox!"), [inbox]);
-  
-  return <div>This is the inbox</div>;
+  // useEffect(() => console.log(inbox, "new inbox!"), [inbox]);
+
+  return (
+    <div>
+      {inbox ? (
+        inbox.map((message) => {
+          return MessageHead(message);
+        })
+      ) : (
+        <div>
+          <h1>Loading!</h1>
+        </div>
+      )}
+    </div>
+  );
 }
