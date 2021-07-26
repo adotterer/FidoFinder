@@ -30,7 +30,7 @@ function authorizeUser(socket, user, chatRoomId) {
       )
         throw Error(`
           USER_ID: ${user.id} USERNAME: ${user.username} UNAUTHORIZED ATTEMPT TO ENTER CHAT ROOM #${chatRoomId}`);
-      return authorizedChatters.toJSON().AuthorizedChatters;
+      return authorizedChatters;
     })
     .then((authorizedChatters) => {
       const authorizedUser = authorizedChatters.filter((chatter) => {
