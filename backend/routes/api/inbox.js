@@ -23,21 +23,35 @@ router.get(
       return chatRoom
         .getMessageThread({
           include: { model: User },
-          order: [["createdAt", "DESC"]],
+          order: [["createdAt", "ASC"]],
           limit: 50,
         })
         .map((message) => {
           return message.info;
         });
     });
-    const inboxArray = await Promise.all(messageThreads);
+    let inboxArray = await Promise.all(messageThreads);
     // const getMessageInfo = messageModels.map((chatRoom) => {
     //   return chatRoom.map((message) => {
     //     return message.info;
     //   });
     // });
 
-    return res.json(inboxArray.filter((chatRoom) => chatRoom.length));
+    // TODO: sort by the most recent message
+
+    inboxArray = inboxArray.filter((chatRoom) => chatRoom.length);
+
+    const sortedInboxArr = inboxArray.sort(([firstEl], [secondEl]) => {
+      const firstParsedDate = Date.parse(firstEl.createdAt);
+      const secondParsedDate = Date.parse(secondEl.createdAt);
+
+      return secondParsedDate - firstParsedDate;
+    });
+
+    console.log(sortedInboxArr, "sortedArr");
+
+    // THE ARRAY IS SORTED SO THE FIRST ELEMENT HOLDS THE MOST RECENT MESSAGE
+    return res.json(sortedInboxArr);
   })
 );
 
