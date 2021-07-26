@@ -52,6 +52,9 @@ router.get(
         );
 
       messages[0]["authorizedChatters"] = authorizedChatters;
+      messages[0]["otherUsers"] = authorizedChatters.filter(
+        (user) => user.id !== currentUser.id
+      );
       return messages;
     });
     sortedInboxArr = await Promise.all(sortedInboxArr);
