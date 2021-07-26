@@ -21,14 +21,15 @@ function authorizeUser(socket, user, chatRoomId) {
     include: ["AuthorizedChatters"],
   })
     .then((authorizedChatters) => {
-      if (!authorizedChatters) throw Error("invalid chat room");
+      if (!authorizedChatters) throw Error(chatRoomId, "does not exist");
       authorizedChatters = authorizedChatters.toJSON().AuthorizedChatters;
       if (
         !authorizedChatters.find((chatter) => {
           return chatter.id === user.id;
         })
       )
-        throw Error("user not authorized!".toUpperCase());
+        throw Error(`
+          USER_ID: ${user.id} USERNAME: ${user.username} UNAUTHORIZED ATTEMPT TO ENTER CHAT ROOM #${chatRoomId}`);
       return authorizedChatters.toJSON().AuthorizedChatters;
     })
     .then((authorizedChatters) => {
@@ -52,7 +53,7 @@ function authorizeUser(socket, user, chatRoomId) {
       return authorizedChatters;
     })
     .catch((e) => {
-      console.error(e);
+      console.error(e.message);
       return false;
     });
 }
@@ -69,9 +70,11 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
 
   switch (type) {
     case "chat":
-      // payload = chatRoomId
-
       const authorizedChatters = await authorizeUser(socket, user, payload);
+
+      if (!authorizedChatters) {
+        return socket.disconnect(true);
+      }
 
       socket.on("message", async (msg, payload) => {
         if (
