@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { user_chatRoom, Message, ChatRoom, User } = require("../../db/models");
+const { user_chatRoom, ChatRoom, User } = require("../../db/models");
 const asyncHandler = require("express-async-handler");
 const { requireAuth } = require("../../utils/auth");
 
