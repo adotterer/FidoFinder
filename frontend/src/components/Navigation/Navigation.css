@@ -6,7 +6,7 @@
   align-items: stretch;
   flex-direction: row;
   width: 100%;
-  min-height: 5rem;
+  /* height: 5rem; */
   justify-content: space-between;
   background: linear-gradient(120deg, #4d6496, #0f19ac 50%, #f8ffe4);
   background-image: linear-gradient(120deg, #0036ab, #1d69ba, rgb(32, 59, 169));
@@ -25,14 +25,12 @@
 .div__logo {
   padding-left: 12vw;
   font-family: "Cookie", cursive;
-  /* outline: 5px solid rgb(97, 19, 72); */
   color: white;
   font-size: 3.5rem;
   cursor: pointer;
   height: 100%;
   display: flex;
   align-items: center;
-  /* min-height: 12vh; */
 }
 
 ul.profile-dropdown {
@@ -102,4 +100,10 @@ li.li__buttonIcons:hover,
 
 .link__hover:hover {
   color: rgb(155, 208, 255);
+}
+
+@media only screen and (max-width: 768px) {
+  .div__logo {
+    zoom: 0.7;
+  }
 }

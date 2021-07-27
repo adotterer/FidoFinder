@@ -1,14 +1,12 @@
 div.div__chatSession {
-  /* background-color: #f0f0f0; */
   border: 1px solid lightgrey;
   border-radius: 20px;
   margin: 0 auto;
-  width: 50rem;
   padding: 2.5rem;
 }
 
 div.div__chatSession input {
-  width: 20rem;
+  width: 20%;
   height: 2.1rem;
   outline: 0;
   border-radius: 2rem 0 0 2rem;
