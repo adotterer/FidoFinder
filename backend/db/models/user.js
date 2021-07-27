@@ -98,10 +98,10 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.getCurrentUserLocationById = async function (id) {
-    const user = await User.findByPk(id);
-    const userDetails = await user.getUserDetail();
-
-    return userDetails;
+    const userDetails = await sequelize.models.UserDetail.findOne({
+      where: { userId: id },
+    });
+    return userDetails.info;
   };
 
   User.checkOnlineStatusById = async function (id) {

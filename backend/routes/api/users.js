@@ -40,15 +40,14 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const { userId } = req.query;
+    console.log(typeof userId, "type of userid");
+    const currentLocation = await UserDetail.findOne({
+      where: { userId: Number(userId) },
+    });
 
-    const currentLocation = await User.getCurrentUserLocationById(
-      userId
-    ).catch((e) => console.log(e));
-    // console.log("here is this thing---> ", currentLocation);
+    console.log("currentLocation", currentLocation);
 
-    const {
-      dataValues: { liveLocationLat: lat, liveLocationLng: lng },
-    } = currentLocation;
+    const { liveLocationLat: lat, liveLocationLng: lng } = currentLocation;
 
     const nearbyUsers = await User.findAll({
       include: {
@@ -90,11 +89,7 @@ router.post(
       firstName,
       lastName,
     });
-    try {
-      UserDetail.createDetailsFindLocation(location, user.id);
-    } catch (e) {
-      console.error(e);
-    }
+    await UserDetail.createDetailsFindLocation(location, user.id);
 
     await setTokenCookie(res, user);
 

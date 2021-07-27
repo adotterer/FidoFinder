@@ -22,7 +22,7 @@ const createLocationObj = async (location) => {
   } = obj;
 
   const state = level1short;
-
+  console.log({ lat: latitude, lng: longitude, city, state }, "line 26");
   return { lat: latitude, lng: longitude, city, state };
 };
 

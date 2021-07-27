@@ -6,16 +6,19 @@ import { fetch } from "../../store/csrf.js";
 export default function StatusInput() {
   const dispatch = useDispatch();
   const [status, setStatus] = useState(
-    useSelector((state) => state.userDetails.status || null)
+    useSelector((state) => state.userDetails.status || "")
   );
   const user = useSelector((state) => state.session.user);
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchDbStatus() {
+      const dbStatus = await fetch(`/api/user/${user.id}/status`);
+      dispatch(setUserStatus(dbStatus.data));
+      setStatus(dbStatus.data);
+    }
     if (!status) {
       try {
-        const dbStatus = await fetch(`/api/user/${user.id}/status`);
-        dispatch(setUserStatus(dbStatus.data));
-        setStatus(dbStatus.data);
+        fetchDbStatus();
       } catch (e) {
         console.error(e);
       }

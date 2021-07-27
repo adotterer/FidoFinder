@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       profileImageId: DataTypes.INTEGER,
     },
     {
+      getterMethods: {
+        info() {
+          const { liveLocationLat, liveLocationLng } = this;
+          return { liveLocationLat, liveLocationLng };
+        },
+      },
       defaultScope: {
         attributes: {
           exclude: ["createdAt", "updatedAt"],
@@ -32,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     const locationObj = await createLocationObj(location);
 
     try {
-      UserDetail.create({
+      const userDetail = await UserDetail.create({
         liveLocationLat: locationObj.lat,
         liveLocationLng: locationObj.lng,
         homeLocationLat: locationObj.lat,
@@ -41,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
         online: true,
         userId,
       });
+      return userDetail;
     } catch (e) {
       console.error(e);
     }
