@@ -27,12 +27,6 @@ export default function SocketMessenger() {
       return fetch(`/api/chatroom/${chatRoomId}/auth`)
         .then((res) => res.json())
         .then((authUsers) => setAuthorizedUsers(authUsers));
-    } else {
-      console.log(sessionUser.id, authorizedUsers, "authorized users");
-      console.log(
-        "session User",
-        authorizedUsers.find((authUser) => authUser.id === sessionUser.id)
-      );
     }
   }, [authorizedUsers]);
 
@@ -60,7 +54,7 @@ export default function SocketMessenger() {
     // !authorizedUsers
     // !authorizedUsers.find((authUser) => authUser.id === sessionUser.id)
   ) {
-    return <Redirect to="/inbox" />;
+    return <Redirect to="/" />;
   } else if (
     authorizedUsers &&
     !!authorizedUsers.find((authUser) => authUser.id === sessionUser.id)
@@ -82,7 +76,7 @@ export default function SocketMessenger() {
               );
             })
           ) : (
-            <div> Hey bitch</div>
+            <div>Loading....</div>
           )}
         </div>
         <div>
@@ -108,6 +102,6 @@ export default function SocketMessenger() {
       </div>
     );
   } else {
-    return <div>404 Not Found</div>;
+    return <div>Loading....</div>;
   }
 }

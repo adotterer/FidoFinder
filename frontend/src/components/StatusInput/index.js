@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserStatus } from "../../store/user_details";
 import { fetch } from "../../store/csrf.js";

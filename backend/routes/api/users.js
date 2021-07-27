@@ -40,12 +40,9 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const { userId } = req.query;
-    console.log(typeof userId, "type of userid");
     const currentLocation = await UserDetail.findOne({
       where: { userId: Number(userId) },
     });
-
-    console.log("currentLocation", currentLocation);
 
     const { liveLocationLat: lat, liveLocationLng: lng } = currentLocation;
 
