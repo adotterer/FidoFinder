@@ -54,8 +54,7 @@ input:hover {
 div#div__bodyContent {
   background-color: #f2f6fd;
   position: absolute;
-  margin-top: 5rem;
-  top: 0;
+  top: 64px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -99,4 +98,11 @@ em {
   background-color: rgb(235, 235, 235);
   border: none;
   margin: 1rem 0 1rem 0;
+}
+
+@media only screen and (max-width: 768px) {
+  div#div__innerContent {
+    min-width: 100%;
+    max-width: 100%;
+  }
 }

@@ -6,7 +6,7 @@ div.div__chatSession {
 }
 
 div.div__chatSession input {
-  width: 20%;
+  width: 40%;
   height: 2.1rem;
   outline: 0;
   border-radius: 2rem 0 0 2rem;
@@ -30,7 +30,7 @@ div.div__chatSession input:hover {
 div.div__chatSession button {
   border-radius: 0rem 2rem 2rem 0rem;
   outline: 0;
-  width: 14rem;
+  width: 20%;
   height: 2.14rem;
   background-color: rgb(39, 94, 162);
   color: black;
