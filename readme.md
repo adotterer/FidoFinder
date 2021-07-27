@@ -99,12 +99,4 @@ Express handles all routes using RESTful API and sends all information from the 
    cd frontend & npm start
    ```
 
-6. Go to localhost:8080
-
-   ```JS
-   http://localhost:8080/
-   ```
-
 # Updates
-
-_12/07/2020_
