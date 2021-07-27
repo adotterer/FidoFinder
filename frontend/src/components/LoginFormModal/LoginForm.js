@@ -21,26 +21,23 @@ function LoginForm() {
     );
   };
 
-  // TODO: dry up these demo logins
-  const demoLogin1 = (e) => {
-    e.preventDefault();
-    const demoUsername = "DogLover45";
-    const demoPassword = ["p", "a", "s", "s", "w", "o", "r", "d"];
+  const demoLogin = (username, password) => {
+    const demoUsernameArr = username.split("");
+    const demoPasswordArr = password.split("");
 
-    demoUsername.split("").forEach((letter, index) => {
-      setTimeout(() => (credentialEl.current.value += letter), 150 * index);
+    demoUsernameArr.forEach((letter, i) => {
+      setTimeout(() => (credentialEl.current.value += letter), 150 * i);
       setCredential(credentialEl.current.value);
     });
 
-    demoPassword.forEach((letter, index) => {
-      setTimeout(() => (passwordEl.current.value += letter), 150 * index);
+    demoPasswordArr.forEach((letter, i) => {
+      setTimeout(() => (passwordEl.current.value += letter), 150 * i);
     });
-
     setTimeout(() => {
       dispatch(
         sessionActions.login({
-          credential: demoUsername,
-          password: "password",
+          credential: username,
+          password: password,
         })
       ).catch((res) => {
         if (res.data && res.data.errors) setErrors(res.data.errors);
@@ -48,30 +45,14 @@ function LoginForm() {
     }, 1800);
   };
 
+  const demoLogin1 = (e) => {
+    e.preventDefault();
+    demoLogin("DogLover45", "password");
+  };
+
   const demoLogin2 = (e) => {
     e.preventDefault();
-    const demoUsername = "Barbie";
-    const demoPassword = ["p", "a", "s", "s", "w", "o", "r", "d"];
-
-    demoUsername.split("").forEach((letter, index) => {
-      setTimeout(() => (credentialEl.current.value += letter), 150 * index);
-      setCredential(credentialEl.current.value);
-    });
-
-    demoPassword.forEach((letter, index) => {
-      setTimeout(() => (passwordEl.current.value += letter), 150 * index);
-    });
-
-    setTimeout(() => {
-      dispatch(
-        sessionActions.login({
-          credential: demoUsername,
-          password: "password",
-        })
-      ).catch((res) => {
-        if (res.data && res.data.errors) setErrors(res.data.errors);
-      });
-    }, 1800);
+    demoLogin("Barbie", "password");
   };
 
   return (
