@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams, Redirect, Link } from "react-router-dom";
 import io from "socket.io-client";
@@ -16,10 +16,9 @@ export default function SocketMessenger() {
 
   function onSubmit(e) {
     e.preventDefault();
+    console.log(chatRoomId, "<sending chatRoomId");
     liveSocket.emit("message", msg, chatRoomId);
     setMsg("");
-  }
-  if (!authorizedUsers) {
   }
 
   useEffect(() => {
@@ -40,6 +39,7 @@ export default function SocketMessenger() {
     setLiveSocket(socket);
 
     socket.on("broadcast message to all users", (message) => {
+      console.log("message ==>", message);
       setMessageThread((oldThread) => [...oldThread, message]);
     });
 

@@ -6,7 +6,7 @@ import "./notifications.css";
 import NotificationReel from "./Reel";
 
 export default function Notifications() {
-  const [liveSocket, setLiveSocket] = useState(null);
+  // const [liveSocket, setLiveSocket] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const sessionUser = useSelector((state) => state.session.user);
   const [showNotification, setShowNotification] = useState(false);
@@ -71,7 +71,7 @@ export default function Notifications() {
         chatRoomId: null,
       },
     });
-    setLiveSocket(socket);
+    // setLiveSocket(socket);
 
     socket.on("notification", (newNotification) => {
       setNotifications((notif) => [...notif, newNotification]);

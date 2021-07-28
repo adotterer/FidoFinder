@@ -41,7 +41,7 @@ export default function LoadMessages({
     <div>
       {loadedMsgs.length > 0 &&
         mappedUserNames &&
-        loadedMsgs.slice(0, 16).map((msg) => {
+        loadedMsgs.slice(loadedMsgs.length - 16).map((msg) => {
           const classI = mappedUserNames.indexOf(msg.User.username);
           return <Message message={msg} classI={classI} />;
         })}

@@ -25,7 +25,7 @@ export const setUserProfile = (userId) => async (dispatch) => {
 
 export const setUserStatus = (status) => async (dispatch) => {
   dispatch(setStatus(status));
-  const dateTime = await fetch(`/api/user/status`, {
+  await fetch(`/api/user/status`, {
     method: "POST",
     body: JSON.stringify({ status }),
   })

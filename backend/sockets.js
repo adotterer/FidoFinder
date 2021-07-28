@@ -62,13 +62,15 @@ function authorizeUser(socket, user, chatRoomId) {
 io.use(socketRequireAuth).on("connection", async (socket) => {
   // console.log("Connected");
 
-  const {
+  let {
     user,
     handshake: {
       query: { type, payload },
     },
   } = socket;
 
+  console.log("USER --->", user);
+  console.log("type =>", type, "payload", payload);
   switch (type) {
     case "chat":
       const authorizedChatters = await authorizeUser(socket, user, payload);
@@ -78,8 +80,10 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
       }
 
       socket.on("message", async (msg, payload) => {
+        if (!payload) return;
         if (
           // IF LIVE USERS LENGTH > 1, ACTUALLY SEND USING WEB SOCKET
+
           liveUserMap[`chatRoom_${payload}`] &&
           authorizedChatters.filter((chatUser) => {
             return liveUserMap[`chatRoom_${payload}`].has(chatUser.id);
@@ -88,6 +92,7 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
           io.to(`chatRoom-${payload}`).emit("broadcast message to all users", {
             message: msg,
             User: user,
+            chatRoomId: payload,
           });
           // SEND MESSAGE TO DATABASE
           // TODO: ABSTRACT TO METHOD
@@ -105,6 +110,14 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
         } else {
           // OTHERWISE, SEND TO DB FOR STORAGE ----
           // --------> ALSO NEED TO CHECK IF USER IS 'ONLINE' AND CAN RECEIVE A NOTIFICATION
+          console.log("starting here! line 110 of sockets.js");
+          // payload = socket.query.payload;
+          console.log("SOCKET\n", socket.handshake.query, "updated");
+          io.to(`chatRoom-${payload}`).emit("broadcast message to all users", {
+            message: msg,
+            User: user,
+          });
+
           try {
             const newMessage = await db.Message.create(
               {
@@ -117,19 +130,12 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
             );
             // TEST: CAN I JUST SEND ALL MESSAGES AND IT BE FINE
 
-            io.to(`chatRoom-${payload}`).emit(
-              "broadcast message to all users",
-              {
-                message: msg,
-                User: user,
-              }
-            );
             const otherUsers = await newMessage.getNotifUsers(user.id);
             otherUsers.forEach((otherUser) => {
-              console.log(
-                "SENDING NOTIFICATION TO: ",
-                `notif_user${otherUser.id}`
-              );
+              // console.log(
+              //   "SENDING NOTIFICATION TO: ",
+              //   `notif_user${otherUser.id}`
+              // );
               io.to(`notif_user${otherUser.id}`).emit("notification", {
                 msg,
                 user,

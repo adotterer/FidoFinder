@@ -32,7 +32,7 @@ export default function SetAvatarInterFace() {
           setDogPics(resBody);
         });
     }
-  }, []);
+  }, [dogPics]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ export default function SetAvatarInterFace() {
             {dogPics.map((dogURL) => {
               return (
                 <div
-                  key={dogURL}
+                  key={dogURL.URL}
                   id={`avatar__dog__${dogURL.id}`}
                   className="avatar__dog__container"
                   onClick={() => {
@@ -81,7 +81,11 @@ export default function SetAvatarInterFace() {
                     setAvatar(null);
                   }}
                 >
-                  <img className="avatar__dog__choose" src={dogURL.URL} />
+                  <img
+                    alt={"dogID: " + dogURL.id}
+                    className="avatar__dog__choose"
+                    src={dogURL.URL}
+                  />
                 </div>
               );
             })}

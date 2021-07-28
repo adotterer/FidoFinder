@@ -26,8 +26,8 @@ router.get(
         }
         return chatRoom.getMessageThread({
           include: User,
-          order: [["createdAt", "DESC"]],
-          limit: 50,
+          order: [["createdAt", "ASC"]],
+          limit: 100,
         });
       })
       .then((thread) => thread.map((msg) => msg.toJSON()))
