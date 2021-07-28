@@ -29,6 +29,8 @@ export default function SetAvatarInterFace() {
     e.preventDefault();
     if (avatar) {
       dispatch(uploadAvatar(avatar));
+    } else if (dogAvatar) {
+      dispatch(chooseExistingPic(dogAvatar));
     }
   };
 
@@ -50,7 +52,7 @@ export default function SetAvatarInterFace() {
               type="file"
               onChange={(e) => {
                 setAvatar(e.target.files[0]);
-                setDogAvatar();
+                setDogAvatar(null);
               }}
               accept="image/x-png,image/gif,image/jpeg"
             />
@@ -64,8 +66,8 @@ export default function SetAvatarInterFace() {
                 <div
                   className="avatar__dog__container"
                   onClick={() => {
-                    setAvatar();
                     setDogAvatar(dogURL.id);
+                    setAvatar(null);
                   }}
                 >
                   <img
