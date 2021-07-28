@@ -4,7 +4,10 @@ import { toggleAvatarModal } from "../../store/avatar_actions";
 
 export default function AvatarModal() {
   const dispatch = useDispatch();
-  const avatarRedux = useSelector((state) => state.avatarActions);
+  const avatarRedux = useSelector((state) => {
+    console.log(state);
+    return state.avatarActions;
+  });
 
   return (
     <>
@@ -13,7 +16,7 @@ export default function AvatarModal() {
       </button>
       {avatarRedux.open && (
         <Modal onClose={() => dispatch(toggleAvatarModal(false))}>
-          It's the edge of glory
+          Put form in here.
         </Modal>
       )}
     </>

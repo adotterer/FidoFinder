@@ -1,4 +1,4 @@
-const SET_MODAL = "modal/toggle";
+const SET_MODAL = "avatarModal/toggle";
 
 const setAvatarModal = (open) => {
   return {
