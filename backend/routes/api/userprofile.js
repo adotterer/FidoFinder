@@ -24,7 +24,7 @@ router.get(
         },
       ],
     }).catch((e) => console.error(e));
-    res.json(userProfile.toJSON());
+    return res.json(userProfile.toJSON());
   })
 );
 
@@ -38,7 +38,7 @@ router.get(
         model: UserDetail,
       },
     }).then((user) => user.toJSON());
-    res.json(userDetails.UserDetail.status);
+    return res.json(userDetails.UserDetail.status);
   })
 );
 
@@ -60,7 +60,7 @@ router.post(
       })
       .catch((e) => console.error(e));
     console.log(updatedStatusTime);
-    res.json(updatedStatusTime);
+    return res.json(updatedStatusTime);
   })
 );
 
@@ -78,8 +78,7 @@ router.get(
     const dogPics = userDogs.map((dog) => {
       return dog.ProfileImage.info;
     });
-    console.log(dogPics, "<--- dog pics array");
-    res.json(dogPics);
+    return res.json(dogPics);
   })
 );
 
@@ -91,7 +90,7 @@ router.post(
     console.log(userDogs, "user dogs");
     // req.file contains the image
     // send to singlePublicFileUpload
-    res.json({ message: `hey user #${req.user.id}` });
+    return res.json({ message: `hey user #${req.user.id}` });
   })
 );
 module.exports = router;

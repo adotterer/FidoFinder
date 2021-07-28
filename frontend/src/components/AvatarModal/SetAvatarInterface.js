@@ -43,10 +43,25 @@ export default function SetAvatarInterFace() {
               type="file"
               onChange={(e) => setAvatar(e.target.files[0])}
               accept="image/x-png,image/gif,image/jpeg"
-              required
             />
           </div>
         </label>
+        {dogPics && (
+          <label>
+            <h3>Choose Existing Photo</h3>
+            {dogPics.map((dogURL) => {
+              return (
+                <div className="avatar__dog__container">
+                  <img
+                    className="avatar__dog__choose"
+                    key={dogURL}
+                    src={dogURL}
+                  />
+                </div>
+              );
+            })}
+          </label>
+        )}
         <button type="submit">Submit</button>
       </form>
     </div>

@@ -3,3 +3,15 @@
   display: block;
   width: 30rem;
 }
+
+div.avatar__dog__container {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  overflow: hidden;
+  /* border: 5px solid blue; */
+}
+
+.avatar__dog__choose {
+  width: 100%;
+}
