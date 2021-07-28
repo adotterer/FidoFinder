@@ -4,11 +4,11 @@ import { uploadAvatar } from "../../store/avatar_actions";
 
 export default function SetAvatarInterFace() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
+  // const sessionUser = useSelector((state) => state.session.user);
   const [avatar, setAvatar] = useState();
 
   const handleSubmit = async (e) => {
-    dispatch(uploadAvatar(avatar, sessionUser.id));
+    dispatch(uploadAvatar(avatar));
   };
 
   return (

@@ -11,11 +11,11 @@ export const toggleAvatarModal = (open) => async (dispatch) => {
   dispatch(setAvatarModal(open));
 };
 
-export const uploadAvatar = (avatar, userId) => async (dispatch) => {
+export const uploadAvatar = (avatar) => async (dispatch) => {
   const formData = new FormData();
   formData.append("avatar", avatar);
-  console.log(userId, "userId");
-  await fetch(`/api/user/${userId}/avatar`, {
+
+  await fetch(`/api/user/me/avatar`, {
     method: "POST",
     headers: {
       "Content-Type": "multipart/form-data",
