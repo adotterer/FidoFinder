@@ -23,6 +23,7 @@ export const uploadAvatar = (avatar) => async (dispatch) => {
     },
     body: formData,
   });
+  
   return res.data;
 };
 

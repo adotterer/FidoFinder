@@ -1,17 +1,27 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { uploadAvatar } from "../../store/avatar_actions";
+import { uploadAvatar, chooseExistingPic } from "../../store/avatar_actions";
 import "./avatar.css";
+
+function removeDogSelected() {
+  const allDogDivs = document.querySelectorAll(".avatar__dog__container");
+  allDogDivs.forEach((dogDiv) =>
+    dogDiv.classList.remove("avatar__dog__selected")
+  );
+}
 
 export default function SetAvatarInterFace() {
   const dispatch = useDispatch();
-  // const sessionUser = useSelector((state) => state.session.user);
   const [avatar, setAvatar] = useState();
   const [dogAvatar, setDogAvatar] = useState();
   const [dogPics, setDogPics] = useState();
 
   useEffect(() => {
-    console.log("avatar", dogAvatar);
+    removeDogSelected();
+    if (dogAvatar) {
+      const selectedPic = document.getElementById(`avatar__dog__${dogAvatar}`);
+      selectedPic.classList.add("avatar__dog__selected");
+    }
   }, [dogAvatar]);
 
   useEffect(() => {
@@ -20,7 +30,6 @@ export default function SetAvatarInterFace() {
         .then((res) => res.json())
         .then((resBody) => {
           setDogPics(resBody);
-          console.log("resbody", resBody);
         });
     }
   }, []);
@@ -64,17 +73,15 @@ export default function SetAvatarInterFace() {
             {dogPics.map((dogURL) => {
               return (
                 <div
+                  key={dogURL}
+                  id={`avatar__dog__${dogURL.id}`}
                   className="avatar__dog__container"
                   onClick={() => {
                     setDogAvatar(dogURL.id);
                     setAvatar(null);
                   }}
                 >
-                  <img
-                    className="avatar__dog__choose"
-                    key={dogURL}
-                    src={dogURL.URL}
-                  />
+                  <img className="avatar__dog__choose" src={dogURL.URL} />
                 </div>
               );
             })}

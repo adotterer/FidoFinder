@@ -15,7 +15,8 @@ div.avatar__dog__container {
   transition: border 0.1s linear;
 }
 
-div.avatar__dog__container:hover {
+div.avatar__dog__container:hover,
+div.avatar__dog__selected {
   border: 2px solid rgb(0, 130, 169);
 }
 
@@ -26,6 +27,7 @@ img.avatar__dog__choose {
   transition: opacity 0.1s linear;
 }
 
-img.avatar__dog__choose:hover {
+img.avatar__dog__choose:hover,
+.avatar__dog__selected img {
   opacity: 1;
 }
