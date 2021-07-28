@@ -1,0 +1,6 @@
+div.inbox__messageHead {
+  border: 1px solid lightgrey;
+  border-radius: 20px;
+  margin: 10px 0 auto;
+  padding: 15px;
+}
