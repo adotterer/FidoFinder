@@ -23,8 +23,13 @@ export const uploadAvatar = (avatar) => async (dispatch) => {
     },
     body: formData,
   });
-  console.log("res.data", res.data);
+  return res.data;
 };
+
+export const chooseExistingPic = (imageId) => async (dispatch) => {
+  console.log(imageId);
+};
+
 const initialState = {};
 
 function reducer(state = initialState, action) {

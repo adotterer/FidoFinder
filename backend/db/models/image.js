@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       getterMethods: {
         info() {
-          return this.URL;
+          const { id, URL } = this;
+          return { id, URL };
         },
       },
     }

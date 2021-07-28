@@ -7,7 +7,12 @@ export default function SetAvatarInterFace() {
   const dispatch = useDispatch();
   // const sessionUser = useSelector((state) => state.session.user);
   const [avatar, setAvatar] = useState();
+  const [dogAvatar, setDogAvatar] = useState();
   const [dogPics, setDogPics] = useState();
+
+  useEffect(() => {
+    console.log("avatar", dogAvatar);
+  }, [dogAvatar]);
 
   useEffect(() => {
     if (!dogPics) {
@@ -22,7 +27,9 @@ export default function SetAvatarInterFace() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(uploadAvatar(avatar));
+    if (avatar) {
+      dispatch(uploadAvatar(avatar));
+    }
   };
 
   return (
@@ -41,21 +48,30 @@ export default function SetAvatarInterFace() {
             <input
               name="avatar"
               type="file"
-              onChange={(e) => setAvatar(e.target.files[0])}
+              onChange={(e) => {
+                setAvatar(e.target.files[0]);
+                setDogAvatar();
+              }}
               accept="image/x-png,image/gif,image/jpeg"
             />
           </div>
         </label>
         {dogPics && (
           <label>
-            <h3>Choose Existing Photo</h3>
+            <h3>Or choose an existing photo</h3>
             {dogPics.map((dogURL) => {
               return (
-                <div className="avatar__dog__container">
+                <div
+                  className="avatar__dog__container"
+                  onClick={() => {
+                    setAvatar();
+                    setDogAvatar(dogURL.id);
+                  }}
+                >
                   <img
                     className="avatar__dog__choose"
                     key={dogURL}
-                    src={dogURL}
+                    src={dogURL.URL}
                   />
                 </div>
               );
