@@ -65,12 +65,15 @@ router.post(
 );
 
 router.post(
-  "/avatar",
+  "/:userId/avatar",
   requireAuth,
   singleMulterUpload("image"),
   asyncHandler(async (req, res, next) => {
+    const { userId } = req.params;
+    console.log(req.user.id, "USER ID");
     // req.file contains the image
     // send to singlePublicFileUpload
+    res.json({ message: `hey user #${req.user.id}` });
   })
 );
 module.exports = router;

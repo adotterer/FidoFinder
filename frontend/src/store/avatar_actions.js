@@ -11,6 +11,18 @@ export const toggleAvatarModal = (open) => async (dispatch) => {
   dispatch(setAvatarModal(open));
 };
 
+export const uploadAvatar = (avatar, userId) => async (dispatch) => {
+  const formData = new FormData();
+  formData.append("avatar", avatar);
+  console.log(userId, "userId");
+  await fetch(`/api/user/${userId}/avatar`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    body: formData,
+  });
+};
 const initialState = {};
 
 function reducer(state = initialState, action) {

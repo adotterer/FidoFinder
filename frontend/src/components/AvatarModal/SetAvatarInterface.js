@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { uploadAvatar } from "../../store/avatar_actions";
 
 export default function SetAvatarInterFace() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
   const [avatar, setAvatar] = useState();
 
   const handleSubmit = async (e) => {
+    dispatch(uploadAvatar(avatar, sessionUser.id));
   };
 
   return (
@@ -17,6 +21,7 @@ export default function SetAvatarInterFace() {
             type="file"
             onChange={(e) => setAvatar(e.target.files[0])}
             accept="image/x-png,image/gif,image/jpeg"
+            required
           />
         </div>
       </label>
