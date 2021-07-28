@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { uploadAvatar } from "../../store/avatar_actions";
+import "./avatar.css";
 
 export default function SetAvatarInterFace() {
   const dispatch = useDispatch();
@@ -13,27 +14,29 @@ export default function SetAvatarInterFace() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {avatar && (
-        <img
-          className="img__preview"
-          alt="preview"
-          src={avatar ? URL.createObjectURL(avatar) : null}
-        />
-      )}
-      <label>
-        <h3>Upload Image</h3>
-        <div>
-          <input
-            name="avatar"
-            type="file"
-            onChange={(e) => setAvatar(e.target.files[0])}
-            accept="image/x-png,image/gif,image/jpeg"
-            required
+    <div className="avatar__interface">
+      <form onSubmit={handleSubmit}>
+        {avatar && (
+          <img
+            className="img__preview"
+            alt="preview"
+            src={avatar ? URL.createObjectURL(avatar) : null}
           />
-        </div>
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+        )}
+        <label>
+          <h3>Upload Image</h3>
+          <div>
+            <input
+              name="avatar"
+              type="file"
+              onChange={(e) => setAvatar(e.target.files[0])}
+              accept="image/x-png,image/gif,image/jpeg"
+              required
+            />
+          </div>
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 }
