@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import session from "./session";
 import newDog from "./dog_actions";
 import userDetails from "./user_details";
+import avatarActions from "./avatar_actions";
 
 const rootReducer = combineReducers({
   session,
   newDog,
   userDetails,
+  avatarActions,
 });
 
 let enhancer;

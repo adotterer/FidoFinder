@@ -4,7 +4,7 @@ import { toggleAvatarModal } from "../../store/avatar_actions";
 
 export default function AvatarModal() {
   const dispatch = useDispatch();
-  const avatarRedux = useSelector((state) => state.avatarModal);
+  const avatarRedux = useSelector((state) => state.avatarActions);
 
   return (
     <>

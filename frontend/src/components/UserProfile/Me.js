@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import NewDogModal from "../NewDogModal";
+import AvatarModal from "../AvatarModal";
 
 function ProfileMe({ userId }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -9,6 +10,7 @@ function ProfileMe({ userId }) {
     return (
       <div>
         <NewDogModal />
+        <AvatarModal />
       </div>
     );
   }
