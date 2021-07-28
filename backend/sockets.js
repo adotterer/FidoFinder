@@ -83,7 +83,6 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
         if (!payload) return;
         if (
           // IF LIVE USERS LENGTH > 1, ACTUALLY SEND USING WEB SOCKET
-
           liveUserMap[`chatRoom_${payload}`] &&
           authorizedChatters.filter((chatUser) => {
             return liveUserMap[`chatRoom_${payload}`].has(chatUser.id);
@@ -110,9 +109,6 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
         } else {
           // OTHERWISE, SEND TO DB FOR STORAGE ----
           // --------> ALSO NEED TO CHECK IF USER IS 'ONLINE' AND CAN RECEIVE A NOTIFICATION
-          console.log("starting here! line 110 of sockets.js");
-          // payload = socket.query.payload;
-          console.log("SOCKET\n", socket.handshake.query, "updated");
           io.to(`chatRoom-${payload}`).emit("broadcast message to all users", {
             message: msg,
             User: user,

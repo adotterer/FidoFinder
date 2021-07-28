@@ -55,7 +55,7 @@ Express handles all routes using RESTful API and sends all information from the 
    (back in the main directory)
 
    ```sh
-   cd frontend & npm install
+   cd frontend && npm install
    ```
 
 3. Make a .env file
