@@ -5,7 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       URL: DataTypes.STRING,
     },
-    {}
+    {
+      getterMethods: {
+        info() {
+          return this.URL;
+        },
+      },
+    }
   );
   Image.addImage = async function (URL) {
     const image = await Image.create({

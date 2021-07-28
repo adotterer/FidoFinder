@@ -64,12 +64,31 @@ router.post(
   })
 );
 
+router.get(
+  "/me/dogs/pics",
+  requireAuth,
+  asyncHandler(async (req, res, next) => {
+    // should send all of the dog profile picture URL's
+    // the user is able to select one of these as their avatar
+
+    const userDogs = await Dog.findAll({
+      where: { ownerId: req.user.id },
+      include: [{ model: Image, as: "ProfileImage" }],
+    });
+    const dogPics = userDogs.map((dog) => {
+      return dog.ProfileImage.info;
+    });
+    console.log(dogPics, "<--- dog pics array");
+    res.json(dogPics);
+  })
+);
+
 router.post(
   "/me/avatar",
   requireAuth,
   singleMulterUpload("avatar"),
   asyncHandler(async (req, res, next) => {
-    console.log(req.user.id, "USER ID");
+    console.log(userDogs, "user dogs");
     // req.file contains the image
     // send to singlePublicFileUpload
     res.json({ message: `hey user #${req.user.id}` });
