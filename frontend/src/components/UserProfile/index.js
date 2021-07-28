@@ -59,11 +59,11 @@ function UserProfile() {
               <StatusInput />
             )}
           </div>
+          <ProfileMe userId={userId} />
           <hr className="hr__profilePage" />
           <DogProfileReel dogReel={dogReel} />
 
           <div>
-            <ProfileMe userId={userId} />
             {sessionUser.id !== userProfile.id && (
               <button
                 onClick={async (event) => {
