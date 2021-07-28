@@ -3,7 +3,7 @@ import NewDogForm from "./NewDogForm";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleDogModal } from "../../store/dog_actions";
 
-function NewDogModal() {
+export default function NewDogModal() {
   const dispatch = useDispatch();
   const newDogRedux = useSelector((state) => state.newDog);
 
@@ -20,5 +20,3 @@ function NewDogModal() {
     </>
   );
 }
-
-export default NewDogModal;

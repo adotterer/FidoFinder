@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { addDog, toggleDogModal, submitNewDog } from "../../store/dog_actions";
 import { useSelector } from "react-redux";
 
-function NewDogForm() {
+export default function NewDogForm() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [dogName, setDogName] = useState("");
@@ -87,5 +87,3 @@ function NewDogForm() {
     </div>
   );
 }
-
-export default NewDogForm;
