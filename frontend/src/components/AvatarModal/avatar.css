@@ -5,13 +5,27 @@
 }
 
 div.avatar__dog__container {
+  display: inline-block;
+  margin: 5px;
   width: 100px;
   height: 100px;
-  border-radius: 20px;
+  border-radius: 50%;
   overflow: hidden;
-  /* border: 5px solid blue; */
+  border: 2px solid white;
+  transition: border 0.1s linear;
 }
 
-.avatar__dog__choose {
+div.avatar__dog__container:hover {
+  border: 2px solid rgb(0, 130, 169);
+}
+
+img.avatar__dog__choose {
+  cursor: pointer;
   width: 100%;
+  opacity: 0.7;
+  transition: opacity 0.1s linear;
+}
+
+img.avatar__dog__choose:hover {
+  opacity: 1;
 }
