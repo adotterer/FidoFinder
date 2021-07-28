@@ -2,7 +2,10 @@ const router = require("express").Router();
 const { requireAuth } = require("../../utils/auth");
 const asyncHandler = require("express-async-handler");
 const { User, UserDetail, Dog, DogProfile, Image } = require("../../db/models");
-const user = require("../../db/models/user");
+const {
+  singlePublicFileUpload,
+  singleMulterUpload,
+} = require("../../utils/awsS3");
 
 router.get(
   "/:userId",
@@ -61,4 +64,13 @@ router.post(
   })
 );
 
+router.post(
+  "/avatar",
+  requireAuth,
+  singleMulterUpload("image"),
+  asyncHandler(async (req, res, next) => {
+    // req.file contains the image
+    // send to singlePublicFileUpload
+  })
+);
 module.exports = router;

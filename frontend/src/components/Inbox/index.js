@@ -8,7 +8,10 @@ export default function Inbox() {
     async function fetchInbox() {
       return await fetch("/api/inbox")
         .then((res) => res.json())
-        .then((resBody) => setInbox(resBody));
+        .then((resBody) => {
+          debugger;
+          setInbox(resBody);
+        });
     }
     fetchInbox();
   }, []);
