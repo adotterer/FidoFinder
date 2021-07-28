@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { uploadAvatar } from "../../store/avatar_actions";
 import "./avatar.css";
@@ -7,6 +7,18 @@ export default function SetAvatarInterFace() {
   const dispatch = useDispatch();
   // const sessionUser = useSelector((state) => state.session.user);
   const [avatar, setAvatar] = useState();
+  const [dogPics, setDogPics] = useState();
+
+  useEffect(() => {
+    if (!dogPics) {
+      fetch("/api/user/me/dogs/pics")
+        .then((res) => res.json())
+        .then((resBody) => {
+          setDogPics(resBody);
+          console.log("resbody", resBody);
+        });
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
