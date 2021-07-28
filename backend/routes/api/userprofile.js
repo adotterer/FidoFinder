@@ -67,7 +67,7 @@ router.post(
 router.post(
   "/me/avatar",
   requireAuth,
-  singleMulterUpload("image"),
+  singleMulterUpload("avatar"),
   asyncHandler(async (req, res, next) => {
     console.log(req.user.id, "USER ID");
     // req.file contains the image

@@ -8,11 +8,19 @@ export default function SetAvatarInterFace() {
   const [avatar, setAvatar] = useState();
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     dispatch(uploadAvatar(avatar));
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {avatar && (
+        <img
+          className="img__preview"
+          alt="preview"
+          src={avatar ? URL.createObjectURL(avatar) : null}
+        />
+      )}
       <label>
         <h3>Upload Image</h3>
         <div>

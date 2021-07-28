@@ -1,3 +1,4 @@
+import { fetch } from "./csrf";
 const SET_MODAL = "avatarModal/toggle";
 
 const setAvatarModal = (open) => {
@@ -15,13 +16,14 @@ export const uploadAvatar = (avatar) => async (dispatch) => {
   const formData = new FormData();
   formData.append("avatar", avatar);
 
-  await fetch(`/api/user/me/avatar`, {
+  const res = await fetch(`/api/user/me/avatar`, {
     method: "POST",
     headers: {
       "Content-Type": "multipart/form-data",
     },
     body: formData,
   });
+  console.log("res.data", res.data);
 };
 const initialState = {};
 

@@ -64,11 +64,13 @@ export default function NewDogForm() {
             onChange={(e) => setInterests(e.target.value)}
           />
         </label>
-        <img
-          className="img__preview"
-          alt="preview"
-          src={dogImage ? URL.createObjectURL(dogImage) : null}
-        />
+        {dogImage && (
+          <img
+            className="img__preview"
+            alt="preview"
+            src={dogImage ? URL.createObjectURL(dogImage) : null}
+          />
+        )}
         <br />
         <label>
           <h3>Upload Image</h3>
