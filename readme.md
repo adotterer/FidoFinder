@@ -96,7 +96,7 @@ Express handles all routes using RESTful API and sends all information from the 
    (back in the main directory)
 
    ```sh
-   cd frontend & npm start
+   cd frontend && npm start
    ```
 
 # Updates
