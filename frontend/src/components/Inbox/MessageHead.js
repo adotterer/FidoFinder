@@ -4,7 +4,10 @@ import "./inbox.css";
 export default function MessageHead([topMessage]) {
   const [otherUsers] = topMessage.otherUsers;
   return (
-    <Link to={`/chatroom/${topMessage.chatRoomId}`}>
+    <Link
+      key={"inbox#" + topMessage.id}
+      to={`/chatroom/${topMessage.chatRoomId}`}
+    >
       <div
         className="inbox__messageHead"
         key={"inbox#" + topMessage.chatRoomId}

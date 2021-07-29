@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
 import { fetch } from "../../store/csrf.js";
 import "./chatroom.css";
 
@@ -29,7 +29,7 @@ export default function LoadMessages({
         return setLoadedMsgs(msgs.data);
       })
       .catch((e) => console.error(e));
-  }, []);
+  }, [chatRoomId]);
 
   let mappedUserNames;
   if (authorizedUsers) {
@@ -41,15 +41,17 @@ export default function LoadMessages({
     <div>
       {loadedMsgs.length > 0 &&
         mappedUserNames &&
-        loadedMsgs.slice(loadedMsgs.length - 16).map((msg) => {
+        loadedMsgs.slice(loadedMsgs.length - 16).map((msg, i) => {
           const classI = mappedUserNames.indexOf(msg.User.username);
-          return <Message message={msg} classI={classI} />;
+          return <Message key={msg + i} message={msg} classI={classI} />;
         })}
       {messageThread.length > 0 &&
         mappedUserNames &&
         messageThread.map((message, i) => {
           const classI = mappedUserNames.indexOf(message.User.username);
-          return <Message message={message} classI={classI} />;
+          return (
+            <Message key={i + message} message={message} classI={classI} />
+          );
         })}
     </div>
   );

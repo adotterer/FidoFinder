@@ -23,7 +23,7 @@ export default function StatusInput() {
         console.error(e);
       }
     }
-  }, []);
+  }, [dispatch, status, user]);
 
   return (
     <input

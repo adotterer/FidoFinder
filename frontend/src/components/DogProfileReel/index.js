@@ -5,7 +5,11 @@ export default function DogProfileReel({ dogReel, userProfile }) {
     <div className="div__dogprofileContainer">
       {dogReel.length > 0
         ? dogReel.map((dog) => (
-            <DogProfile dog={dog} userProfile={userProfile} />
+            <DogProfile
+              key={"dogId-" + dog.id}
+              dog={dog}
+              userProfile={userProfile}
+            />
           ))
         : "NO DOG PROFILES YET! 🐶"}
     </div>

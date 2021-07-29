@@ -27,7 +27,7 @@ export default function SocketMessenger() {
         .then((res) => res.json())
         .then((authUsers) => setAuthorizedUsers(authUsers));
     }
-  }, [authorizedUsers]);
+  }, [authorizedUsers, chatRoomId]);
 
   useEffect(() => {
     const socket = io(undefined, {
@@ -39,7 +39,6 @@ export default function SocketMessenger() {
     setLiveSocket(socket);
 
     socket.on("broadcast message to all users", (message) => {
-      console.log("message ==>", message);
       setMessageThread((oldThread) => [...oldThread, message]);
     });
 
@@ -47,7 +46,7 @@ export default function SocketMessenger() {
       socket.send("disconnect");
       socket.close();
     };
-  }, [sessionUser]);
+  }, [sessionUser, chatRoomId]);
 
   if (
     !sessionUser
@@ -68,7 +67,7 @@ export default function SocketMessenger() {
           ) ? (
             authorizedUsers.map((user, i) => {
               return (
-                <Link to={`/user/${user.id}`}>
+                <Link key={`@${user.username}`} to={`/user/${user.id}`}>
                   <div className={`div__chatUsername div__username${i}`}>
                     @{user.username}
                   </div>

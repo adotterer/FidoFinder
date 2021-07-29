@@ -12,7 +12,7 @@ function UserList(optionalUsers) {
         return setUsers(res.data);
       });
     }
-  }, []);
+  }, [optionalUsers]);
 
   const sessionUser = useSelector((state) => state.session.user);
 
