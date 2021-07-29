@@ -9,6 +9,22 @@ const {
   singleMulterUpload,
 } = require("../../utils/awsS3");
 
+router.delete(
+  "/:id/delete",
+  requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    console.log(req.user.id);
+    const dog = await Dog.findByPk(id);
+    if (dog.ownerId === req.user.id) {
+      console.log("valid request")
+    } else {
+      next(new Error("DELETE FORBIDDEN"));
+    }
+    console.log(dog.toJSON());
+  })
+);
+
 router.post(
   "/add",
   requireAuth,

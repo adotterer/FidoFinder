@@ -1,6 +1,20 @@
 import "./dogprofile.css";
+import { fetch } from "../../store/csrf.js";
+import { useSelector } from "react-redux";
 
-export default function DogProfile({ dog }) {
+function deleteDog(id) {
+  return fetch(`/api/dogProfile/${id}/delete`, { method: "DELETE" })
+    .then((res) => res.json())
+    .then((resBody) => console.log(resBody));
+}
+
+function DeleteDogButton({ dogId }) {
+  return <button onClick={() => deleteDog(dogId)}>Delete Dog</button>;
+}
+
+export default function DogProfile({ dog, userProfile }) {
+  const sessionUser = useSelector((state) => state.session.user);
+
   return (
     <div className="div__dogcard">
       <div className="div__profileImg">
@@ -19,6 +33,9 @@ export default function DogProfile({ dog }) {
           </h4>
           {dog.DogProfile.interests}
         </p>
+        {userProfile.id === sessionUser.id && (
+          <DeleteDogButton dogId={dog.id} />
+        )}
       </div>
     </div>
   );

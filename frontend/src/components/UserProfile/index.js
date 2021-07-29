@@ -22,8 +22,9 @@ function UserProfile() {
       })
       .then((user) => {
         setUserProfile(user);
+        // debugger;
+        console.log(user.Dogs, "dogReel");
         setDogReel(user.Dogs);
-        // console.log(user.Dogs, "dogReel");
       });
   }
 
@@ -61,7 +62,7 @@ function UserProfile() {
           </div>
           <ProfileMe userId={userId} />
           <hr className="hr__profilePage" />
-          <DogProfileReel dogReel={dogReel} />
+          <DogProfileReel dogReel={dogReel} userProfile={userProfile} />
 
           <div>
             {sessionUser.id !== userProfile.id && (
