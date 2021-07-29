@@ -3,9 +3,12 @@ import { fetch } from "../../store/csrf.js";
 import { useSelector } from "react-redux";
 
 function deleteDog(id) {
-  return fetch(`/api/dogProfile/${id}/delete`, { method: "DELETE" })
-    .then((res) => res.json())
-    .then((resBody) => console.log(resBody));
+  return fetch(`/api/dogProfile/${id}/delete`, { method: "DELETE" }).then(
+    (resBody) => {
+      console.log(resBody.data);
+      window.location.reload();
+    }
+  );
 }
 
 function DeleteDogButton({ dogId }) {

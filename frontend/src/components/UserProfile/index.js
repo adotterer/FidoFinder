@@ -22,8 +22,6 @@ function UserProfile() {
       })
       .then((user) => {
         setUserProfile(user);
-        // debugger;
-        console.log(user.Dogs, "dogReel");
         setDogReel(user.Dogs);
       });
   }

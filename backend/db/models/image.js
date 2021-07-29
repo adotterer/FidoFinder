@@ -24,8 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Image.hasMany(models.Dog, {
       foreignKey: "profileImageId",
-
-      // hooks: true,
     });
   };
   return Image;
