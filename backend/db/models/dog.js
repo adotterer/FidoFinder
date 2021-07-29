@@ -13,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
   );
   Dog.associate = function (models) {
     Dog.belongsTo(models.User, { foreignKey: "ownerId" });
-    Dog.hasOne(models.DogProfile, { foreignKey: "dogId" });
+    Dog.hasOne(models.DogProfile, {
+      foreignKey: "dogId",
+      onDelete: "cascade",
+      hooks: true,
+    });
     Dog.belongsTo(models.Image, {
       as: "ProfileImage",
       foreignKey: "profileImageId",

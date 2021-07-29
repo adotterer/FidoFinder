@@ -14,14 +14,19 @@ router.delete(
   requireAuth,
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    console.log(req.user.id);
     const dog = await Dog.findByPk(id);
+    const profilePicture = await dog.getProfileImage();
     if (dog.ownerId === req.user.id) {
-      console.log("valid request")
+      try {
+        await dog.destroy();
+        await profilePicture.destroy();
+        return res.json("DELETED RESOURCES");
+      } catch (e) {
+        next(e);
+      }
     } else {
       next(new Error("DELETE FORBIDDEN"));
     }
-    console.log(dog.toJSON());
   })
 );
 
