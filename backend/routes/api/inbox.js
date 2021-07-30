@@ -23,7 +23,7 @@ router.get(
       return chatRoom
         .getMessageThread({
           include: { model: User },
-          order: [["createdAt", "ASC"]],
+          order: [["createdAt", "DESC"]],
           limit: 50,
         })
         .map((message) => {
