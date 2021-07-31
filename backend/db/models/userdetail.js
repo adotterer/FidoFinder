@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
           return { liveLocationLat, liveLocationLng };
         },
       },
+      setterMethods: {
+        profileImageId: function (id) {
+          this.setDataValue("profileImageId", id);
+        },
+      },
       defaultScope: {
         attributes: {
           exclude: ["createdAt", "updatedAt"],

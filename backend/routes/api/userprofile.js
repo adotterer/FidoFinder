@@ -88,11 +88,17 @@ router.post(
   singleMulterUpload("avatar"),
   asyncHandler(async (req, res, next) => {
     const { imageId } = req.body;
-    console.log("imageId", imageId);
-
-    // req.file contains the image
-    // send to singlePublicFileUpload
-    return res.json({ message: `hey user #${req.user.id}` });
+    let userDog = await Dog.findOne({ where: { profileImageId: imageId } });
+    userDog = userDog.toJSON();
+    if (userDog.ownerId === req.user.id) {
+      const userDetail = await req.user.getUserDetail();
+      userDetail.profileImageId = Number(imageId);
+      console.log("update succesful");
+      console.log(userDetail.toJSON());
+    } else {
+      next(new Error("USER NOT OWNER OF DOG PICTURE"));
+    }
+    return res.json({ message: "reload" });
   })
 );
 
