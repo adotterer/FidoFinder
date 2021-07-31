@@ -88,6 +88,7 @@ router.post(
   singleMulterUpload("avatar"),
   asyncHandler(async (req, res, next) => {
     console.log("req.body", req.body);
+    const { imageId } = req.body;
 
     // req.file contains the image
     // send to singlePublicFileUpload
