@@ -69,8 +69,6 @@ io.use(socketRequireAuth).on("connection", async (socket) => {
     },
   } = socket;
 
-  console.log("USER --->", user);
-  console.log("type =>", type, "payload", payload);
   switch (type) {
     case "chat":
       const authorizedChatters = await authorizeUser(socket, user, payload);
