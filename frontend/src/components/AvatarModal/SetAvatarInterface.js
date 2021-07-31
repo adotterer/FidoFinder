@@ -41,7 +41,6 @@ export default function SetAvatarInterFace() {
     if (avatar) {
       dispatch(uploadAvatar(avatar));
     } else if (dogAvatarId) {
-      debugger;
       dispatch(chooseExistingPic(dogAvatarId));
     }
   };
