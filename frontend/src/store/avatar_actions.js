@@ -23,12 +23,20 @@ export const uploadAvatar = (avatar) => async (dispatch) => {
     },
     body: formData,
   });
-  
+
   return res.data;
 };
 
 export const chooseExistingPic = (imageId) => async (dispatch) => {
   console.log(imageId);
+  const res = await fetch(`/api/user/me/avatar`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    body: imageId,
+  });
+  return res.data;
 };
 
 const initialState = {};
