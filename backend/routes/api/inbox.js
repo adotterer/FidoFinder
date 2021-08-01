@@ -31,7 +31,7 @@ router.get(
           include: {
             model: User,
           },
-          order: [["createdAt", "ASC"]],
+          order: [["createdAt", "DESC"]],
           limit: 50,
         })
         .map((message) => {
@@ -52,6 +52,7 @@ router.get(
     // meaning, sortedInboxArry[0] is the most recent message thread
 
     sortedInboxArr = sortedInboxArr.map(async (messages) => {
+      console.log("MESSAGES", messages);
       const topMessage = messages[0];
       const authorizedChatters = await ChatRoom.findByPk(topMessage.chatRoomId)
         .then((chatRoom) => chatRoom.getAuthorizedChatters())
