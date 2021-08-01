@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { user_chatRoom, ChatRoom, User } = require("../../db/models");
+const {
+  user_chatRoom,
+  ChatRoom,
+  User,
+  Image,
+  UserDetail,
+} = require("../../db/models");
 const asyncHandler = require("express-async-handler");
 const { requireAuth } = require("../../utils/auth");
 
@@ -22,8 +28,10 @@ router.get(
     const messageThreads = chatRoomModels.map((chatRoom) => {
       return chatRoom
         .getMessageThread({
-          include: { model: User },
-          order: [["createdAt", "DESC"]],
+          include: {
+            model: User,
+          },
+          order: [["createdAt", "ASC"]],
           limit: 50,
         })
         .map((message) => {
@@ -50,7 +58,16 @@ router.get(
         .then((authorizedChatters) =>
           authorizedChatters.map((chatter) => chatter.info)
         );
+      console.log(topMessage.userId, "topmessage");
+      const userDetail = await UserDetail.findOne({
+        where: { userId: topMessage.userId },
+        include: { model: Image, as: "Avatar" },
+      });
 
+      const { Avatar: avatar } = userDetail.toJSON();
+      // console.log(avatar.info, "avatar, yip yip");
+      // const userDetail = await UserDetail.findOne()
+      messages[0]["avatarInfo"] = avatar.info;
       messages[0]["authorizedChatters"] = authorizedChatters;
       messages[0]["otherUsers"] = authorizedChatters.filter(
         (user) => user.id !== currentUser.id

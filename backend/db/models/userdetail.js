@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
           return { liveLocationLat, liveLocationLng };
         },
       },
+      setterMethods: {
+        profileImageId: function (id) {
+          this.setDataValue("profileImageId", id);
+        },
+      },
       defaultScope: {
         attributes: {
           exclude: ["createdAt", "updatedAt"],
@@ -32,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     UserDetail.belongsTo(models.User, {
       foreignKey: "userId",
+    });
+    UserDetail.belongsTo(models.Image, {
+      foreignKey: "profileImageId",
+      as: "Avatar",
     });
   };
   UserDetail.createDetailsFindLocation = async function (location, userId) {

@@ -93,11 +93,13 @@ router.get(
         newChatRoom = await ChatRoom.create({
           name: `${sessionUsername} & ${otherUsername}`,
         });
-        const sessionUserChatRoomUserAssociation = user_chatRoom.create({
+        // const sessionUserChatRoomUserAssociation =
+        user_chatRoom.create({
           userId: sessionUserId,
           chatRoomId: newChatRoom.id,
         });
-        const otherUserChatRoomUserAssociation = user_chatRoom.create({
+        // const otherUserChatRoomUserAssociation =
+        user_chatRoom.create({
           userId: otherUserId,
           chatRoomId: newChatRoom.id,
         });

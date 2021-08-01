@@ -5,11 +5,14 @@ import createChatRoomEvent from "../../utils/createChatRoomEvent";
 import ProfileMe from "./Me";
 import DogProfileReel from "../DogProfileReel";
 import StatusInput from "../StatusInput";
+import "./userprofile.css";
 
 function UserProfile() {
   const { userId } = useParams();
   const [userProfile, setUserProfile] = useState();
   const [dogReel, setDogReel] = useState([]);
+  const [isProfileMe, setIsProfileMe] = useState(false);
+  const [userAvatar, setUserAvatar] = useState();
 
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
@@ -23,6 +26,8 @@ function UserProfile() {
       .then((user) => {
         setUserProfile(user);
         setDogReel(user.Dogs);
+        setIsProfileMe(user.id === sessionUser.id);
+        setUserAvatar(user.UserDetail.Avatar.URL);
       });
   }
 
@@ -42,43 +47,48 @@ function UserProfile() {
   if (userProfile) {
     return (
       <div>
-        <h1>{userProfile.firstName}'s Profile</h1>
+        <div className="userProfile__container">
+          <div className="userProfile__interface">
+            <h1>{userProfile.firstName}'s Profile</h1>
+            <div>
+              <div>
+                <em>Username: </em>
+
+                {userProfile.username}
+              </div>
+
+              <div>
+                <em>Status:</em>{" "}
+                {!isProfileMe ? userProfile.UserDetail.status : <StatusInput />}
+              </div>
+              <ProfileMe userId={userId} />
+            </div>
+          </div>
+          <div className="avatar__container">
+            <span className="avatar__window">
+              <img src={userAvatar} alt="avatar" />
+            </span>
+          </div>
+        </div>
+        <hr className="hr__profilePage" />
+        <DogProfileReel dogReel={dogReel} />
+
         <div>
-          <div>
-            <em>Username: </em>
-
-            {userProfile.username}
-          </div>
-
-          <div>
-            <em>Status:</em>{" "}
-            {sessionUser.id !== userProfile.id ? (
-              userProfile.UserDetail.status
-            ) : (
-              <StatusInput />
-            )}
-          </div>
-          <ProfileMe userId={userId} />
-          <hr className="hr__profilePage" />
-          <DogProfileReel dogReel={dogReel} userProfile={userProfile} />
-
-          <div>
-            {sessionUser.id !== userProfile.id && (
-              <button
-                onClick={async (event) => {
-                  event.preventDefault();
-                  const chatRoomNumber = await createChatRoomEvent(
-                    event,
-                    sessionUser,
-                    userProfile
-                  );
-                  return history.push(`/chatroom/${chatRoomNumber}`);
-                }}
-              >
-                Chat With This Owner
-              </button>
-            )}
-          </div>
+          {!isProfileMe && (
+            <button
+              onClick={async (event) => {
+                event.preventDefault();
+                const chatRoomNumber = await createChatRoomEvent(
+                  event,
+                  sessionUser,
+                  userProfile
+                );
+                return history.push(`/chatroom/${chatRoomNumber}`);
+              }}
+            >
+              Chat With This Owner
+            </button>
+          )}
         </div>
       </div>
     );

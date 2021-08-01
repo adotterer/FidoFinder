@@ -1,10 +1,18 @@
 import { fetch } from "./csrf";
 const SET_MODAL = "avatarModal/toggle";
+const SET_AVATAR_ME_URL = "avatar/me/url";
 
 const setAvatarModal = (open) => {
   return {
     type: SET_MODAL,
     open,
+  };
+};
+
+const setAvatarURL = (URL) => {
+  return {
+    type: SET_AVATAR_ME_URL,
+    URL,
   };
 };
 
@@ -23,12 +31,22 @@ export const uploadAvatar = (avatar) => async (dispatch) => {
     },
     body: formData,
   });
-  
+
   return res.data;
 };
 
 export const chooseExistingPic = (imageId) => async (dispatch) => {
   console.log(imageId);
+  const formData = new FormData();
+  formData.append("imageId", imageId);
+  const res = await fetch(`/api/user/me/avatar`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    body: formData,
+  });
+  return res.data;
 };
 
 const initialState = {};

@@ -22,9 +22,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   Image.associate = function (models) {
     // associations can be defined here
-    Image.hasMany(models.Dog, {
-      foreignKey: "profileImageId",
-    });
+    Image.hasMany(models.Dog, { foreignKey: "profileImageId" });
+    Image.hasOne(models.UserDetail, { foreignKey: "profileImageId" });
   };
   return Image;
 };

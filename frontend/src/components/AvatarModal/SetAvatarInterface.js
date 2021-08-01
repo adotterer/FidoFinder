@@ -13,16 +13,18 @@ function removeDogSelected() {
 export default function SetAvatarInterFace() {
   const dispatch = useDispatch();
   const [avatar, setAvatar] = useState();
-  const [dogAvatar, setDogAvatar] = useState();
+  const [dogAvatarId, setDogAvatarId] = useState();
   const [dogPics, setDogPics] = useState();
 
   useEffect(() => {
     removeDogSelected();
-    if (dogAvatar) {
-      const selectedPic = document.getElementById(`avatar__dog__${dogAvatar}`);
+    if (dogAvatarId) {
+      const selectedPic = document.getElementById(
+        `avatar__dog__${dogAvatarId}`
+      );
       selectedPic.classList.add("avatar__dog__selected");
     }
-  }, [dogAvatar]);
+  }, [dogAvatarId]);
 
   useEffect(() => {
     if (!dogPics) {
@@ -38,8 +40,10 @@ export default function SetAvatarInterFace() {
     e.preventDefault();
     if (avatar) {
       dispatch(uploadAvatar(avatar));
-    } else if (dogAvatar) {
-      dispatch(chooseExistingPic(dogAvatar));
+    } else if (dogAvatarId) {
+      const URL = await dispatch(chooseExistingPic(dogAvatarId));
+      console.log("URL", URL);
+      window.location.reload();
     }
   };
 
@@ -61,7 +65,7 @@ export default function SetAvatarInterFace() {
               type="file"
               onChange={(e) => {
                 setAvatar(e.target.files[0]);
-                setDogAvatar(null);
+                setDogAvatarId(null);
               }}
               accept="image/x-png,image/gif,image/jpeg"
             />
@@ -77,7 +81,7 @@ export default function SetAvatarInterFace() {
                   id={`avatar__dog__${dogURL.id}`}
                   className="avatar__dog__container"
                   onClick={() => {
-                    setDogAvatar(dogURL.id);
+                    setDogAvatarId(dogURL.id);
                     setAvatar(null);
                   }}
                 >

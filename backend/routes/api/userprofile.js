@@ -14,7 +14,10 @@ router.get(
     const { userId } = req.params;
     const userProfile = await User.findByPk(userId, {
       include: [
-        { model: UserDetail },
+        {
+          model: UserDetail,
+          include: { model: Image, as: "Avatar" },
+        },
         {
           model: Dog,
           include: [
@@ -24,6 +27,7 @@ router.get(
         },
       ],
     }).catch((e) => console.error(e));
+    // console.log("USER PROFILE ->", userProfile.toJSON());
     return res.json(userProfile.toJSON());
   })
 );
@@ -70,6 +74,7 @@ router.get(
   asyncHandler(async (req, res, next) => {
     // should send all of the dog profile picture URL's
     // the user is able to select one of these as their avatar
+    // include any User profile pictures
 
     const userDogs = await Dog.findAll({
       where: { ownerId: req.user.id },
@@ -87,10 +92,31 @@ router.post(
   requireAuth,
   singleMulterUpload("avatar"),
   asyncHandler(async (req, res, next) => {
-    console.log(userDogs, "user dogs");
-    // req.file contains the image
-    // send to singlePublicFileUpload
-    return res.json({ message: `hey user #${req.user.id}` });
+    const { imageId } = req.body;
+    if (imageId) {
+      let userDog = await Dog.findOne({ where: { profileImageId: imageId } });
+      userDog = userDog.toJSON();
+      if (userDog.ownerId === req.user.id) {
+        const userDetail = await req.user.getUserDetail();
+        console.log("setting imageId", imageId);
+        userDetail.profileImageId = Number(imageId);
+        await userDetail.save();
+        let image = await Image.findByPk(imageId);
+        let { URL } = image.toJSON();
+        return res.json(URL);
+      } else {
+        next(new Error("USER NOT OWNER OF DOG PICTURE"));
+        return res.json({ message: "reload" });
+      }
+    }
+    if (!imageId && req.file) {
+      // console.log("no imageId!");
+      // console.log(req.file, "req.files");
+      const avatarURL = await singlePublicFileUpload(req.file);
+      // console.log(avatarURL);
+      return req.json(avatarURL);
+    }
   })
 );
+
 module.exports = router;
