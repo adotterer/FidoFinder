@@ -4,12 +4,6 @@ import { setUserStatus } from "../../store/user_details";
 import { fetch } from "../../store/csrf.js";
 import "./statusinput.css";
 
-function displaySuccess() {
-  const userStatusInput = document.querySelector(".input__status");
-  userStatusInput.parentElement.classList.add("status__success::after");
-  console.log(userStatusInput.classList);
-}
-
 export default function StatusInput() {
   const dispatch = useDispatch();
   const [status, setStatus] = useState(
