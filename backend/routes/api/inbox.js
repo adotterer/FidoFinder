@@ -68,7 +68,10 @@ router.get(
       const { Avatar: avatar } = userDetail.toJSON();
       // console.log(avatar.info, "avatar, yip yip");
       // const userDetail = await UserDetail.findOne()
-      messages[0]["avatarInfo"] = avatar.info;
+      console.log(avatar);
+      if (avatar) {
+        messages[0]["avatarInfo"] = avatar.info;
+      }
       messages[0]["authorizedChatters"] = authorizedChatters;
       messages[0]["otherUsers"] = authorizedChatters.filter(
         (user) => user.id !== currentUser.id

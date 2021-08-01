@@ -36,7 +36,9 @@ function UserProfile() {
         setUserProfile(user);
         setDogReel(user.Dogs);
         setIsProfileMe(user.id === sessionUser.id);
-        setUserAvatar(user.UserDetail.Avatar.URL);
+        if (user.UserDetail.Avatar) {
+          setUserAvatar(user.UserDetail.Avatar.URL);
+        }
       });
   }
 
@@ -75,7 +77,7 @@ function UserProfile() {
           </div>
           <div className="avatar__container">
             <span className="avatar__window">
-              <img src={userAvatar} alt="avatar" />
+              {userAvatar && <img src={userAvatar} alt="avatar" />}
             </span>
           </div>
         </div>
