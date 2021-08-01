@@ -100,12 +100,12 @@ router.post(
   singleMulterUpload("avatar"),
   asyncHandler(async (req, res, next) => {
     const { imageId } = req.body;
-    if (imageId) {
+    const userDetail = await req.user.getUserDetail();
+
+    if (imageId && userDetail) {
       let userDog = await Dog.findOne({ where: { profileImageId: imageId } });
       userDog = userDog.toJSON();
       if (userDog.ownerId === req.user.id) {
-        const userDetail = await req.user.getUserDetail();
-        console.log("setting imageId", imageId);
         userDetail.profileImageId = Number(imageId);
         await userDetail.save();
         let image = await Image.findByPk(imageId);
@@ -121,10 +121,18 @@ router.post(
       // console.log(req.file, "req.files");
       const avatarURL = await singlePublicFileUpload(req.file);
       // console.log(avatarURL);
+      const newImage = await Image.create(
+        {
+          URL: avatarURL,
+        },
+        { returning: true }
+      );
       image_User.create({
-        userId: sessionUserId,
-        chatRoomId: newChatRoom.id,
+        userId: req.user.id,
+        imageId: newImage.id,
       });
+      userDetail.profileImageId = newImage.id;
+      await userDetail.save();
 
       return res.json(avatarURL);
     }
