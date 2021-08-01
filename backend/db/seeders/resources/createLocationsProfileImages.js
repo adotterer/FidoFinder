@@ -63,7 +63,7 @@ const letters = [
 
 const randomStatus = () => {
   const randomObj = {
-    time: Math.floor(Math.random() * Math.ceil(12)),
+    time: Math.floor(Math.random() * Math.ceil(11) + 1),
     amPm: ["am", "pm"][Math.floor(Math.random() * Math.ceil(2))],
     todayTomorrow: ["today", "tomorrow"][
       Math.floor(Math.random() * Math.ceil(2))

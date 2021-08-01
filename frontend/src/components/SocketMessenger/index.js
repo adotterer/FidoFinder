@@ -61,10 +61,7 @@ export default function SocketMessenger() {
     return (
       <div className="div__chatSession">
         <div className="div__authorizedUsers">
-          {authorizedUsers &&
-          !!authorizedUsers.find(
-            (authUser) => authUser.id === sessionUser.id
-          ) ? (
+          {authorizedUsers ? (
             authorizedUsers.map((user, i) => {
               return (
                 <Link key={`@${user.username}`} to={`/user/${user.id}`}>

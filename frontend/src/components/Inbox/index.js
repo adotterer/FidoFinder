@@ -13,6 +13,10 @@ export default function Inbox() {
     fetchInbox();
   }, []);
 
+  if (inbox.length === 0) {
+    return "No Messages yet";
+  }
+  
   return (
     <div>
       {inbox.length ? (

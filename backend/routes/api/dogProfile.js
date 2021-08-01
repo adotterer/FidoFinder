@@ -68,12 +68,6 @@ router.post(
       include: [{ model: DogProfile }, { model: Image, as: "ProfileImage" }],
     });
 
-    // const sendObj = {
-    //   newDog,
-    //   ProfileImage: { URL: dogProfileImgUrl },
-    //   DogProfile: { createDogProfile },
-    // };
-    // console.log(sendObj, "obj");
     res.json(sendDog);
   })
 );
