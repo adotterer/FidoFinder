@@ -2,12 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserStatus } from "../../store/user_details";
 import { fetch } from "../../store/csrf.js";
+import "./statusinput.css";
+
+function displaySuccess() {
+  const userStatusInput = document.querySelector(".input__status");
+  userStatusInput.parentElement.classList.add("status__success::after");
+  console.log(userStatusInput.classList);
+}
 
 export default function StatusInput() {
   const dispatch = useDispatch();
   const [status, setStatus] = useState(
     useSelector((state) => state.userDetails.status || "")
   );
+  const [inputClassList, setInputClassList] = useState("input__status-hidden");
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
@@ -22,18 +30,33 @@ export default function StatusInput() {
       } catch (e) {
         console.error(e);
       }
+    } else {
+      console.log("displaying success");
     }
   }, [dispatch, status, user.id]);
 
+  useEffect(() => {
+    console.log(inputClassList);
+  }, [inputClassList]);
   return (
-    <input
-      maxLength="255"
-      value={status}
-      onChange={(e) => setStatus(e.target.value)}
-      onBlur={(e) => dispatch(setUserStatus(e.target.value))}
-      className="input__status"
-      type="text"
-      placeholder="Set your status"
-    />
+    <>
+      <input
+        maxLength="255"
+        value={status}
+        onChange={(e) => {
+          setStatus(e.target.value);
+        }}
+        onBlur={(e) => {
+          dispatch(setUserStatus(e.target.value));
+          setInputClassList("input__status-active");
+          setTimeout(() => {
+            setInputClassList("input__status-hidden");
+          }, 2000);
+        }}
+        type="text"
+        placeholder="Set your status"
+      />
+      <span className={inputClassList}>Success!</span>
+    </>
   );
 }

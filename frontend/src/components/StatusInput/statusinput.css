@@ -1,0 +1,46 @@
+.status__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.status__container input {
+  margin: 5px;
+  flex-basis: 80%;
+  display: inline;
+  padding: 8px;
+}
+
+.status__container span {
+  transition: opacity 0.2s linear;
+  display: flex;
+  opacity: 0;
+  color: forestgreen;
+  font-weight: 500;
+  position: absolute;
+  right: 0;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgba(223, 223, 223, 0.5);
+  transition: opacity 0.2s linear;
+}
+
+/* .status__success::after {
+  content: "success!";
+  position: absolute;
+  font-size: 100px;
+  z-index: 100;
+  top: 0;
+  color: green;
+  border: 2px solid blue;
+} */
+
+span.input__status-active {
+  opacity: 1;
+}
+
+.input__status-hidden {
+  /* display: none; */
+  opacity: 0;
+  transition: opacity 0.2s linear;
+}

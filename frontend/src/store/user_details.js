@@ -25,7 +25,7 @@ export const setUserProfile = (userId) => async (dispatch) => {
 
 export const setUserStatus = (status) => async (dispatch) => {
   dispatch(setStatus(status));
-  await fetch(`/api/user/status`, {
+  return await fetch(`/api/user/status`, {
     method: "POST",
     body: JSON.stringify({ status }),
   })

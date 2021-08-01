@@ -66,7 +66,7 @@ function UserProfile() {
                 {userProfile.username}
               </div>
 
-              <div>
+              <div className="status__container">
                 <em>Status:</em>{" "}
                 {!isProfileMe ? userProfile.UserDetail.status : <StatusInput />}
               </div>
