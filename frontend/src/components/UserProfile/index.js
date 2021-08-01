@@ -66,7 +66,7 @@ function UserProfile() {
           </div>
           <div className="avatar__container">
             <span className="avatar__window">
-              <img src={userAvatar} />
+              <img src={userAvatar} alt="avatar" />
             </span>
           </div>
         </div>
