@@ -1,0 +1,22 @@
+div.userProfile__container {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+div.userProfile__container div {
+  flex-basis: 50%;
+}
+
+div.userProfile__interface {
+  border: 5px solid pink;
+}
+
+div.avatar__container {
+  border: 3px solid goldenrod;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
