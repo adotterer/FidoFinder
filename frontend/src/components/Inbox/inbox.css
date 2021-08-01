@@ -19,12 +19,12 @@ div.messageHead__avatar {
 
 div.messageHead__avatar img {
   width: 50px;
-  opacity: 75%;
+  opacity: 0.75;
   transition: opacity 0.2s linear;
 }
 
 div.inbox__messageHead:hover .messageHead__avatar img {
-  opacity: 100%;
+  opacity: 1;
 }
 
 div.inbox__messageHead:hover {

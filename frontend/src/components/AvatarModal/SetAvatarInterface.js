@@ -45,8 +45,8 @@ export default function SetAvatarInterFace() {
     if (avatar) {
       dispatch(uploadAvatar(avatar));
     } else if (dogAvatarId) {
-      await dispatch(chooseExistingPic(dogAvatarId));
-      await dispatch(toggleAvatarModal(false));
+      dispatch(chooseExistingPic(dogAvatarId));
+      dispatch(toggleAvatarModal(false));
     }
   };
 
