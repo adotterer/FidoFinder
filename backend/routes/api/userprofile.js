@@ -114,7 +114,7 @@ router.post(
       // console.log(req.file, "req.files");
       const avatarURL = await singlePublicFileUpload(req.file);
       // console.log(avatarURL);
-      return req.json(avatarURL);
+      return res.json(avatarURL);
     }
   })
 );
