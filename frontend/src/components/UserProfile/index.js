@@ -25,7 +25,10 @@ function UserProfile() {
       })
       .then((user) => {
         setUserProfile(user);
+        console.log(user);
+        // debugger;
         setDogReel(user.Dogs);
+        // console.log(user.id, sessionUser.id, "hello?");
         setIsProfileMe(user.id === sessionUser.id);
         setUserAvatar(user.UserDetail.Avatar.URL);
       });
