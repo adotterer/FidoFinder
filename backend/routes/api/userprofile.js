@@ -70,7 +70,8 @@ router.get(
   asyncHandler(async (req, res, next) => {
     // should send all of the dog profile picture URL's
     // the user is able to select one of these as their avatar
-
+    // include any User profile pictures
+    
     const userDogs = await Dog.findAll({
       where: { ownerId: req.user.id },
       include: [{ model: Image, as: "ProfileImage" }],
@@ -88,17 +89,25 @@ router.post(
   singleMulterUpload("avatar"),
   asyncHandler(async (req, res, next) => {
     const { imageId } = req.body;
+    if (!imageId && req.file) {
+      // console.log("no imageId!");
+      // console.log(req.file, "req.files");
+      const avatarURL = await singlePublicFileUpload(req.file);
+      // console.log(avatarURL);
+      return req.json(avatarURL);
+    }
     let userDog = await Dog.findOne({ where: { profileImageId: imageId } });
     userDog = userDog.toJSON();
     if (userDog.ownerId === req.user.id) {
       const userDetail = await req.user.getUserDetail();
       userDetail.profileImageId = Number(imageId);
-      console.log("update succesful");
-      console.log(userDetail.toJSON());
+      let image = await Image.findByPk(imageId);
+      let { URL } = image.toJSON();
+      return res.json(URL);
     } else {
       next(new Error("USER NOT OWNER OF DOG PICTURE"));
+      return res.json({ message: "reload" });
     }
-    return res.json({ message: "reload" });
   })
 );
 

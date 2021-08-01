@@ -1,10 +1,18 @@
 import { fetch } from "./csrf";
 const SET_MODAL = "avatarModal/toggle";
+const SET_AVATAR_ME_URL = "avatar/me/url";
 
 const setAvatarModal = (open) => {
   return {
     type: SET_MODAL,
     open,
+  };
+};
+
+const setAvatarURL = (URL) => {
+  return {
+    type: SET_AVATAR_ME_URL,
+    URL,
   };
 };
 
