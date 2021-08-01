@@ -31,7 +31,8 @@ export const uploadAvatar = (avatar) => async (dispatch) => {
     },
     body: formData,
   });
-
+  console.log("RESDATA ABOUT TO BE DISPATCHED");
+  dispatch(setAvatarURL(res.data));
   return res.data;
 };
 
@@ -46,6 +47,8 @@ export const chooseExistingPic = (imageId) => async (dispatch) => {
     },
     body: formData,
   });
+  console.log("RESDATA ABOUT TO BE DISPATCHED", res.data);
+  dispatch(setAvatarURL(res.data));
   return res.data;
 };
 
@@ -56,6 +59,9 @@ function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_MODAL:
       newState = { ...state, open: action.open };
+      return newState;
+    case SET_AVATAR_ME_URL:
+      newState = { ...state, profileMeURL: action.URL };
       return newState;
     default:
       return state;

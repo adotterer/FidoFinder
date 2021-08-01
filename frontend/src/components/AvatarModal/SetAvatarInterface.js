@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { uploadAvatar, chooseExistingPic } from "../../store/avatar_actions";
+import {
+  toggleAvatarModal,
+  uploadAvatar,
+  chooseExistingPic,
+} from "../../store/avatar_actions";
 import "./avatar.css";
 
 function removeDogSelected() {
@@ -41,9 +45,8 @@ export default function SetAvatarInterFace() {
     if (avatar) {
       dispatch(uploadAvatar(avatar));
     } else if (dogAvatarId) {
-      const URL = await dispatch(chooseExistingPic(dogAvatarId));
-      console.log("URL", URL);
-      window.location.reload();
+      await dispatch(chooseExistingPic(dogAvatarId));
+      await dispatch(toggleAvatarModal(false));
     }
   };
 

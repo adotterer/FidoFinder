@@ -17,6 +17,15 @@ function UserProfile() {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const newDog = useSelector((state) => state.newDog);
+  const newAvatarRedux = useSelector(
+    (state) => state.avatarActions.profileMeURL
+  );
+
+  useEffect(() => {
+    if (newAvatarRedux) {
+      setUserAvatar(newAvatarRedux);
+    }
+  }, [newAvatarRedux]);
 
   if (!userProfile) {
     fetch(`/api/user/${userId}`)
@@ -25,10 +34,7 @@ function UserProfile() {
       })
       .then((user) => {
         setUserProfile(user);
-        console.log(user);
-        // debugger;
         setDogReel(user.Dogs);
-        // console.log(user.id, sessionUser.id, "hello?");
         setIsProfileMe(user.id === sessionUser.id);
         setUserAvatar(user.UserDetail.Avatar.URL);
       });

@@ -7,7 +7,7 @@ function UserList(optionalUsers) {
   const [users, setUsers] = useState(optionalUsers);
 
   useEffect(() => {
-    if (!!optionalUsers) {
+    if (optionalUsers) {
       fetch("/api/users/all").then((res) => {
         return setUsers(res.data);
       });
