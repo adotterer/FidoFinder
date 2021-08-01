@@ -1,7 +1,14 @@
 const router = require("express").Router();
 const { requireAuth } = require("../../utils/auth");
 const asyncHandler = require("express-async-handler");
-const { User, UserDetail, Dog, DogProfile, Image } = require("../../db/models");
+const {
+  User,
+  UserDetail,
+  Dog,
+  DogProfile,
+  Image,
+  image_User,
+} = require("../../db/models");
 const {
   singlePublicFileUpload,
   singleMulterUpload,
@@ -114,6 +121,11 @@ router.post(
       // console.log(req.file, "req.files");
       const avatarURL = await singlePublicFileUpload(req.file);
       // console.log(avatarURL);
+      image_User.create({
+        userId: sessionUserId,
+        chatRoomId: newChatRoom.id,
+      });
+
       return res.json(avatarURL);
     }
   })

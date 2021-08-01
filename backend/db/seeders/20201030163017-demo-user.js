@@ -8,8 +8,8 @@ module.exports = {
       "Users",
       [
         {
-          email: "demo@user.io",
-          username: "Demo-lition",
+          email: "doglover45@dogmail.com",
+          username: "DogLover45",
           hashedPassword: bcrypt.hashSync("password"),
           firstName: faker.name.firstName(),
           lastName: faker.name.lastName(),
@@ -26,9 +26,18 @@ module.exports = {
           role: "dog_owner",
         },
         {
+          email: "roman@zolanksi.com",
+          username: "Roman",
+          hashedPassword: bcrypt.hashSync("password"),
+          firstName: "Roman",
+          lastName: "Zolanksi",
+          phoneNumber: faker.phone.phoneNumber(),
+          role: "dog_owner",
+        },
+        {
           email: faker.internet.email(),
           username: "FakeUser1",
-          hashedPassword: bcrypt.hashSync(faker.internet.password()),
+          hashedPassword: bcrypt.hashSync("password"),
           firstName: faker.name.firstName(),
           lastName: faker.name.lastName(),
           phoneNumber: faker.phone.phoneNumber(),
@@ -37,7 +46,7 @@ module.exports = {
         {
           email: faker.internet.email(),
           username: "FakeUser2",
-          hashedPassword: bcrypt.hashSync(faker.internet.password()),
+          hashedPassword: bcrypt.hashSync("password"),
           firstName: faker.name.firstName(),
           lastName: faker.name.lastName(),
           phoneNumber: faker.phone.phoneNumber(),
@@ -50,8 +59,6 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(
-      "Users"
-    );
+    return queryInterface.bulkDelete("Users");
   },
 };

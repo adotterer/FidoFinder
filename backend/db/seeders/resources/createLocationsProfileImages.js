@@ -78,53 +78,7 @@ const randomStatus = () => {
   return statues[Math.floor(Math.random() * Math.floor(statues.length))];
 };
 
-const userArray = [
-  {
-    email: "doglover45@dogmail.com",
-    username: "DogLover45",
-    hashedPassword: bcrypt.hashSync("password"),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    phoneNumber: faker.phone.phoneNumber(),
-    role: "dog_owner",
-  },
-  {
-    email: "onika@pink.com",
-    username: "Barbie",
-    hashedPassword: bcrypt.hashSync("password"),
-    firstName: "Onika",
-    lastName: "Minaj",
-    phoneNumber: faker.phone.phoneNumber(),
-    role: "dog_owner",
-  },
-  {
-    email: "roman@zolanksi.com",
-    username: "Roman",
-    hashedPassword: bcrypt.hashSync("password"),
-    firstName: "Roman",
-    lastName: "Zolanksi",
-    phoneNumber: faker.phone.phoneNumber(),
-    role: "dog_owner",
-  },
-  {
-    email: faker.internet.email(),
-    username: "FakeUser1",
-    hashedPassword: bcrypt.hashSync("password"),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    phoneNumber: faker.phone.phoneNumber(),
-    role: "dog_owner",
-  },
-  {
-    email: faker.internet.email(),
-    username: "FakeUser2",
-    hashedPassword: bcrypt.hashSync("password"),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    phoneNumber: faker.phone.phoneNumber(),
-    role: "dog_owner",
-  },
-];
+const userArray = [];
 
 const createdNames = [];
 const createdEmails = [];
