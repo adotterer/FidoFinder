@@ -43,6 +43,7 @@ export default function SetAvatarInterFace() {
     } else if (dogAvatarId) {
       const URL = await dispatch(chooseExistingPic(dogAvatarId));
       console.log("URL", URL);
+      window.location.reload();
     }
   };
 

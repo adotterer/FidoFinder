@@ -12,6 +12,7 @@ function UserProfile() {
   const [userProfile, setUserProfile] = useState();
   const [dogReel, setDogReel] = useState([]);
   const [isProfileMe, setIsProfileMe] = useState(false);
+  const [userAvatar, setUserAvatar] = useState();
 
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
@@ -26,6 +27,7 @@ function UserProfile() {
         setUserProfile(user);
         setDogReel(user.Dogs);
         setIsProfileMe(user.id === sessionUser.id);
+        setUserAvatar(user.UserDetail.Avatar.URL);
       });
   }
 
@@ -62,7 +64,9 @@ function UserProfile() {
               <ProfileMe userId={userId} />
             </div>
           </div>
-          <div className="avatar__container">{}</div>
+          <div className="avatar__container">
+            <img src={userAvatar} />
+          </div>
         </div>
         <hr className="hr__profilePage" />
         <DogProfileReel dogReel={dogReel} />

@@ -27,7 +27,7 @@ router.get(
         },
       ],
     }).catch((e) => console.error(e));
-    console.log("USER PROFILE ->", userProfile.toJSON());
+    // console.log("USER PROFILE ->", userProfile.toJSON());
     return res.json(userProfile.toJSON());
   })
 );
@@ -93,24 +93,28 @@ router.post(
   singleMulterUpload("avatar"),
   asyncHandler(async (req, res, next) => {
     const { imageId } = req.body;
+    if (imageId) {
+      let userDog = await Dog.findOne({ where: { profileImageId: imageId } });
+      userDog = userDog.toJSON();
+      if (userDog.ownerId === req.user.id) {
+        const userDetail = await req.user.getUserDetail();
+        console.log("setting imageId", imageId);
+        userDetail.profileImageId = Number(imageId);
+        await userDetail.save();
+        let image = await Image.findByPk(imageId);
+        let { URL } = image.toJSON();
+        return res.json(URL);
+      } else {
+        next(new Error("USER NOT OWNER OF DOG PICTURE"));
+        return res.json({ message: "reload" });
+      }
+    }
     if (!imageId && req.file) {
       // console.log("no imageId!");
       // console.log(req.file, "req.files");
       const avatarURL = await singlePublicFileUpload(req.file);
       // console.log(avatarURL);
       return req.json(avatarURL);
-    }
-    let userDog = await Dog.findOne({ where: { profileImageId: imageId } });
-    userDog = userDog.toJSON();
-    if (userDog.ownerId === req.user.id) {
-      const userDetail = await req.user.getUserDetail();
-      userDetail.profileImageId = Number(imageId);
-      let image = await Image.findByPk(imageId);
-      let { URL } = image.toJSON();
-      return res.json(URL);
-    } else {
-      next(new Error("USER NOT OWNER OF DOG PICTURE"));
-      return res.json({ message: "reload" });
     }
   })
 );

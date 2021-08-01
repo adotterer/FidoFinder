@@ -20,3 +20,14 @@ div.avatar__container {
   text-align: center;
   justify-content: center;
 }
+
+div.avatar__container img {
+  display: inline-block;
+  margin: 5px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid white;
+  transition: border 0.1s linear;
+}
