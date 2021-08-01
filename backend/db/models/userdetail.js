@@ -38,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
     UserDetail.belongsTo(models.User, {
       foreignKey: "userId",
     });
+    UserDetail.belongsTo(models.Image, {
+      foreignKey: "profileImageId",
+      as: "Avatar",
+    });
   };
   UserDetail.createDetailsFindLocation = async function (location, userId) {
     const locationObj = await createLocationObj(location);

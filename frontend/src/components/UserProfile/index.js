@@ -62,7 +62,7 @@ function UserProfile() {
               <ProfileMe userId={userId} />
             </div>
           </div>
-          <div className="avatar__container">Avatar goes here</div>
+          <div className="avatar__container">{}</div>
         </div>
         <hr className="hr__profilePage" />
         <DogProfileReel dogReel={dogReel} />

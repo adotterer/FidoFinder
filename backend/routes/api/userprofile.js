@@ -14,7 +14,10 @@ router.get(
     const { userId } = req.params;
     const userProfile = await User.findByPk(userId, {
       include: [
-        { model: UserDetail },
+        {
+          model: UserDetail,
+          include: { model: Image, as: "Avatar" },
+        },
         {
           model: Dog,
           include: [
@@ -24,6 +27,7 @@ router.get(
         },
       ],
     }).catch((e) => console.error(e));
+    console.log("USER PROFILE ->", userProfile.toJSON());
     return res.json(userProfile.toJSON());
   })
 );
@@ -71,7 +75,7 @@ router.get(
     // should send all of the dog profile picture URL's
     // the user is able to select one of these as their avatar
     // include any User profile pictures
-    
+
     const userDogs = await Dog.findAll({
       where: { ownerId: req.user.id },
       include: [{ model: Image, as: "ProfileImage" }],
