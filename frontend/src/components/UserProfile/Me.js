@@ -8,7 +8,7 @@ function ProfileMe({ userId }) {
   if (Number(sessionUser.id) !== Number(userId)) return null;
   else {
     return (
-      <div>
+      <div className="modal__butons">
         <NewDogModal />
         <AvatarModal />
       </div>

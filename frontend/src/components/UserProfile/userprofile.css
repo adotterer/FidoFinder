@@ -8,6 +8,11 @@ div.userProfile__container div {
   flex-basis: 50%;
 }
 
+div.userProfile__container input {
+  margin: 5px;
+  width: 80%;
+  padding: 8px;
+}
 /* div.userProfile__interface {
 
 } */
@@ -31,4 +36,8 @@ div.avatar__container span.avatar__window {
 
 span.avatar__window img {
   width: 150px;
+}
+
+.modal__butons button {
+  margin: 5px;
 }
