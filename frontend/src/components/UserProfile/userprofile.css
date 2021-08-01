@@ -1,27 +1,25 @@
 div.userProfile__container {
-  border: 1px solid black;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 div.userProfile__container div {
   flex-basis: 50%;
 }
 
-div.userProfile__interface {
-  border: 5px solid pink;
-}
+/* div.userProfile__interface {
+
+} */
 
 div.avatar__container {
-  border: 3px solid goldenrod;
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: center;
 }
 
-div.avatar__container img {
+div.avatar__container span.avatar__window {
   display: inline-block;
   margin: 5px;
   width: 150px;
@@ -30,4 +28,8 @@ div.avatar__container img {
   overflow: hidden;
   border: 2px solid white;
   transition: border 0.1s linear;
+}
+
+span.avatar__window img {
+  width: 150px;
 }

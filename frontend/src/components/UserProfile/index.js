@@ -65,7 +65,9 @@ function UserProfile() {
             </div>
           </div>
           <div className="avatar__container">
-            <img src={userAvatar} />
+            <span className="avatar__window">
+              <img src={userAvatar} />
+            </span>
           </div>
         </div>
         <hr className="hr__profilePage" />
