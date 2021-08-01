@@ -74,7 +74,7 @@ function UserProfile() {
           </div>
         </div>
         <hr className="hr__profilePage" />
-        <DogProfileReel dogReel={dogReel} />
+        <DogProfileReel dogReel={dogReel} userProfile={userProfile} />
 
         <div>
           {!isProfileMe && (
