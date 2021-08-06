@@ -10,6 +10,10 @@ export default function PhoneNumberInput() {
   }, [checked]);
   return (
     <div className="sms__container">
+      <div className="status__container">
+        <em>Phone Number:</em> {"\n"}
+      </div>
+
       <section className="section">
         <div className="radio-container">
           <input
@@ -21,15 +25,12 @@ export default function PhoneNumberInput() {
           />
           <label for="radio-2">
             <span className="radio sms__label">
-              Receive SMS Text Messages Notifications
+              Receive SMS Text Message Notifications
             </span>
             <span className="sms__moreInfo">
               <BsFillQuestionCircleFill />
             </span>
           </label>
-        </div>
-        <div>
-          
         </div>
       </section>
     </div>
