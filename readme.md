@@ -6,8 +6,7 @@ _By Andrew Dotterer - [Visit FidoFinder App](https://fidofinderapp.herokuapp.com
 
 <!-- - [Application Architecture & Technologies Used](#application-architecture) -->
 
-- [Frontend Overview](#frontend-overview)
-- [Backend Overview](#backend-overview)
+- [Technology Used](#technologies-used)
 - [Getting Started](#getting-started)
 - [Preparation Before Coding](#preparation)
 - [Updates](#updates)
@@ -16,22 +15,23 @@ _By Andrew Dotterer - [Visit FidoFinder App](https://fidofinderapp.herokuapp.com
 
 # Technologies Used
 
-- Languages: ![](https://img.shields.io/badge/-JavaSript-ffffff?style=flat-square&logo=javascript&logoColor=ff0000)
+- Languages: ![](https://img.shields.io/badge/-JavaSript-424242?style=flat-square&logo=javascript&logoColor=00000)
   - Frontend:
-    ![](https://img.shields.io/badge/-React-ffffff?style=flat-square&logo=react&logoColor=ff0000)
-    ![](https://img.shields.io/badge/-Redux-ffffff?style=flat-square&logo=redux&logoColor=ff0000)
-    ![](https://img.shields.io/badge/-CSS3-ffffff?style=flat-square&logo=css3&logoColor=ff0000)
-    ![](https://img.shields.io/badge/-HTML5-ffffff?style=flat-square&logo=html5&logoColor=ff0000)
+    ![](https://img.shields.io/badge/-React-424242?style=flat-square&logo=react&logoColor=00000)
+    ![](https://img.shields.io/badge/-Redux-424242?style=flat-square&logo=redux&logoColor=00000)
+    ![](https://img.shields.io/badge/-CSS3-424242?style=flat-square&logo=css3&logoColor=00000)
+    ![](https://img.shields.io/badge/-HTML5-424242?style=flat-square&logo=html5&logoColor=00000)
   - Backend:
-    ![](https://img.shields.io/badge/-Node.js-ffffff?style=flat-square&logo=node.js&logoColor=ff0000)
-    ![](https://img.shields.io/badge/-Express-ffffff?style=flat-square&logo=express&logoColor=ff0000)
-    ![](https://img.shields.io/badge/-AWS--S3-ffffff?style=flat-square&logo=amazon-aws&logoColor=ff0000)
-    ![](https://img.shields.io/badge/-PostgreSQL-ffffff?style=flat-square&logo=postgresql&logoColor=ff0000)
+    ![](https://img.shields.io/badge/-Node.js-424242?style=flat-square&logo=node.js&logoColor=00000)
+    ![](https://img.shields.io/badge/-Express-424242?style=flat-square&logo=express&logoColor=00000)
+    ![](https://img.shields.io/badge/-AWS--S3-424242?style=flat-square&logo=amazon-aws&logoColor=00000)
+    ![](https://img.shields.io/badge/-PostgreSQL-424242?style=flat-square&logo=postgresql&logoColor=00000)
   - Frameworks and Libraries:
-    ![](https://img.shields.io/badge/-Socket.IO-ffffff?style=flat-square&logo=socket.io&logoColor=ff0000)
-    ![](https://img.shields.io/badge/-Twilio-ffffff?style=flat-square&logo=twilio&logoColor=ff0000)
+    ![](https://img.shields.io/badge/-Socket.IO-424242?style=flat-square&logo=socket.io&logoColor=00000)
+    ![](https://img.shields.io/badge/-Twilio-424242?style=flat-square&logo=twilio&logoColor=00000)
+    ![](https://img.shields.io/badge/-GoogleMapsAPI-424242?style=flat-square&logo=google&logoColor=00000)
 
-### Prerequisites
+# Prerequisites
 
 - npm
 
@@ -39,7 +39,7 @@ _By Andrew Dotterer - [Visit FidoFinder App](https://fidofinderapp.herokuapp.com
   npm install npm@latest -g
   ```
 
-### Installation
+# Installation
 
 1. Clone the repo
    ```sh
