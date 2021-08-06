@@ -6,13 +6,12 @@ const twilio = require("twilio");
 const client = new twilio(accountSid, authToken);
 
 function notifyOwnerOfUser(geoObj, clientIp) {
-  const message = `FidoFinder Anonymous visitor from ${geoObj.city}, ${
-    geoObj.country
-  }
+  const message = `\nFidoFinder
+  \nAnonymous visitor from ${geoObj.city}, ${geoObj.country}
   \n ## IP Address: ${clientIp}
   \n ## Lat: ${geoObj.ll[0]}
-  \n ## Lng: ${geoObj.ll[1]}
-  \n ## LocalTime: ${new Date().toLocaleTimeString("en-US")}`;
+  \n ## Lng: ${geoObj.ll[1]}`;
+
   client.messages
     .create({
       body: message,
