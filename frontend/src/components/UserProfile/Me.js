@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import NewDogModal from "../NewDogModal";
 import AvatarModal from "../AvatarModal";
+import PhoneNumberInput from "./PhoneNumberInput";
 
 function ProfileMe({ userId }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -9,6 +10,7 @@ function ProfileMe({ userId }) {
   else {
     return (
       <div className="modal__butons">
+        <PhoneNumberInput />
         <NewDogModal />
         <AvatarModal />
       </div>
