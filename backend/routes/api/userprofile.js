@@ -59,8 +59,8 @@ router.post(
   asyncHandler(async (req, res, next) => {
     const { status } = req.body;
 
-    const updatedStatusTime = await User.findByPk(req.user.toJSON().id)
-      .then((user) => user.getUserDetail())
+    const updatedStatusTime = await req.user
+      .getUserDetail()
       .then((userDetail) => userDetail.update({ status }))
       .then((updatedUserDetail) => updatedUserDetail.toJSON())
       .then((userDetailObj) => {
@@ -70,7 +70,7 @@ router.post(
           : now.toLocaleString();
       })
       .catch((e) => console.error(e));
-    console.log(updatedStatusTime);
+
     return res.json(updatedStatusTime);
   })
 );
