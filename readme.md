@@ -4,33 +4,32 @@ _By Andrew Dotterer - [Visit FidoFinder App](https://fidofinderapp.herokuapp.com
 
 **Table of Contents**
 
-- [Application Architecture & Technologies Used](#application-architecture)
+<!-- - [Application Architecture & Technologies Used](#application-architecture) -->
+
 - [Frontend Overview](#frontend-overview)
 - [Backend Overview](#backend-overview)
 - [Getting Started](#getting-started)
+- [Preparation Before Coding](#preparation)
 - [Updates](#updates)
 
-# Application Architecture
+<!-- # Application Architecture -->
 
-# Frontend Overview
+# Technologies Used
 
-### _React_
-
-The template engine implemented by Node.js.
-
-# Backend Overview
-
-### _Sequelize_
-
-Sequelize establishes the database, models, and seeders.
-
-### _Express_
-
-Express handles all routes using RESTful API and sends all information from the database.
-
-### _API Routes_
-
-# Getting Started
+- Languages: ![](https://img.shields.io/badge/-JavaSript-ffffff?style=flat-square&logo=javascript&logoColor=ff0000)
+  - Frontend:
+    ![](https://img.shields.io/badge/-React-ffffff?style=flat-square&logo=react&logoColor=ff0000)
+    ![](https://img.shields.io/badge/-Redux-ffffff?style=flat-square&logo=redux&logoColor=ff0000)
+    ![](https://img.shields.io/badge/-CSS3-ffffff?style=flat-square&logo=css3&logoColor=ff0000)
+    ![](https://img.shields.io/badge/-HTML5-ffffff?style=flat-square&logo=html5&logoColor=ff0000)
+  - Backend:
+    ![](https://img.shields.io/badge/-Node.js-ffffff?style=flat-square&logo=node.js&logoColor=ff0000)
+    ![](https://img.shields.io/badge/-Express-ffffff?style=flat-square&logo=express&logoColor=ff0000)
+    ![](https://img.shields.io/badge/-AWS--S3-ffffff?style=flat-square&logo=amazon-aws&logoColor=ff0000)
+    ![](https://img.shields.io/badge/-PostgreSQL-ffffff?style=flat-square&logo=postgresql&logoColor=ff0000)
+  - Frameworks and Libraries:
+    ![](https://img.shields.io/badge/-Socket.IO-ffffff?style=flat-square&logo=socket.io&logoColor=ff0000)
+    ![](https://img.shields.io/badge/-Twilio-ffffff?style=flat-square&logo=twilio&logoColor=ff0000)
 
 ### Prerequisites
 
@@ -72,6 +71,10 @@ Express handles all routes using RESTful API and sends all information from the 
    AWS_ACCESS_KEY_ID=[YOUR SETUP]
    AWS_SECRET_ACCESS_KEY=[YOUR SETUP]
    GOOGLE_API_SECRET=[YOUR SETUP]
+   TWILIO_ACCOUNT_SID=[YOUR SETUP]
+   TWILIO_AUTH_KEY=[YOUR SETUP]
+   TWILIO_PHONE_NUM=[YOUR TWILIO NUMBER]
+   OWNER_PHONE_NUM=[YOUR PHONE NUMBER]
    ```
 
 4. Sequelize commands
@@ -99,4 +102,16 @@ Express handles all routes using RESTful API and sends all information from the 
    cd frontend && npm start
    ```
 
+# Preparation
+
+[Visit FidoFinder Wiki to view my prep work for this project:](https://github.com/adotterer/FidoFinder/wiki)
+
+- [Database Schema](https://github.com/adotterer/FidoFinder/wiki/Database-Schema)
+- [WireFrames](https://github.com/adotterer/FidoFinder/wiki/Wireframes)
+- [MVP and Stretch Goals](https://github.com/adotterer/FidoFinder/wiki/MVP's--&&--Stretch-Goals)
+- [React Component List](https://github.com/adotterer/FidoFinder/wiki/React-Component-List)
+- [Routes](https://github.com/adotterer/FidoFinder/wiki/Routes)
+
 # Updates
+
+_8/3/2021_ Add Twilio functionality to notify me of visitors
