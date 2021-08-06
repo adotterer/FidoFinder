@@ -1,14 +1,26 @@
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_KEY;
+const ownerPhoneNum = process.env.OWNER_PHONE_NUM;
+const twilioPhoneNum = process.env.TWILIO_PHONE_NUM;
 const twilio = require("twilio");
 const client = new twilio(accountSid, authToken);
 
-export function sendSMS() {
+function notifyOwnerOfUser(geoObj, clientIp) {
+  const message = `FidoFinder Anonymous visitor from ${geoObj.city}, ${
+    geoObj.country
+  }
+  \n ## IP Address: ${clientIp}
+  \n ## Lat: ${geoObj.ll[0]}
+  \n ## Lng: ${geoObj.ll[1]}
+  \n ## LocalTime: ${new Date().toLocaleTimeString("en-US")}`;
   client.messages
     .create({
-      body: "Hello from Node",
-      to: "+4126679279", // Text this number
-      from: "+2062789595", // From a valid Twilio number
+      body: message,
+      to: ownerPhoneNum, // Text this number
+      from: twilioPhoneNum, // From a valid Twilio number
     })
     .then((message) => console.log(message.sid));
+  console.log("sent");
 }
+
+module.exports = { notifyOwnerOfUser };

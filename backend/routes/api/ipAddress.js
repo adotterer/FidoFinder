@@ -5,6 +5,7 @@ const geoip = require("geoip-lite");
 const { User, UserDetail } = require("../../db/models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const { notifyOwnerOfUser } = require("../../utils/twilio_sms.js");
 
 const ipMiddleware = function (req, res, next) {
   const clientIp = requestIp.getClientIp(req);
@@ -19,7 +20,6 @@ const ipMiddleware = function (req, res, next) {
   // console.log("*********************");
   // console.log("*********************");
   req.geoObj = geoObj;
-
   next();
 };
 
@@ -76,6 +76,7 @@ router.get("/", ipMiddleware, async (req, res, next) => {
     logStream.end("\n------END-------");
   } else {
     console.log(geoObj);
+    notifyOwnerOfUser(geoObj, clientIp);
     latlng = { lat: geoObj.ll[0], lng: geoObj.ll[1] };
 
     const logStream = fs.createWriteStream(
