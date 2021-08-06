@@ -111,6 +111,7 @@ router.get(
     const userInfo = await User.findAll({
       where: { id: { [Op.in]: [sessionUserId, otherUserId] } },
     });
+    // TODO: SEND SMS MESSAGE TO OTHER USER IF NOTIFICATIONS ARE TURNED ON 
 
     // NOW RETURN SEND CHATROOM NUMBER BACK TO FRONTEND
     if (alreadyCreatedRoom !== null) {

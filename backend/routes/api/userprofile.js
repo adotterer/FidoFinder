@@ -75,6 +75,14 @@ router.post(
   })
 );
 
+router.post(
+  "/me/phone",
+  requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const { newNumber } = req.body;
+  })
+);
+
 router.get(
   "/me/dogs/pics",
   requireAuth,
