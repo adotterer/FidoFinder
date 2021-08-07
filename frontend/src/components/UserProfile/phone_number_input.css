@@ -8,6 +8,24 @@
   margin-top: 1px;
 }
 
+.phone__number__container {
+  display: inline-block;
+}
+
+.phone__number__container span {
+  margin: 0 2px;
+}
+
+.phone__number__container span:nth-child(2) {
+  padding-left: 14px;
+  color: #4277eb;
+}
+
+.phone__number__container span:nth-child(2):hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .section {
   padding: 10px;
   padding-left: 54px;
@@ -60,7 +78,7 @@
 
 input[type="radio"]:checked + label span.radio::after {
   left: -27px;
-  background-color: hsla(221, 81%, 59%, 0.993);
+  background-color: #4277eb;
 }
 
 .radio-container span.checkbox::before {

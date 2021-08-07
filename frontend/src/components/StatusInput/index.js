@@ -24,8 +24,6 @@ export default function StatusInput() {
       } catch (e) {
         console.error(e);
       }
-    } else {
-      console.log("displaying success");
     }
   }, [dispatch, status, user.id]);
 
