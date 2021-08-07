@@ -97,7 +97,7 @@ router.post(
     const { newNumber } = req.body;
     await req.user.update({ phoneNumber: newNumber });
     const user = req.user.toJSON();
-    console.log("user --->", user);
+
     return res.json(user);
   })
 );
