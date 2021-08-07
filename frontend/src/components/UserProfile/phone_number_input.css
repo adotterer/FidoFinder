@@ -3,9 +3,11 @@
 }
 
 .sms__moreInfo {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  cursor: help;
   color: rgb(51, 51, 51);
-  margin-left: 3px;
-  margin-top: 1px;
+  padding: 3px 5px;
 }
 
 .phone__number__container {
@@ -26,9 +28,31 @@
   cursor: pointer;
 }
 
+.sms__moreInfo__msg-hidden {
+  display: none;
+}
+
+.sms__moreInfo__msg-visible {
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  padding: 10px;
+  background-color: rgb(246, 250, 252);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  border-radius: 5px;
+}
+
+.sms__moreInfo__msg-visible li {
+  margin-left: 1.5em;
+}
+
 .section {
   padding: 10px;
   padding-left: 54px;
+}
+
+.section div {
+  position: relative;
 }
 
 .section input[type="radio"],

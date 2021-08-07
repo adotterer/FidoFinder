@@ -19,10 +19,10 @@ export default function PhoneNumberInput() {
   const [phoneNumber, setPhoneNumber] = useState();
   const [checked, setChecked] = useState(false);
   const [editInput, setEditInput] = useState(false);
+  const [smsInfo, setSmsInfo] = useState("sms__moreInfo__msg-hidden");
 
   useEffect(() => {
     fetch("/api/user/me/phone").then((res) => setPhoneNumber(res.data));
-    // console.log("new value of checked", checked);
   }, []);
 
   function updatePhoneNumber() {
@@ -34,9 +34,6 @@ export default function PhoneNumberInput() {
       body: JSON.stringify({ newNumber: phoneNumber }),
     }).then(setEditInput(false));
   }
-  // useEffect(() => {
-  //   console.log(phoneNumber);
-  // }, [phoneNumber]);
 
   return (
     <>
@@ -76,12 +73,23 @@ export default function PhoneNumberInput() {
             />
             <label for="radio-2">
               <span className="radio sms__label">
-                Receive SMS Text Message Notifications
+                SMS Text Message Notifications
               </span>
-              <span className="sms__moreInfo">
+              <span
+                onMouseEnter={() => setSmsInfo("sms__moreInfo__msg-visible")}
+                onMouseLeave={() => setSmsInfo("sms__moreInfo__msg-hidden")}
+                className="sms__moreInfo"
+              >
                 <BsFillQuestionCircleFill />
               </span>
             </label>
+            <span className={smsInfo}>
+              Receive a text message when a user messages you:
+              <ul>
+                <li>For the first time</li>
+                <li>If you are offline </li>
+              </ul>
+            </span>
           </div>
         </section>
       </div>
