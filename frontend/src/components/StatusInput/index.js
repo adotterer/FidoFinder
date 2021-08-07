@@ -29,9 +29,9 @@ export default function StatusInput() {
     }
   }, [dispatch, status, user.id]);
 
-  useEffect(() => {
-    console.log(inputClassList);
-  }, [inputClassList]);
+  // useEffect(() => {
+  //   console.log(inputClassList);
+  // }, [inputClassList]);
   return (
     <>
       <input

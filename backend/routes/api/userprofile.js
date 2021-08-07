@@ -75,11 +75,30 @@ router.post(
   })
 );
 
+router.get(
+  "/me/phone",
+  requireAuth,
+  asyncHandler(async (req, res, next) => {
+    // console.log(req.user.id, "user.id");
+    // const userDetail = await UserDetail.findOne({
+    //   where: { userId: req.user.id },
+    // });
+    // req.user.update();
+    // const user = req.user.toJSON();
+    // console.log(req.user.phoneNumber, "PHONE NUMBER");
+    res.json(req.user.phoneNumber);
+  })
+);
+
 router.post(
   "/me/phone",
   requireAuth,
   asyncHandler(async (req, res, next) => {
     const { newNumber } = req.body;
+    await req.user.update({ phoneNumber: newNumber });
+    const user = req.user.toJSON();
+    console.log("user --->", user);
+    return res.json(user);
   })
 );
 
