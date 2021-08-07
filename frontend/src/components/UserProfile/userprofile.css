@@ -1,3 +1,7 @@
+div em {
+  padding-right: 3px;
+}
+
 div.userProfile__container {
   display: flex;
   flex-direction: row;
@@ -7,10 +11,6 @@ div.userProfile__container {
 div.userProfile__container div {
   flex-basis: 50%;
 }
-
-/* div.userProfile__interface {
-
-} */
 
 div.avatar__container {
   display: flex;

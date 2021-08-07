@@ -60,6 +60,11 @@
   display: none;
 }
 
+.phone__number__container input {
+  margin: 5px;
+  display: inline;
+  padding: 8px;
+}
 .radio-container {
   margin-bottom: 10px;
   width: 100%;

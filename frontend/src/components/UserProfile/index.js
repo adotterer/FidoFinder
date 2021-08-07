@@ -63,13 +63,11 @@ function UserProfile() {
             <h1>{userProfile.firstName}'s Profile</h1>
             <div>
               <div>
-                <em>Username: </em>
-
-                {userProfile.username}
+                <em>Username: </em> {userProfile.username}
               </div>
 
               <div className="status__container">
-                <em>Status:</em>{" "}
+                <em>Status: </em>
                 {!isProfileMe ? userProfile.UserDetail.status : <StatusInput />}
               </div>
               <ProfileMe userId={userId} />
