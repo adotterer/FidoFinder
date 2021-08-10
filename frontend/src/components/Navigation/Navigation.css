@@ -103,7 +103,45 @@ li.li__buttonIcons:hover,
   .div__logo {
     zoom: 0.8;
   }
+
+  div#div__nav-bar {
+    /* border: 10px solid red; */
+    height: 15vh;
+  }
+  div.div__navIcons {
+    right: 0;
+    margin: 0 auto;
+    height: 14vh;
+    display: flex;
+  }
   ul.ul__navIcons {
-    zoom: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    top: 0;
+    position: absolute;
+  }
+  ul.ul__navIcons li {
+    margin-top: 3px;
+  }
+
+  ul.ul__navIcons li,
+  ul.ul__navIcons svg {
+    display: block;
+    display: flex;
+  }
+
+  div#div__bodyContent {
+    top: 15vh;
+    zoom: 0.92;
+  }
+
+  ul.profile-dropdown,
+  .profile-dropdown li {
+    display: flex;
+    flex-direction: column;
+  }
+  ul.profile-dropdown {
+    right: 12vw;
   }
 }
