@@ -34,7 +34,6 @@ router.get(
         },
       ],
     }).catch((e) => console.error(e));
-    // console.log("USER PROFILE ->", userProfile.toJSON());
     return res.json(userProfile.toJSON());
   })
 );

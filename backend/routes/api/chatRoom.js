@@ -68,7 +68,7 @@ router.get(
     // FIND ONE user_chatRoom associations
     let alreadyCreatedRoom;
     try {
-      // TODO: REFACTOR THIS QUERY SO IT FUNCTIONS WITH > 2 USERS, AND IS JUST BETTER...
+      // TODO: REFACTOR THIS QUERY
       alreadyCreatedRoom = await ChatRoom.findOne({
         where: {
           name: {
@@ -111,7 +111,7 @@ router.get(
     const userInfo = await User.findAll({
       where: { id: { [Op.in]: [sessionUserId, otherUserId] } },
     });
-    // TODO: SEND SMS MESSAGE TO OTHER USER IF NOTIFICATIONS ARE TURNED ON 
+    // TODO: SEND SMS MESSAGE TO OTHER USER IF NOTIFICATIONS ARE TURNED ON
 
     // NOW RETURN SEND CHATROOM NUMBER BACK TO FRONTEND
     if (alreadyCreatedRoom !== null) {

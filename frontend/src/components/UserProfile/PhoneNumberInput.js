@@ -38,7 +38,7 @@ export default function PhoneNumberInput() {
   return (
     <>
       <div className="phone__container">
-        <em>Phone Number:</em> {"\n"}
+        <em className="profile__label">Phone Number:</em> {"\n"}
         <div className="phone__number__container">
           {editInput ? (
             <>
