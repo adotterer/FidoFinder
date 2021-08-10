@@ -128,7 +128,6 @@ li.li__buttonIcons:hover,
   ul.ul__navIcons li,
   ul.ul__navIcons svg {
     display: block;
-    display: flex;
   }
 
   div#div__bodyContent {
