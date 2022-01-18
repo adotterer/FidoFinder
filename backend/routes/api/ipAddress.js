@@ -12,17 +12,9 @@ const ipMiddleware = function (req, res, next) {
   req.clientIp = clientIp;
 
   const geoObj = geoip.lookup(clientIp);
-  // console.log("*********************");
-  // console.log("*******(inside ipMiddleware)*******");
-  // console.log("*********************");
-  // console.log("geoObj ---->", geoObj);
-  // console.log("*********************");
-  // console.log("*********************");
-  // console.log("*********************");
   req.geoObj = geoObj;
   next();
 };
-
 router.get("/logs/:date", async (req, res, next) => {
   const { date } = req.params;
   if (fs.existsSync(__dirname + `/logs/log__${date}.txt`)) {
